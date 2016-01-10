@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout/template :: page">
+<head>
+    <title></title>
+</head>
+<body>
+<div th:fragment="content">
+    <!--<h1>Suchergebnisse zu-->
+    <!--<span th:text="${parameter}">Parameter</span>-->
+    <!--</h1>-->
+    <div id="notification"> </div>
+    <div id="content">
+
+        <!--<div style="width: 250px">-->
+        <!--Test-->
+        <!--</div>-->
+
+        <div class="box">
+            <div class="box-heading">Preisvergleich  <span th:text="${article.name}"></span></div>
+            <div class="box-content">
+                <div class="box-product">
+                    <div style="padding: 10px;" th:if="${article.getPrices().isEmpty()}">
+                        <h2>Zu Ihrer Suche wurde leider nichts gefunden</h2>
+                        <h3>Für den Suchbegriff wurden keine Produkte gefunden.</h3>
+
+                        <h3>Hinweise zur Suche:</h3>
+                        <ul>
+                            <li>
+                                Bitte achten Sie auf die richtige Schreibweise des Suchwortes
+                            </li>
+                            <li>
+                                Vermeiden Sie Umlaute oder Sonderzeichen
+                            </li>
+                        </ul>
+                    </div>
+
+                    <table border="0" cellpadding="5" cellspacing="0" style="width: 100%">
+                        <tr th:each="price : ${article.getPrices()}">
+                            <td style="border-bottom: 1px solid #E5E5E5">
+                                <table id="priceCheck" style="width: 100%">
+                                    <tr>
+                                        <td class="icon" style="width: 100px">
+                                            <div style="float: left; width: 100px; height: 100px">
+                                                <a th:href="${article.deepLink}">
+                                                    <img th:alt="${price.pharmacy.name}" th:src="${price.pharmacy.logoURL}" width="100" height="40" />
+                                                </a>
+                                            </div>
+                                        </td>
+
+
+                                        <td style="vertical-align: baseline;">
+                                            <div style="margin-left: 25px; float: left;">
+                                                <h4 style="margin: 0px;">
+                                                    <!--<%&#45;&#45;<c:url value="/produkte/${article.articelNumber}/${article.name}" var="check" />&#45;&#45;%>-->
+                                                    <a th:href="${article.deepLink}" th:text="${article.name}">URL</a>
+                                                </h4>
+                                                <br/>
+                                                <div th:id="'fixed_'+${price.id}"></div>
+                                                <span style="font-size: 15px;" th:text="${price.pharmacy.evaluations.size()}"></span> <span>Bewertungen</span>
+                                                <script th:inline="javascript">/*<![CDATA[*/
+                                                    var prefix = [[${price.id}]];
+                                                    var id = '#fixed_' + prefix;
+                                                    console.log(id);
+                                                    jQuery(id).raty({
+                                                        readOnly: true,
+                                                        start: 3,
+                                                        path: [[@{/images/raiting/}]]
+                                                    });
+                                                /*]]>*/</script>
+                                                <br />
+
+                                                <a th:href="${pharmacyURL}">Apothekenprofil</a>
+                                                <br /><br />
+
+                                                <!--<span th:each="payment : ${price.pharmacy.paymentTypes}">-->
+                                                    <!--<img th:src="@{/images/payment/paypal.png}" />-->
+                                                <!--</span>-->
+
+                                                <!--<c:forEach items="${price.pharmacy.paymentTypes}" var="payment" >-->
+                                                    <!--<c:if test="${payment.name() eq 'PAY_PAL'}">-->
+                                                        <!--<img src="<c:url value="/resources/images/payment/paypal.png" />" />-->
+                                                    <!--</c:if>-->
+
+                                                    <!--<c:if test="${payment.name() eq 'KREDIT_CARD'}">-->
+                                                                    <!--<span>-->
+                                                                        <!--<img src="<c:url value="/resources/images/payment/creditcard.png" />" />-->
+                                                                    <!--</span>-->
+                                                    <!--</c:if>-->
+
+                                                    <!--<c:if test="${payment.name() eq 'DIRECT_BANKING'}">-->
+                                                                    <!--<span>-->
+                                                                        <!--<img src="<c:url value="/resources/images/payment/sofortüberweisung.png" />" />-->
+                                                                    <!--</span>-->
+                                                    <!--</c:if>-->
+
+                                                    <!--<c:if test="${payment.name() eq 'DEBIT'}">-->
+                                                                    <!--<span>-->
+                                                                        <!--<img src="<c:url value="/resources/images/payment/lastschrift.png" />" />-->
+                                                                    <!--</span>-->
+                                                    <!--</c:if>-->
+
+                                                    <!--<c:if test="${payment.name() eq 'DEBIT'}">-->
+                                                                    <!--<span>-->
+                                                                        <!--<img src="<c:url value="/resources/images/payment/rechnung.png" />" />-->
+                                                                    <!--</span>-->
+                                                    <!--</c:if>-->
+                                                <!--</c:forEach>-->
+                                            </div>
+                                        </td>
+                                        <td style="width: 165px; vertical-align: top;">
+                                            <div style="font-size: 22px; text-align: right;"><span th:text="${articleHelper.round(price.price)}"></span> €</div>
+                                            <div style="font-size: 14px; text-align: right;"><span>+ Versand </span><span th:text="${articleHelper.round(price.price)}"> </span> €</div>
+                                            <div style="font-size: 14px; text-align: right;"><span>Versandkostenfrei ab </span> <span th:text="${price.pharmacy.shipping}"></span> €</div>
+                                        </td>
+                                        <td style="width: 130px; text-align: right; padding-right: 20px; vertical-align: top;">
+                                            <div>
+                                                <a class="buttonlight morebutton" th:href="${article.deepLink}">Hier bestellen</a>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

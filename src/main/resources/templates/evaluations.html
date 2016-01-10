@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout/template :: page">
+<head>
+    <title>Medikamente Preisvergleich - Medikamente günstig für alle | medizin-finder.de</title>
+</head>
+<body>
+<div th:fragment="content">
+    <div id="container">
+        <div id="notification"></div>
+        <div id="content">
+            <h1>Persönliche Daten</h1>
+
+            <div id="column-left">
+                <div class="box category">
+                    <div class="box-heading">Alle Kategorien</div>
+                    <div class="box-content">
+                        <div class="box-category">
+                            <ul>
+                                <li class="cat-header">
+                                    <a class="idCatSubcat" th:href="@{/benutzerkonto}">Persönliche Daten</a>
+                                </li>
+                                <li class="cat-header">
+                                    <a class="idCatSubcat" th:href="@{/bewertungen}">Meine Bewertungen</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box" style="margin-left: 250px">
+                <div class="box-heading">Meine Bewertungen</div>
+                <div class="box-content">
+                    <div class="box-product">
+                        <div class="user-account">
+                            <!--<spring:url value="/account" var="account" />-->
+
+                            <span>Möchten Sie jetzt eine neue Bewertung verfassen? Bitte geben Sie den Apothekenname ein.</span>
+                            <div style="margin-top: 10px;">
+                                <form th:action="@{/apotheken}" th:method="GET" id="evaluationSearchForm">
+                                    <table class="form">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                Apothekenname:
+                                            </td>
+                                            <td>
+                                                <input th:type="text" class="q1" th:name="pharm" th:value="${pharm != null} ? ${pharm} : ''"/>
+                                            </td>
+                                            <td>
+                                                <a class="buttonlight morebutton" onclick="$('#evaluationSearchForm').submit();" href="#">Suchen</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+
+                            <table class="form">
+                                <tbody>
+                                    <tr style="height: 35px; border-bottom: 1px solid #E5E5E5;" th:each="pharmacy : ${pharmacies.getContent()}" th:if="${!pharmacies.getContent().isEmpty()}">
+                                        <td>
+                                            <img width="85" height="35" th:src="${pharmacy.logoURL}" th:alt="${pharmacy.name}"/>
+                                        </td>
+                                        <td>
+                                            <span th:text="${pharmacy.name}"/>
+                                        </td>
+                                        <td style="text-align: right">
+                                            <a class="buttonlight morebutton" th:href="@{/bewerten/} + ${pharmacy.id} + '/' + ${pharmacy.name}">Diese Apotheken bewerten</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

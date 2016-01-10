@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" >
+<head>
+</head>
+<body>
+    <div th:fragment="header" th:class="row-1bg">
+        <div th:class="row-1">
+            <div th:class="pre-header">
+                <div th:class="pre-header-container">
+                    <div th:id="welcome" th:if="${#httpServletRequest.userPrincipal != null}">
+                        <span>Hallo!</span>
+                        <a th:href="@{/benutzerkonto}">
+                            <span style="color: white" th:text="${customUser.firstName}">fistName</span>
+                            ,
+                            <span style="color: white" th:text="${customUser.lastName}">fistName</span>
+                        </a>
+                        | <a th:href="@{/logout}">
+                        Ausloggen
+                    </a>
+                    </div>
+                    <div th:id="welcome" th:if="${#httpServletRequest.userPrincipal == null}">
+                        <span>Hallo!</span>
+                        <a th:href="@{/login}">Login</a>
+                        <span>oder</span>
+                        <a th:href="@{/registration}">Registrierung</a>
+                    </div>
+                    <div th:class="clear"></div>
+                </div>
+            </div>
+
+            <div th:id="header">
+                <div th:class="header-container">
+                    <div th:id="logo">
+                        <a th:href="@{/}">
+                            <img th:class="logo" th:src="@{/images/logo1.png}" />
+                        </a>
+                    </div>
+                    <form th:id="searchForm" action="#" th:action="@{/suche}" th:method="GET">
+                        <div th:id="search">
+                            <div th:class="button-search"></div>
+                        <span th:class="search-bg">
+                            <input th:class="input" th:id="globar_search_input" th:type="text" th:name="parameter" th:value="${parameter != null} ? ${parameter} : ''" />
+                        </span>
+                        </div>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            var context = [[@{/live_suche}]];
+                            console.log(context);
+                            /*]]>*/
+                            jQuery(document).ready(function () {
+                                jQuery('#globar_search_input').autocomplete({
+                                    serviceUrl: context,
+                                    paramName: "parameter",
+                                    delimiter: ",",
+                                    transformResult: function (response) {
+                                        return {
+                                            suggestions: $.map($.parseJSON(response), function (item) {
+
+                                                return {value: item.name, data: item.id};
+                                            })
+                                        };
+                                    }
+                                });
+                            });
+                        </script>
+                    </form>
+
+                    <div th:id="cart">
+                        <div th:class="heading">
+                            <b>Einkaufszettel:</b>
+                            <a>
+                                <span th:class="sc-button" th:onclick="'openCart()'"></span>
+                                <span th:id="cart-total" th:onclick="'openCart()'">0 Artikel(n) - <strong>€ 0.00</strong></span>
+                                <span th:class="clear"></span>
+                            </a>
+                        </div>
+                        <div th:class="content">
+                            <div th:class="empty">Your shopping cart is empty!</div>
+                        </div>
+                    </div>
+
+                    <div th:class="clear"></div>
+                </div>
+                <script type="text/javascript">
+                    $(".button-search").click(function () {
+                        jQuery('#searchForm').submit();
+                    });
+
+                    function openCart() {
+                        var cart = jQuery('#cart');
+                        if (cart.hasClass('active')) {
+                            cart.removeClass('active');
+                        } else {
+                            cart.addClass('active');
+                            jQuery('#cart').mouseleave(function () {
+                                jQuery('#cart').removeClass('active');
+                            });
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
