@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout/template :: page">
+<head>
+    <title>Medikamente Preisvergleich - Medikamente günstig für alle | medizin-finder.de</title>
+</head>
+<body>
+<div th:fragment="content">
+    <div id="container">
+        <div id="notification"></div>
+        <div id="content">
+            <h1>Persönliche Daten</h1>
+
+            <div id="column-left">
+                <div class="box category">
+                    <div class="box-heading">Alle Kategorien</div>
+                    <div class="box-content">
+                        <div class="box-category">
+                            <ul>
+                                <li class="cat-header">
+                                    <a class="idCatSubcat" th:href="@{/benutzerkonto}">Persönliche Daten</a>
+                                </li>
+                                <li class="cat-header">
+                                    <a class="idCatSubcat" th:href="@{/bewertungen}">Meine Bewertungen</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box" style="margin-left: 250px">
+                <div class="box-heading">Meine Bewertungen</div>
+                <div class="box-content">
+                    <div class="box-product">
+                        <div class="user-account">
+                            <form id="evaluationForm" th:object="${evaluation}" method="POST" th:action="@{/bewerten/} + ${pharmacy.id} + '/' + ${pharmacy.name}">
+                                <div class="content">
+                                    <table class="form">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <span class="required">*</span>
+                                                <span>Überschrift </span>
+                                            </td>
+                                            <td>
+                                                <input class="q1" name="name" type="text" th:field="*{name}"/>
+                                                <span th:if="${#fields.hasErrors('name')}" class="error">Bitte geben Sie Ihren Benutzername ein.</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="required">*</span>
+                                                <span>Bschreibung</span>
+                                            </td>
+                                            <td>
+                                                <textarea  class="q1" name="description" type="text" th:field="*{description}" rows="4" cols="50"/>
+                                                <span th:if="${#fields.hasErrors('description')}" class="error">Bitte geben Sie Ihren Vornamen ein.</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="required">*</span>
+                                                <span>Wie genau entsprach der Artikel der Beschreibung?</span>
+                                            </td>
+                                            <td>
+                                                <select th:field="*{descriptionPoints}">
+                                                    <option th:each="type : ${#numbers.sequence(1,5)}"
+                                                            th:value="${type}"
+                                                            th:text="${type}">type</option>
+                                                </select>
+                                                <span th:if="${#fields.hasErrors('descriptionPoints')}" class="error">Bitte geben Sie Ihren Vornamen ein.</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="required">*</span>
+                                                <span>Wie schnell hat der Verkäufer den Artikel verschickt?</span>
+                                            </td>
+                                            <td>
+                                                <select th:field="*{shippingPoints}">
+                                                    <option th:each="type : ${#numbers.sequence(1,5)}"
+                                                            th:value="${type}"
+                                                            th:text="${type}">type</option>
+                                                </select>
+                                                <span th:if="${#fields.hasErrors('shippingPoints')}" class="error">Bitte geben Sie Ihren Vornamen ein.</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="required">*</span>
+                                                <span>Wie angemessen waren die Verpackungs- und Versandkosten?</span>
+                                            </td>
+                                            <td>
+                                                <select th:field="*{shippingPricePoints}">
+                                                    <option th:each="type : ${#numbers.sequence(1,5)}"
+                                                            th:value="${type}"
+                                                            th:text="${type}">type</option>
+                                                </select>
+                                                <span th:if="${#fields.hasErrors('shippingPricePoints')}" class="error">Bitte geben Sie Ihren Vornamen ein.</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <a onclick="$('#evaluationForm').submit();" class="button" style="float: right"><span>Speichern</span></a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout/template :: page">
+<head>
+    <title>Medikamente Preisvergleich - Medikamente günstig für alle | medizin-finder.de</title>
+</head>
+<body>
+<div th:fragment="content">
+    <div id="container">
+        <div id="notification"></div>
+        <div id="content">
+            <h1>Persönliche Daten</h1>
+
+            <div id="column-left">
+                <div class="box category">
+                    <div class="box-heading">Alle Kategorien</div>
+                    <div class="box-content">
+                        <div class="box-category">
+                            <ul>
+                                <li class="cat-header">
+                                    <a class="idCatSubcat" th:href="@{/benutzerkonto}">Persönliche Daten</a>
+                                </li>
+                                <li class="cat-header">
+                                    <a class="idCatSubcat" th:href="@{/bewertungen}">Meine Bewertungen</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box" style="margin-left: 250px">
+                <div class="box-heading">Persönliche Daten</div>
+                <div class="box-content">
+                    <div class="box-product">
+                        <div class="user-account">
+                            <!--<spring:url value="/account" var="account" />-->
+                            <form th:action="@{/account}" method="post" id="register" th:object="${userForm}">
+                                <h2>Persönliche Daten</h2>
+                                <!--<form:hidden cssClass="q1" path="id" />-->
+                                <div class="content">
+                                    <table class="form">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <span class="required">*</span>
+                                                <span>Benutzername</span>
+                                            </td>
+                                            <td>
+                                                <input class="q1" name="login" type="text" th:field="*{login}"/>                                                <!--<form:errors path="firstName" cssClass="error"/>-->
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="required">*</span>
+                                                <span>Vorname</span>
+                                                <!--<s:message code="label.firstname"/>:-->
+                                            </td>
+                                            <td>
+                                                <input class="q1" name="login" type="text" th:field="*{firstName}"/>                                                <!--<form:errors path="firstName" cssClass="error"/>-->
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="required">*</span>
+                                                <span>Nachname</span>
+                                            </td>
+                                            <td>
+                                                <input class="q1" name="login" type="text" th:field="*{lastName}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="required">*</span>
+                                                <span>E-Mail</span>
+                                            </td>
+                                            <td>
+                                                <input class="q1" name="login" type="text" th:field="*{email}"/>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <h2>Passwort</h2>
+
+                                <div class="content">
+                                    <table class="form">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <span class="required">*</span>
+                                                <span>Password</span>
+                                            </td>
+                                            <td>
+                                                <input class="q1" name="password" type="password" th:field="*{password}" />
+                                            </td>
+                                        </tr>
+                                        <!--<tr>-->
+                                            <!--<td>-->
+                                                <!--<span class="required">*</span>-->
+                                                <!--&lt;!&ndash;<s:message code="label.passwordRepeat"/>:&ndash;&gt;-->
+                                            <!--</td>-->
+                                            <!--<td>-->
+                                                <!--<input class="q1" name="account.passwordConfirm" value="" type="password" />-->
+                                                <!--&lt;!&ndash;<form:errors path="account.passwordConfirm" cssClass="error"/>&ndash;&gt;-->
+
+                                            <!--</td>-->
+                                        <!--</tr>-->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="buttons">
+                                    <div class="right">
+                                        <a onclick="$('#register').submit();" class="button">
+                                            <span>Speichern</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
