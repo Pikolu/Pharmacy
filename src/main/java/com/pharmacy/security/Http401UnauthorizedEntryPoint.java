@@ -19,6 +19,10 @@ public class Http401UnauthorizedEntryPoint implements AuthenticationEntryPoint {
 
     private final Logger log = LoggerFactory.getLogger(Http401UnauthorizedEntryPoint.class);
 
+    private static final String ACCOUNT_PATH = "/benutzerkonto";
+    private static final String EVALUATION_PATH = "/bewertungen";
+    private static final String PHARMACY_SEARCH_PATH = "/apotheken";
+
     /**
      * Always returns a 401 error code to the client.
      */
@@ -28,6 +32,10 @@ public class Http401UnauthorizedEntryPoint implements AuthenticationEntryPoint {
         ServletException {
 
         log.debug("Pre-authenticated entry point called. Rejecting access");
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied");
+        if (ACCOUNT_PATH.equals(request.getRequestURI()) || EVALUATION_PATH.equals(request.getRequestURI())|| PHARMACY_SEARCH_PATH.equals(request.getRequestURI())) {
+            response.sendRedirect("/login");
+        } else {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied");
+        }
     }
 }
