@@ -116,10 +116,10 @@
                     <div id="pswd_info">
                         <h2>Sicherheit:</h2>
                         <ul>
-                            <li id="letter" class="invalid">At least <strong>one letter</strong></li>
-                            <li id="capital" class="invalid">At least <strong>one capital letter</strong></li>
-                            <li id="number" class="invalid">At least <strong>one number</strong></li>
-                            <li id="length" class="invalid">Be at least <strong>8 characters</strong></li>
+                            <li id="letter" class="invalid">Mindestens <strong>eine kleine Buchstabe</strong></li>
+                            <li id="capital" class="invalid">Mindestens <strong>eine große Buchstabe</strong></li>
+                            <li id="number" class="invalid">Mindestens <strong>eine Ziffer</strong></li>
+                            <li id="length" class="invalid">Mindestens <strong>6 Zeichen</strong></li>
                         </ul>
                     </div>
 
@@ -140,7 +140,7 @@
                         //validate the length
 
                         //validate the length
-                        if (pswd.length < 8) {
+                        if (pswd.length < 6) {
                             $('#length').removeClass('valid').addClass('invalid');
                         } else {
                             $('#length').removeClass('invalid').addClass('valid');
