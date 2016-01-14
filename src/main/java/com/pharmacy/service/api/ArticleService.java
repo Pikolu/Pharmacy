@@ -6,8 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 
-import java.util.List;
-
 /**
  * Created by Alexander on 14.11.2015.
  */

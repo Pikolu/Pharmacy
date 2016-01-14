@@ -3,7 +3,7 @@
  *  (c) 2012 - Clemens Damke          *
  *  Licensed under MIT License        *
  *  Works with jQuery >=1.4.3         *
-\**************************************/
+ \**************************************/
 (function (a) {
     var b = ["Webkit", "Moz", "O", "Ms", "Khtml", ""];
     var c = ["borderRadius", "boxShadow", "userSelect", "transformOrigin", "transformStyle", "transition", "transitionDuration", "transitionProperty", "transitionTimingFunction", "backgroundOrigin", "backgroundSize", "animation", "filter", "zoom", "columns", "perspective", "perspectiveOrigin", "appearance"];
@@ -58,17 +58,17 @@
     };
     a.fn.cssAnimationRemove = function () {
         var b = this;
-		if (b.data("cssAnimations") !=undefined) {
-			var c = b.data("cssAnimations");
-			var d = b.data("identity");
-			a.each(c, function (a, b) {
-				c[a] = b.splice(d + 1, 1)
-			});
-			b.data("cssAnimations", c)
-		}
+        if (b.data("cssAnimations") != undefined) {
+            var c = b.data("cssAnimations");
+            var d = b.data("identity");
+            a.each(c, function (a, b) {
+                c[a] = b.splice(d + 1, 1)
+            });
+            b.data("cssAnimations", c)
+        }
     };
-	
-	
+
+
     a.css3D = function (c) {
         a("body").data("cssPerspective", isFinite(c) ? c : c ? 1e3 : 0).cssOriginal(a.cssMerge({}, {
             TransformStyle: c ? "preserve-3d" : "flat"
@@ -94,6 +94,7 @@
         function f(a) {
             return String(a).replace(/([A-Z])/g, "-$1").toLowerCase()
         }
+
         var e = this;
         var e = this;
         if (typeof d.complete == "number") e.data("cssCallIndex", d.complete);
@@ -121,39 +122,34 @@
         var k = false;
         var l = [];
         var m = [];
-	
-	
-	
-	
-	
-	
-	
-		if (j !=undefined) {
-			for (var n = 0; n < j.length; n++) {
-				l.push(String(d.duration / 1e3) + "s");
-				var o = g[d.easing];
-				m.push(o ? o : d.easing)
-			}
-		
-			l = e.cssAnimationData("dur", l.join(", ")).join(", ");
-			m = e.cssAnimationData("eas", m.join(", ")).join(", ");
-			var p = e.cssAnimationData("prop", j.join(", "));
-			e.data("identity", p.length - 1);
-			p = p.join(", ");
-			var q = {
-				TransitionDuration: l,
-				TransitionProperty: p,
-				TransitionTimingFunction: m
-			};
-			var r = {};
-			r = a.cssMerge(r, q, b);
-			var s = c;
-			a.extend(r, c);
-			if (r.display == "callbackHide") k = true;
-			else if (r.display) h["display"] = r.display;
-			e.cssOriginal(h);
-		}
-	
+
+
+        if (j != undefined) {
+            for (var n = 0; n < j.length; n++) {
+                l.push(String(d.duration / 1e3) + "s");
+                var o = g[d.easing];
+                m.push(o ? o : d.easing)
+            }
+
+            l = e.cssAnimationData("dur", l.join(", ")).join(", ");
+            m = e.cssAnimationData("eas", m.join(", ")).join(", ");
+            var p = e.cssAnimationData("prop", j.join(", "));
+            e.data("identity", p.length - 1);
+            p = p.join(", ");
+            var q = {
+                TransitionDuration: l,
+                TransitionProperty: p,
+                TransitionTimingFunction: m
+            };
+            var r = {};
+            r = a.cssMerge(r, q, b);
+            var s = c;
+            a.extend(r, c);
+            if (r.display == "callbackHide") k = true;
+            else if (r.display) h["display"] = r.display;
+            e.cssOriginal(h);
+        }
+
         setTimeout(function () {
             e.cssOriginal(r);
             var b = e.data("runningCSS");
@@ -162,11 +158,9 @@
             setTimeout(function () {
                 e.data("cssCallIndex", "a");
                 if (k) e.cssOriginal("display", "none");
-             
 
 
-				
-				e.cssAnimationRemove();
+                e.cssAnimationRemove();
                 if (d.queue) e.cssRunQueue();
                 if (typeof d.complete == "number") {
                     e.data("cssCall")[d.complete].call(e);
@@ -175,17 +169,18 @@
             }, d.duration)
         }, 0)
     };
-	
+
     a.str2Speed = function (a) {
         return isNaN(a) ? a == "slow" ? 1e3 : a == "fast" ? 200 : 600 : a
     };
-	
+
     a.fn.cssAnimate = function (b, c, d, e) {
         var f = this;
         var g = {
             duration: 0,
             easing: "swing",
-            complete: function () {},
+            complete: function () {
+            },
             queue: true
         };
         var h = {};
@@ -301,5 +296,5 @@
         return this.cssAnimate({}, a)
     };
     a.fn.cssOriginal = a.fn.css;
-   
+
 })(jQuery)

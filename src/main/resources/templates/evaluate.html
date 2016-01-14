@@ -35,7 +35,8 @@
                 <div class="box-content">
                     <div class="box-product">
                         <div class="user-account">
-                            <form id="evaluationForm" th:object="${evaluation}" method="POST" th:action="@{/bewerten/} + ${pharmacy.id} + '/' + ${pharmacy.name}">
+                            <form id="evaluationForm" th:object="${evaluation}" method="POST"
+                                  th:action="@{/bewerten/} + ${pharmacy.id} + '/' + ${pharmacy.name}">
                                 <div class="content">
                                     <table class="form">
                                         <tbody>
@@ -55,7 +56,8 @@
                                                 <span>Bschreibung</span>
                                             </td>
                                             <td>
-                                                <textarea  class="q1" name="description" type="text" th:field="*{description}" rows="4" cols="50"/>
+                                                <textarea class="q1" name="description" type="text"
+                                                          th:field="*{description}" rows="4" cols="50"/>
                                                 <span th:if="${#fields.hasErrors('description')}" class="error">Bitte geben Sie Ihren Vornamen ein.</span>
                                             </td>
                                         </tr>
@@ -68,7 +70,8 @@
                                                 <select th:field="*{descriptionPoints}">
                                                     <option th:each="type : ${#numbers.sequence(1,5)}"
                                                             th:value="${type}"
-                                                            th:text="${type}">type</option>
+                                                            th:text="${type}">type
+                                                    </option>
                                                 </select>
                                                 <span th:if="${#fields.hasErrors('descriptionPoints')}" class="error">Bitte geben Sie Ihren Vornamen ein.</span>
                                             </td>
@@ -82,7 +85,8 @@
                                                 <select th:field="*{shippingPoints}">
                                                     <option th:each="type : ${#numbers.sequence(1,5)}"
                                                             th:value="${type}"
-                                                            th:text="${type}">type</option>
+                                                            th:text="${type}">type
+                                                    </option>
                                                 </select>
                                                 <span th:if="${#fields.hasErrors('shippingPoints')}" class="error">Bitte geben Sie Ihren Vornamen ein.</span>
                                             </td>
@@ -96,14 +100,16 @@
                                                 <select th:field="*{shippingPricePoints}">
                                                     <option th:each="type : ${#numbers.sequence(1,5)}"
                                                             th:value="${type}"
-                                                            th:text="${type}">type</option>
+                                                            th:text="${type}">type
+                                                    </option>
                                                 </select>
                                                 <span th:if="${#fields.hasErrors('shippingPricePoints')}" class="error">Bitte geben Sie Ihren Vornamen ein.</span>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <a onclick="$('#evaluationForm').submit();" class="button" style="float: right"><span>Speichern</span></a>
+                                    <a onclick="$('#evaluationForm').submit();" class="button"
+                                       style="float: right"><span>Speichern</span></a>
                                 </div>
                             </form>
                         </div>

@@ -1,20 +1,13 @@
 package com.pharmacy.web;
 
-import com.pharmacy.config.SecurityUtils;
-import com.pharmacy.domain.User;
-import com.pharmacy.security.CustomUserDetails;
 import com.pharmacy.service.api.ImportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
@@ -38,7 +31,7 @@ public class IndexController extends AbstractController {
 
     @RequestMapping("/importtest")
     public void importTest(Model model) {
-        Assert.notNull (model);
+        Assert.notNull(model);
         importService.importCSVFile();
     }
 }

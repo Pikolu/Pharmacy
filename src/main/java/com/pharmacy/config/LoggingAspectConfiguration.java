@@ -1,10 +1,10 @@
 package com.pharmacy.config;
 
+import com.pharmacy.config.logging.LoggingAspect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Profile;
-import com.pharmacy.config.logging.LoggingAspect;
 
 @Configuration
 @EnableAspectJAutoProxy

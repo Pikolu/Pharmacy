@@ -131,7 +131,7 @@ public class Article implements Serializable {
 
         Article article = (Article) o;
 
-        if ( ! Objects.equals(id, article.id)) return false;
+        if (!Objects.equals(id, article.id)) return false;
 
         return true;
     }
@@ -144,13 +144,13 @@ public class Article implements Serializable {
     @Override
     public String toString() {
         return "Article{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            ", description='" + description + "'" +
-            ", articelNumber='" + articelNumber + "'" +
-            ", imageURL='" + imageURL + "'" +
-            ", deepLink='" + deepLink + "'" +
-            ", keyWords='" + keyWords + "'" +
-            '}';
+                "id=" + id +
+                ", name='" + name + "'" +
+                ", description='" + description + "'" +
+                ", articelNumber='" + articelNumber + "'" +
+                ", imageURL='" + imageURL + "'" +
+                ", deepLink='" + deepLink + "'" +
+                ", keyWords='" + keyWords + "'" +
+                '}';
     }
 }

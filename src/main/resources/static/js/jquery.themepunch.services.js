@@ -59,16 +59,14 @@
                 // TOUCH ENABLED SCROLL
                 if (opt.touchenabled == "on")
                     top_container.swipe({
-                        swipeLeft: function ()
-                        {
+                        swipeLeft: function () {
 
                             var toolbar = top_container.find('.toolbar');
                             var right = toolbar.find('.right');
                             rightClick(top_container, opt);
 
                         },
-                        swipeRight: function ()
-                        {
+                        swipeRight: function () {
 
                             var toolbar = top_container.find('.toolbar');
                             var left = toolbar.find('.left');
@@ -106,14 +104,14 @@
                 }
 
                 top_container.hover(
-                        function () {
-                            var $this = $(this);
-                            $this.addClass("nowIsOver");
-                        },
-                        function () {
-                            var $this = $(this);
-                            $this.removeClass("nowIsOver");
-                        }
+                    function () {
+                        var $this = $(this);
+                        $this.addClass("nowIsOver");
+                    },
+                    function () {
+                        var $this = $(this);
+                        $this.removeClass("nowIsOver");
+                    }
                 );
 
 
@@ -183,7 +181,6 @@
             }, 500);
 
 
-
             ////////////////////////////////////////////////////
             //  DEPENDING ON IF THE VIEW MORE INFO IS TO SEE  //
             ////////////////////////////////////////////////////
@@ -206,7 +203,10 @@
 
                 if (nextitem != null) {
                     top.parent().find('.page-more').css({'left': '0px'}).addClass("page-more-old").removeClass("page-more");
-                    top.parent().find('.page-more-old').cssAnimate({'left': (-150) + 'px', opacity: 0.0}, {duration: 300, queue: false});
+                    top.parent().find('.page-more-old').cssAnimate({
+                        'left': (-150) + 'px',
+                        opacity: 0.0
+                    }, {duration: 300, queue: false});
                     openReadMorePart(nextitem, opt, 1);
                     setTimeout(function () {
                         top.parent().find('.page-more-old').remove();
@@ -290,7 +290,10 @@
 
                 if (nextitem != null) {
                     top.parent().find('.page-more').css({'left': '0px'}).addClass("page-more-old").removeClass("page-more");
-                    top.parent().find('.page-more-old').cssAnimate({'left': (150) + 'px', opacity: 0.0}, {duration: 300, queue: false});
+                    top.parent().find('.page-more-old').cssAnimate({'left': (150) + 'px', opacity: 0.0}, {
+                        duration: 300,
+                        queue: false
+                    });
                     openReadMorePart(nextitem, opt, 2);
                     setTimeout(function () {
                         top.parent().find('.page-more-old').remove();
@@ -352,22 +355,22 @@
 
         _readmore.parent().css({'overflow': 'visible'});
         opt.top.parent().find('.page-more').find('.closer').click(
-                function () {
+            function () {
 
-                    var _readmore = $(this).closest('.page-more');
-                    opt.top.animate({'top': "0px"}, {duration: 500, queue: false});
-                    _readmore.animate({'top': (0 - opt.height) + 'px'}, {duration: 500, queue: false});
-                    setTimeout(function () {
+                var _readmore = $(this).closest('.page-more');
+                opt.top.animate({'top': "0px"}, {duration: 500, queue: false});
+                _readmore.animate({'top': (0 - opt.height) + 'px'}, {duration: 500, queue: false});
+                setTimeout(function () {
 
-                        _readmore.remove();
+                    _readmore.remove();
 
-                    }, 500);
-                    _readmore.parent().css({'overflow': 'hidden'});
-                    opt.actSlide = -1;
-                    // TURN OFF SLIDE BUTTONS
-                    if (opt.maxitem <= opt.slideAmount)
-                        sideButtons(opt, "none")
-                });
+                }, 500);
+                _readmore.parent().css({'overflow': 'hidden'});
+                opt.actSlide = -1;
+                // TURN OFF SLIDE BUTTONS
+                if (opt.maxitem <= opt.slideAmount)
+                    sideButtons(opt, "none")
+            });
 
         if (opt.callBack != null) {
 
@@ -375,8 +378,6 @@
         }
         ;
     }
-
-
 
 
     ////////////////////////////////////////////
@@ -411,7 +412,10 @@
 
                         setTimeout(function () {
 
-                            $this.cssAnimate({'left': opt.positionArray[$this.data('id')] + "px"}, {duration: 300, queue: false});
+                            $this.cssAnimate({'left': opt.positionArray[$this.data('id')] + "px"}, {
+                                duration: 300,
+                                queue: false
+                            });
                         }, 100);//+$this.data('id')*10);
                     }
                 }
@@ -432,7 +436,10 @@
                         if (maxpos <= opt.positionArray[$this.data('id')])
                             $this.cssAnimate({'left': minusslide + "px"}, {duration: 0, queue: false});
                         else
-                            $this.cssAnimate({'left': opt.positionArray[$this.data('id')] + "px"}, {duration: 300, queue: false});
+                            $this.cssAnimate({'left': opt.positionArray[$this.data('id')] + "px"}, {
+                                duration: 300,
+                                queue: false
+                            });
                     }, 100);//+(opt.slideAmount+1-$this.data('id'))*10);
 
                 }
@@ -441,12 +448,6 @@
 
     }
     ;
-
-
-
-
-
-
 
 
     ///////////////////////////////////////////
@@ -492,12 +493,12 @@
 
 
                 slide.find('.morebutton').click(
-                        function () {
-                            if ($(this).attr('href') == "#" || $(this).attr('href').length == 0) {
-                                openReadMorePart(slide, opt);
-                                return false;
-                            }
-                        });
+                    function () {
+                        if ($(this).attr('href') == "#" || $(this).attr('href').length == 0) {
+                            openReadMorePart(slide, opt);
+                            return false;
+                        }
+                    });
 
             });
 
@@ -505,7 +506,6 @@
             var img = slide.find('img');
             img.wrap('<div class="imgholder" style="cursor:pointer;position:relative"></div>');
             var imgpar = slide.find('.imgholder');
-
 
 
             // CALCULATE THE BW IMG OFFSET
@@ -537,147 +537,175 @@
             var toffset = bt + pt + mt;
 
 
-
             // WRAP THE MAGE INSIDE DIV WITH NEW BW IMG
             imgpar.append('<img class="bw" src="' + img.data("bw") + '">');
-            imgpar.find('.bw').css({'position': 'absolute', 'z-index': '1000', 'opacity': '0.0', 'left': loffset + 'px', 'top': toffset + 'px'});
-
-
+            imgpar.find('.bw').css({
+                'position': 'absolute',
+                'z-index': '1000',
+                'opacity': '0.0',
+                'left': loffset + 'px',
+                'top': toffset + 'px'
+            });
 
 
             if (slide.data('pagemore').length > 0)
                 slide.find('.imgholder').click(
-                        function () {
-                            if (slide.find('.morebutton').attr('href') == "#" || slide.find('.morebutton').attr('href').length == 0) {
-                                openReadMorePart(slide, opt);
-                                return false;
-                            } else {
-                                var utarget = "_top";
-                                if (slide.find('.morebutton').attr('target') != undefined)
-                                    utarget = slide.find('.morebutton').attr('target');
-                                window.open(slide.find('.morebutton').attr('href'), utarget);
-                            }
-                        })
-
+                    function () {
+                        if (slide.find('.morebutton').attr('href') == "#" || slide.find('.morebutton').attr('href').length == 0) {
+                            openReadMorePart(slide, opt);
+                            return false;
+                        } else {
+                            var utarget = "_top";
+                            if (slide.find('.morebutton').attr('target') != undefined)
+                                utarget = slide.find('.morebutton').attr('target');
+                            window.open(slide.find('.morebutton').attr('href'), utarget);
+                        }
+                    })
 
 
             if (opt.hovereffect == "on") {
                 // IF WE ROLL OVER THE SLIDE, WE SHOULD ADD SOME COOL EFFECTS (FOR FF)
                 slide.hover(
-                        function () {
-                            var $this = $(this);
-                            var item = $this;
-                            var overlay = item.find('.imgholder');
-                            overlay.css({'overflow': 'hidden'});
-                            $this.addClass("mouseover");
+                    function () {
+                        var $this = $(this);
+                        var item = $this;
+                        var overlay = item.find('.imgholder');
+                        overlay.css({'overflow': 'hidden'});
+                        $this.addClass("mouseover");
 
-                            //	 ADD PLUS OR BLOG SYMBOL HERE
-                            if (item.data('link') == true) {
-                                if (item.find('.hover-blog-link-sign').length == 0) {
-                                    overlay.append('<div class="hover-blog-link-sign" style="z-index:999;margin-left:-25px;margin-top:-25px"></div>');
-                                    var plus = item.find('.hover-blog-link-sign');
-                                    plus.css({'left': overlay.width() / 2 + "px", 'top': (overlay.height() / 2 + 25) + "px", 'opacity': '0.0'});
-                                } else {
-                                    var plus = item.find('.hover-blog-link-sign');
-                                    clearTimeout(plus.data('out'));
-                                }
+                        //	 ADD PLUS OR BLOG SYMBOL HERE
+                        if (item.data('link') == true) {
+                            if (item.find('.hover-blog-link-sign').length == 0) {
+                                overlay.append('<div class="hover-blog-link-sign" style="z-index:999;margin-left:-25px;margin-top:-25px"></div>');
+                                var plus = item.find('.hover-blog-link-sign');
+                                plus.css({
+                                    'left': overlay.width() / 2 + "px",
+                                    'top': (overlay.height() / 2 + 25) + "px",
+                                    'opacity': '0.0'
+                                });
                             } else {
-                                if (item.find('.hover-more-sign').length == 0) {
-                                    overlay.append('<div class="hover-more-sign"></div>');
-                                    var plus = item.find('.hover-more-sign');
-                                    plus.css({'z-index': '99999', 'left': overlay.width() / 2 + "px", 'top': (overlay.height() / 2 + 25) + "px", 'opacity': '0.0'});
-
-                                } else {
-                                    var plus = item.find('.hover-more-sign');
-                                    clearTimeout(plus.data('out'));
-                                }
+                                var plus = item.find('.hover-blog-link-sign');
+                                clearTimeout(plus.data('out'));
                             }
+                        } else {
+                            if (item.find('.hover-more-sign').length == 0) {
+                                overlay.append('<div class="hover-more-sign"></div>');
+                                var plus = item.find('.hover-more-sign');
+                                plus.css({
+                                    'z-index': '99999',
+                                    'left': overlay.width() / 2 + "px",
+                                    'top': (overlay.height() / 2 + 25) + "px",
+                                    'opacity': '0.0'
+                                });
+
+                            } else {
+                                var plus = item.find('.hover-more-sign');
+                                clearTimeout(plus.data('out'));
+                            }
+                        }
 
 
-                            plus.cssAnimate({'left': overlay.width() / 2 + "px", 'top': (overlay.height() / 2) + "px", 'opacity': '1.0'}, {duration: 500, queue: false});
-                            plus.data('item', item);
+                        plus.cssAnimate({
+                            'left': overlay.width() / 2 + "px",
+                            'top': (overlay.height() / 2) + "px",
+                            'opacity': '1.0'
+                        }, {duration: 500, queue: false});
+                        plus.data('item', item);
 
-                            $this.parent().parent().find('li').each(function (i) {
-                                var $this = $(this);
-                                if (!$this.find('.slide').hasClass("mouseover")) {
-                                    $this.find('.slide .imgholder .bw').stop();
-                                    $this.find('.slide *').stop();
-                                    $this.find('.slide .imgholder .bw').animate({'opacity': '1.0'}, {duration: 400, queue: false});
+                        $this.parent().parent().find('li').each(function (i) {
+                            var $this = $(this);
+                            if (!$this.find('.slide').hasClass("mouseover")) {
+                                $this.find('.slide .imgholder .bw').stop();
+                                $this.find('.slide *').stop();
+                                $this.find('.slide .imgholder .bw').animate({'opacity': '1.0'}, {
+                                    duration: 400,
+                                    queue: false
+                                });
 
 
+                                $this.find('.slide *').each(function () {
+                                    var $this = $(this);
+
+                                    if (opt.hoverAlpha == "on") {
+
+                                        if (!$this.hasClass("buttonlight") && !$this.hasClass('imgholder'))
+                                            $this.animate({'opacity': '0.5'}, {duration: 400, queue: false});		//ALPHA TEXT
+                                        if ($this.hasClass("thumb"))
+                                            $this.animate({'opacity': '0.0'}, {duration: 400, queue: false});
+                                    }
+
+                                });
+
+                                clearTimeout($this.data('to'));
+                            } else {
+                                clearTimeout($this.data('to'));
+                                $this.find('.slide .imgholder .bw').stop();
+                                $this.find('.slide *').stop();
+                                $this.find('.slide  .imgholder .bw').animate({'opacity': '0.0'}, {
+                                    duration: 400,
+                                    queue: false
+                                });
+                                if ($.browser.msie && $.browser.version < 8) {
+
+                                    //			IE7 FAILURES
+                                } else {
                                     $this.find('.slide *').each(function () {
                                         var $this = $(this);
-
                                         if (opt.hoverAlpha == "on") {
-
-                                            if (!$this.hasClass("buttonlight") && !$this.hasClass('imgholder'))
-                                                $this.animate({'opacity': '0.5'}, {duration: 400, queue: false});		//ALPHA TEXT
-                                            if ($this.hasClass("thumb"))
-                                                $this.animate({'opacity': '0.0'}, {duration: 400, queue: false});
+                                            if (!$this.hasClass("buttonlight") && !$this.hasClass('imgholder') && !$this.hasClass('bw'))
+                                                $this.animate({'opacity': '1.0'}, {duration: 400, queue: false});
                                         }
 
                                     });
+                                }
+                            }
+                        });
+                    },
+                    function () {
+                        var $this = $(this);
+                        var item = $this;
+                        var overlay = item.find('.imgholder');
+                        if ($this.data('link') == true)
+                            var plus = item.find('.hover-blog-link-sign');
+                        else
+                            var plus = item.find('.hover-more-sign')
 
-                                    clearTimeout($this.data('to'));
-                                } else {
-                                    clearTimeout($this.data('to'));
+                        plus.cssStop(true, true);
+
+                        plus.cssAnimate({
+                            'left': overlay.width() / 2 + "px",
+                            'top': ((overlay.height() / 2) + 20) + "px",
+                            'opacity': '0.0'
+                        }, {duration: 300, queue: false});
+                        plus.data('out', setTimeout(function () {
+                            $this.find('.hover-blog-link-sign').remove();
+                            $this.find('.hover-more-sign').remove();
+                        }, 300));
+
+                        $this.removeClass("mouseover");
+                        $this.parent().parent().find('li').each(function (i) {
+                            var $this = $(this);
+                            $this.data('to', setTimeout(
+                                function () {
                                     $this.find('.slide .imgholder .bw').stop();
                                     $this.find('.slide *').stop();
-                                    $this.find('.slide  .imgholder .bw').animate({'opacity': '0.0'}, {duration: 400, queue: false});
+                                    $this.find('.slide .imgholder .bw').animate({'opacity': '0.0'}, {
+                                        duration: 400,
+                                        queue: false
+                                    });
                                     if ($.browser.msie && $.browser.version < 8) {
 
-                                        //			IE7 FAILURES
+                                        //	IE7 FAILURES
                                     } else {
                                         $this.find('.slide *').each(function () {
                                             var $this = $(this);
-                                            if (opt.hoverAlpha == "on") {
-                                                if (!$this.hasClass("buttonlight") && !$this.hasClass('imgholder') && !$this.hasClass('bw'))
-                                                    $this.animate({'opacity': '1.0'}, {duration: 400, queue: false});
-                                            }
-
+                                            if (!$this.hasClass("buttonlight") && !$this.hasClass('imgholder') && !$this.hasClass('bw'))
+                                                $this.animate({'opacity': '1.0'}, {duration: 400, queue: false});
                                         });
                                     }
-                                }
-                            });
-                        },
-                        function () {
-                            var $this = $(this);
-                            var item = $this;
-                            var overlay = item.find('.imgholder');
-                            if ($this.data('link') == true)
-                                var plus = item.find('.hover-blog-link-sign');
-                            else
-                                var plus = item.find('.hover-more-sign')
-
-                            plus.cssStop(true, true);
-
-                            plus.cssAnimate({'left': overlay.width() / 2 + "px", 'top': ((overlay.height() / 2) + 20) + "px", 'opacity': '0.0'}, {duration: 300, queue: false});
-                            plus.data('out', setTimeout(function () {
-                                $this.find('.hover-blog-link-sign').remove();
-                                $this.find('.hover-more-sign').remove();
-                            }, 300));
-
-                            $this.removeClass("mouseover");
-                            $this.parent().parent().find('li').each(function (i) {
-                                var $this = $(this);
-                                $this.data('to', setTimeout(
-                                        function () {
-                                            $this.find('.slide .imgholder .bw').stop();
-                                            $this.find('.slide *').stop();
-                                            $this.find('.slide .imgholder .bw').animate({'opacity': '0.0'}, {duration: 400, queue: false});
-                                            if ($.browser.msie && $.browser.version < 8) {
-
-                                                //	IE7 FAILURES
-                                            } else {
-                                                $this.find('.slide *').each(function () {
-                                                    var $this = $(this);
-                                                    if (!$this.hasClass("buttonlight") && !$this.hasClass('imgholder') && !$this.hasClass('bw'))
-                                                        $this.animate({'opacity': '1.0'}, {duration: 400, queue: false});
-                                                });
-                                            }
-                                        }, 250));
-                            });
+                                }, 250));
                         });
+                    });
             }
         });
 
@@ -704,10 +732,6 @@
     }
 
 
-
-
-
-
     /////////////////////////////////////////////
     // - START THE ROTATION OF THE BANNER HERE //
     /////////////////////////////////////////////
@@ -724,10 +748,6 @@
 
 
     }
-
-
-
-
 
 
     ////////////////////////////////////

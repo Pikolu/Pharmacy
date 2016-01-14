@@ -9,9 +9,8 @@ import java.util.Set;
 
 /**
  * Class representing the Spring Security authenticated user.
- * 
- * @see UserDetails
  *
+ * @see UserDetails
  */
 public class CustomUserDetails implements UserDetails {
 
