@@ -8,16 +8,9 @@
 <body>
 <div th:fragment="content">
     <script>
-        $(function() {
-            $("#dialog").modal({onOpen: function (dialog) {
-                dialog.overlay.fadeIn('slow', function () {
-                    dialog.data.hide();
-                    dialog.container.fadeIn('slow', function () {
-                        dialog.data.slideDown('slow');
-                    });
-                });
-            }});
-        });
+        function openDialog() {
+            $("#dialog").modal();
+        }
 
     </script>
 
@@ -52,7 +45,7 @@
                                 <br/>
 
                                 <div>
-                                    <a id="link-login" class="link-login" href="#" onclick="$('#dialog').dialog('open')">Passwort vergessen?</a>
+                                    <a id="link-login" class="link-login" href="#" onclick="openDialog()">Passwort vergessen?</a>
                                 </div>
                                 <a onclick="$('#login').submit();" class="button"><span>Login</span></a>
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
@@ -65,7 +58,7 @@
                                 <div style="margin-top: 30px">
                                     <form>
                                         <h2 class="padd-form">E-Mail Adresse:</h2>
-                                        <input class="q1 margen-bottom" name="j_username" value="" type="text" style="width: 100%"/>
+                                        <input class="q1 margen-bottom" name="username" value="" type="text" style="width: 100%"/>
                                         <a onclick="$('#passwortForm').submit();" class="button" style="margin-top: 10px"><span>E-Mail versenden</span></a>
                                     </form>
                                 </div>
