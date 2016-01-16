@@ -9,10 +9,14 @@
 <div th:fragment="content">
     <script>
         $(function() {
-            dialog = $( "#dialog" ).dialog({
-                autoOpen: false,
-                modal: true
-            });
+            $("#dialog").modal({onOpen: function (dialog) {
+                dialog.overlay.fadeIn('slow', function () {
+                    dialog.data.hide();
+                    dialog.container.fadeIn('slow', function () {
+                        dialog.data.slideDown('slow');
+                    });
+                });
+            }});
         });
 
     </script>
@@ -55,8 +59,21 @@
                             </div>
                         </form>
 
-                        <div id="dialog" title="Basic dialog">
-                            <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+                        <div id="dialog" title="Basic dialog" style="display: none">
+                            <form id="passwortForm" th="@{/passwort}">
+                                <h1>Ich habe mein Passwort vergessen</h1>
+                                <div style="margin-top: 30px">
+                                    <form>
+                                        <h2 class="padd-form">E-Mail Adresse:</h2>
+                                        <input class="q1 margen-bottom" name="j_username" value="" type="text" style="width: 100%"/>
+                                        <a onclick="$('#passwortForm').submit();" class="button" style="margin-top: 10px"><span>E-Mail versenden</span></a>
+                                    </form>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- preload the images -->
+                        <div style='display:none'>
+                            <img src='img/basic/x.png' alt='' />
                         </div>
 
                     </div>
