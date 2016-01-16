@@ -59,13 +59,13 @@ public class UserValidator implements Validator {
 
     private void validatePassword(String password, Errors errors) {
         if (password.length() < 6) {
-            errors.rejectValue("password", "message.NotValidLength");
-        } else if (!password.matches("[a-z]")) {
-            errors.rejectValue("password", "message.NotValidLetters");
-        } else if (!password.matches("[A-Z]")) {
-            errors.rejectValue("password", "message.NotValidCapitalLetters");
-        } else if (!password.matches(".*\\\\d.*")) {
-            errors.rejectValue("password", "message.NotValidNumbers");
+            errors.rejectValue("password", "message.NotValidPassword");
+        } else if (!password.matches(".*\\p{Lower}.*")) {
+            errors.rejectValue("password", "message.NotValidPassword");
+        } else if (!password.matches(".*\\p{Upper}.*")) {
+            errors.rejectValue("password", "message.NotValidPassword");
+        } else if (!password.matches(".*\\d.*")) {
+            errors.rejectValue("password", "message.NotValidPassword");
         }
     }
 

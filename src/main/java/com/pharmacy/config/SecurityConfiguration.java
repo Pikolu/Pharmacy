@@ -91,7 +91,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginProcessingUrl("/login")
                 .successHandler(ajaxAuthenticationSuccessHandler)
-                .failureHandler(ajaxAuthenticationFailureHandler)
+//                .failureHandler(ajaxAuthenticationFailureHandler)
                 .usernameParameter("j_username")
                 .passwordParameter("j_password")
                 .permitAll()
