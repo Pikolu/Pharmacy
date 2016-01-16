@@ -14,7 +14,10 @@ public enum ExceptionType {
     LOGIN_0005(LogLevel.ERROR, "Ihre E-Mail oder Ihr Passwort ist falsch.", "Could not found user in DB. Check email {} by user."),
 
     //Search
-    SEARCH_0001(LogLevel.ERROR, "Die Suche konnte nicht ausgeführt werden.", "Could not create the Seach.");
+    SEARCH_0001(LogLevel.ERROR, "Die Suche konnte nicht ausgeführt werden.", "Could not create the Seach."),
+
+    //Change password
+    RESET_PASSWORD_0001(LogLevel.ERROR, "Diese E-Mail-Adresse existiert nicht. Bitte geben Sie eine andere E-Mail-Adresse ein.", "User {} was not found in the database");
 
     private LogLevel logLevel;
     private String resourceKey;

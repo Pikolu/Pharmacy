@@ -136,6 +136,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/benutzerkonto/**").hasAnyAuthority(AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN)
                 .antMatchers("/bewertungen/**").hasAnyAuthority(AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN)
                 .antMatchers("/apotheken/**").hasAnyAuthority(AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN)
+                .antMatchers("/login/passwort").hasAuthority(AuthoritiesConstants.ANONYMOUS)
                 .antMatchers("/protected/**")
                 .authenticated();
 
