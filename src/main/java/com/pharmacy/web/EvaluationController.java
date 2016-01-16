@@ -2,14 +2,11 @@ package com.pharmacy.web;
 
 import com.pharmacy.domain.Evaluation;
 import com.pharmacy.domain.Pharmacy;
-import com.pharmacy.domain.User;
-import com.pharmacy.exceptions.ServiceException;
 import com.pharmacy.service.api.PharmacyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -20,7 +17,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Created by Alexander on 09.01.2016.

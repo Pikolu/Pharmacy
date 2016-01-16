@@ -1,7 +1,6 @@
 package com.pharmacy.repository.search;
 
 import com.pharmacy.domain.Article;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 

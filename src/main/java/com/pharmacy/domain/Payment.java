@@ -67,7 +67,7 @@ public class Payment implements Serializable {
 
         Payment payment = (Payment) o;
 
-        if ( ! Objects.equals(id, payment.id)) return false;
+        if (!Objects.equals(id, payment.id)) return false;
 
         return true;
     }
@@ -80,8 +80,8 @@ public class Payment implements Serializable {
     @Override
     public String toString() {
         return "Payment{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            '}';
+                "id=" + id +
+                ", name='" + name + "'" +
+                '}';
     }
 }

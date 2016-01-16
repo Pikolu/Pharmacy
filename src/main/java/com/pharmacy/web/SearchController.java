@@ -7,7 +7,6 @@ import com.pharmacy.web.helper.URLHelper;
 import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,7 @@ import java.util.List;
  * Created by Alexander on 12.11.2015.
  */
 @Controller
-public class SearchController extends AbstractController{
+public class SearchController extends AbstractController {
 
     private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
 
@@ -36,14 +35,15 @@ public class SearchController extends AbstractController{
      * This method searched the articles for the result list in search field.
      *
      * @param parameter for search the articles
-     * @param pageable selected or current page.
+     * @param pageable  selected or current page.
      * @return
      */
     @RequestMapping(value = "suche", method = RequestMethod.GET)
-    public @ResponseBody
+    public
+    @ResponseBody
     ModelAndView search(@RequestParam String parameter, Pageable pageable) {
         ModelAndView resultView = new ModelAndView("search");
-        FacetedPage<Article> page =  articleService.findArticlesByParameter(parameter, pageable);
+        FacetedPage<Article> page = articleService.findArticlesByParameter(parameter, pageable);
         resultView.addObject("page", page);
         resultView.addObject("parameter", parameter);
         resultView.addObject("urlEncoder", new URLHelper());
@@ -52,7 +52,8 @@ public class SearchController extends AbstractController{
     }
 
     @RequestMapping(value = "/live_suche", method = RequestMethod.GET)
-    public @ResponseBody
+    public
+    @ResponseBody
     List<Article> search(HttpServletRequest request, @RequestParam String parameter) {
         List<Article> articles = null;
         try {

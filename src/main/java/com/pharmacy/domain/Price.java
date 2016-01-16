@@ -1,14 +1,11 @@
 package com.pharmacy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.*;
-
-import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -111,7 +108,7 @@ public class Price implements Serializable {
 
         Price price = (Price) o;
 
-        if ( ! Objects.equals(id, price.id)) return false;
+        if (!Objects.equals(id, price.id)) return false;
 
         return true;
     }

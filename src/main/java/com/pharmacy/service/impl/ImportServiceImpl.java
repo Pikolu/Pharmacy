@@ -9,7 +9,6 @@ import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.repository.search.PriceSearchRepository;
 import com.pharmacy.service.api.ImportService;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.DoubleRange;
 import org.apache.commons.math3.util.Precision;
 import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
@@ -76,7 +75,8 @@ public class ImportServiceImpl implements ImportService {
 
     /**
      * This method return a article from a line of CSV file.
-     * @param attr is the line of csv file
+     *
+     * @param attr     is the line of csv file
      * @param pharmacy for assigned the the article.
      * @return article for save
      * @throws ServiceException
@@ -105,7 +105,7 @@ public class ImportServiceImpl implements ImportService {
         double rangeMin = 0.99;
         double rangeMax = 99.99;
 
-        for(int i = 1; i < 10; i++) {
+        for (int i = 1; i < 10; i++) {
             Random r = new Random();
             double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
             randomValue = Precision.round(randomValue, 2);
@@ -160,7 +160,7 @@ public class ImportServiceImpl implements ImportService {
      * CSV. Each CSV record is expected to be separated by the specified CSV
      * field separator.
      *
-     * @param inputStream The InputStream with the CSV contents.
+     * @param inputStream  The InputStream with the CSV contents.
      * @param csvSeparator The CSV field separator to be used.
      * @return A two-dimensional List of Strings representing the rows and
      * columns of the CSV.
@@ -202,7 +202,7 @@ public class ImportServiceImpl implements ImportService {
      * the fields of the CSV record. The CSV record is expected to be separated
      * by the specified CSV field separator.
      *
-     * @param record The CSV record.
+     * @param record       The CSV record.
      * @param csvSeparator The CSV field separator to be used.
      * @return A List of Strings representing the fields of each CSV record.
      */

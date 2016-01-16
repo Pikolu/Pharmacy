@@ -114,6 +114,7 @@ public class PharmacyException extends Exception {
 
     /**
      * write exception in logfile
+     *
      * @param logger
      */
     public void writeLog(Logger logger) {
@@ -139,7 +140,6 @@ public class PharmacyException extends Exception {
     }
 
     /**
-     *
      * @return String with ExceptionTypes
      */
     public String getExceptionTypes() {
@@ -156,7 +156,6 @@ public class PharmacyException extends Exception {
     }
 
     /**
-     *
      * @return String with ExceptionTypeDescriptions
      */
     public String getExceptionTypesDescription() {

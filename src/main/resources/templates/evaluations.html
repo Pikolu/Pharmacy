@@ -38,6 +38,7 @@
                             <!--<spring:url value="/account" var="account" />-->
 
                             <span>Möchten Sie jetzt eine neue Bewertung verfassen? Bitte geben Sie den Apothekenname ein.</span>
+
                             <div style="margin-top: 10px;">
                                 <form th:action="@{/apotheken}" th:method="GET" id="evaluationSearchForm">
                                     <table class="form">
@@ -47,10 +48,12 @@
                                                 Apothekenname:
                                             </td>
                                             <td>
-                                                <input th:type="text" class="q1" th:name="pharm" th:value="${pharm != null} ? ${pharm} : ''"/>
+                                                <input th:type="text" class="q1" th:name="pharm"
+                                                       th:value="${pharm != null} ? ${pharm} : ''"/>
                                             </td>
                                             <td>
-                                                <a class="buttonlight morebutton" onclick="$('#evaluationSearchForm').submit();" href="#">Suchen</a>
+                                                <a class="buttonlight morebutton"
+                                                   onclick="$('#evaluationSearchForm').submit();" href="#">Suchen</a>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -60,17 +63,22 @@
 
                             <table class="form">
                                 <tbody>
-                                    <tr style="height: 35px; border-bottom: 1px solid #E5E5E5;" th:each="pharmacy : ${pharmacies.getContent()}" th:if="${!pharmacies.getContent().isEmpty()}">
-                                        <td>
-                                            <img width="85" height="35" th:src="${pharmacy.logoURL}" th:alt="${pharmacy.name}"/>
-                                        </td>
-                                        <td>
-                                            <span th:text="${pharmacy.name}"/>
-                                        </td>
-                                        <td style="text-align: right">
-                                            <a class="buttonlight morebutton" th:href="@{/bewerten/} + ${pharmacy.id} + '/' + ${pharmacy.name}">Diese Apotheken bewerten</a>
-                                        </td>
-                                    </tr>
+                                <tr style="height: 35px; border-bottom: 1px solid #E5E5E5;"
+                                    th:each="pharmacy : ${pharmacies.getContent()}"
+                                    th:if="${!pharmacies.getContent().isEmpty()}">
+                                    <td>
+                                        <img width="85" height="35" th:src="${pharmacy.logoURL}"
+                                             th:alt="${pharmacy.name}"/>
+                                    </td>
+                                    <td>
+                                        <span th:text="${pharmacy.name}"/>
+                                    </td>
+                                    <td style="text-align: right">
+                                        <a class="buttonlight morebutton"
+                                           th:href="@{/bewerten/} + ${pharmacy.id} + '/' + ${pharmacy.name}">Diese
+                                            Apotheken bewerten</a>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
 

@@ -4,7 +4,6 @@ import com.pharmacy.config.Constants;
 import com.pharmacy.domain.PersistentToken;
 import com.pharmacy.repository.PersistentTokenRepository;
 import com.pharmacy.repository.UserRepository;
-import com.pharmacy.service.impl.UserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -33,39 +32,39 @@ import java.util.Arrays;
 @Service
 public class CustomPersistentRememberMeServices extends AbstractRememberMeServices
 
-    {
+{
 
-        private final Logger log = LoggerFactory.getLogger(CustomPersistentRememberMeServices.class);
+    private final Logger log = LoggerFactory.getLogger(CustomPersistentRememberMeServices.class);
 
-        // Token is valid for one month
-        private static final int TOKEN_VALIDITY_DAYS = 31;
+    // Token is valid for one month
+    private static final int TOKEN_VALIDITY_DAYS = 31;
 
-        private static final int TOKEN_VALIDITY_SECONDS = 60 * 60 * 24 * TOKEN_VALIDITY_DAYS;
+    private static final int TOKEN_VALIDITY_SECONDS = 60 * 60 * 24 * TOKEN_VALIDITY_DAYS;
 
-        private static final int DEFAULT_SERIES_LENGTH = 16;
+    private static final int DEFAULT_SERIES_LENGTH = 16;
 
-        private static final int DEFAULT_TOKEN_LENGTH = 16;
+    private static final int DEFAULT_TOKEN_LENGTH = 16;
 
-        private SecureRandom random;
+    private SecureRandom random;
 
-        @Inject
-        private PersistentTokenRepository persistentTokenRepository;
+    @Inject
+    private PersistentTokenRepository persistentTokenRepository;
 
-        @Inject
-        private UserRepository userRepository;
+    @Inject
+    private UserRepository userRepository;
 
-        @Inject
-        public CustomPersistentRememberMeServices(Environment env, org.springframework.security.core.userdetails
-                .UserDetailsService userDetailsService) {
+    @Inject
+    public CustomPersistentRememberMeServices(Environment env, org.springframework.security.core.userdetails
+            .UserDetailsService userDetailsService) {
 
         super(Constants.SECURITY_REMERBERME_KEY, userDetailsService);
         random = new SecureRandom();
     }
 
-        @Override
-        @Transactional
-        protected UserDetails processAutoLoginCookie(String[] cookieTokens, HttpServletRequest request,
-            HttpServletResponse response) {
+    @Override
+    @Transactional
+    protected UserDetails processAutoLoginCookie(String[] cookieTokens, HttpServletRequest request,
+                                                 HttpServletResponse response) {
 
         PersistentToken token = getPersistentToken(cookieTokens);
         String login = token.getUser().getLogin();
@@ -86,9 +85,9 @@ public class CustomPersistentRememberMeServices extends AbstractRememberMeServic
         return getUserDetailsService().loadUserByUsername(login);
     }
 
-        @Override
-        protected void onLoginSuccess(HttpServletRequest request, HttpServletResponse response, Authentication
-        successfulAuthentication) {
+    @Override
+    protected void onLoginSuccess(HttpServletRequest request, HttpServletResponse response, Authentication
+            successfulAuthentication) {
 
         String login = successfulAuthentication.getName();
 
@@ -111,15 +110,15 @@ public class CustomPersistentRememberMeServices extends AbstractRememberMeServic
         }
     }
 
-        /**
-         * When logout occurs, only invalidate the current token, and not all user sessions.
-         * <p/>
-         * The standard Spring Security implementations are too basic: they invalidate all tokens for the
-         * current user, so when he logs out from one browser, all his other sessions are destroyed.
-         */
-        @Override
-        @Transactional
-        public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+    /**
+     * When logout occurs, only invalidate the current token, and not all user sessions.
+     * <p>
+     * The standard Spring Security implementations are too basic: they invalidate all tokens for the
+     * current user, so when he logs out from one browser, all his other sessions are destroyed.
+     */
+    @Override
+    @Transactional
+    public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String rememberMeCookie = extractRememberMeCookie(request);
         if (rememberMeCookie != null && rememberMeCookie.length() != 0) {
             try {
@@ -135,9 +134,9 @@ public class CustomPersistentRememberMeServices extends AbstractRememberMeServic
         super.logout(request, response, authentication);
     }
 
-        /**
-         * Validate the token and return it.
-         */
+    /**
+     * Validate the token and return it.
+     */
     private PersistentToken getPersistentToken(String[] cookieTokens) {
         if (cookieTokens.length != 2) {
             throw new InvalidCookieException("Cookie token did not contain " + 2 +

@@ -1,10 +1,8 @@
 package com.pharmacy.web;
 
 import com.pharmacy.domain.User;
-import com.pharmacy.exceptions.ServiceException;
 import com.pharmacy.security.CustomUserDetails;
 import com.pharmacy.service.api.UserService;
-import com.pharmacy.service.impl.UserDetailsService;
 import com.pharmacy.web.validator.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
