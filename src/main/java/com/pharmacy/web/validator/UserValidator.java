@@ -52,12 +52,12 @@ public class UserValidator implements Validator {
             }
         }
 
-        validatePasswort(user.getPassword(), errors);
+        validatePassword(user.getPassword(), errors);
 
         LOG.debug("exit");
     }
 
-    private void validatePasswort(String password, Errors errors) {
+    private void validatePassword(String password, Errors errors) {
         if (password.length() < 6) {
             errors.rejectValue("password", "message.NotValidLength");
         } else if (!password.matches("[a-z]")) {
