@@ -128,11 +128,15 @@
                         $('input[type=password]').keyup(function () {
                             validate();
                         }).focus(function () {
+                            var passwordInfoDialog = $('#pswd_info');
+                            var passwordInput = $('#password');
+                            var passwordInputPosition = passwordInput.position();
+                            passwordInfoDialog.css("right", passwordInputPosition.right);
+                            passwordInfoDialog.css("top", passwordInputPosition.top+45);
                             $('#pswd_info').show();
                         }).blur(function () {
                             $('#pswd_info').hide();
                         });
-
                     });
 
                     function validate() {

@@ -5014,7 +5014,7 @@ hr {
     right: 555px;
     top: 315px;
     width: 250px;
-    /*display:none;*/
+    display:none;
 }
 
 #pswd_info::before {
