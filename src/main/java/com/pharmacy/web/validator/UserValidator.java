@@ -25,7 +25,6 @@ public class UserValidator implements Validator {
 
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$";
 
-    private static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
 
     @Override
     public void validate(Object target, Errors errors) {
@@ -53,7 +52,21 @@ public class UserValidator implements Validator {
             }
         }
 
+        validatePasswort(user.getPassword(), errors);
+
         LOG.debug("exit");
+    }
+
+    private void validatePasswort(String password, Errors errors) {
+        if (password.length() < 6) {
+            errors.rejectValue("password", "message.NotValidLength");
+        } else if (!password.matches("[a-z]")) {
+            errors.rejectValue("password", "message.NotValidLetters");
+        } else if (!password.matches("[A-Z]")) {
+            errors.rejectValue("password", "message.NotValidCapitalLetters");
+        } else if (!password.matches(".*\\\\d.*")) {
+            errors.rejectValue("password", "message.NotValidNumbers");
+        }
     }
 
     @Override
