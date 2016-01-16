@@ -1,17 +1,13 @@
 package com.pharmacy.service.impl;
 
 import com.pharmacy.domain.Article;
-import com.pharmacy.domain.Price;
 import com.pharmacy.repository.ArticleRepository;
 import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.repository.search.PriceSearchRepository;
 import com.pharmacy.service.api.ArticleService;
 import org.apache.commons.lang.StringUtils;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.WildcardQueryBuilder;
 import org.elasticsearch.search.facet.FacetBuilders;
 import org.elasticsearch.search.facet.range.RangeFacetBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
@@ -28,8 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.inject.Inject;
-import java.util.List;
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 
 /**

@@ -1,7 +1,6 @@
 package com.pharmacy.exceptions;
 
 import com.pharmacy.exceptions.type.ExceptionType;
-import com.pharmacy.exceptions.type.PharmacyException;
 
 import java.util.List;
 

@@ -9,7 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.Collection;
 
@@ -61,7 +60,7 @@ public final class SecurityUtils {
 
     /**
      * Return the current user id, or throws an exception, if the user is not authenticated yet.
-     * 
+     *
      * @return the current user id
      */
     public static Long getCurrentUserId() {
@@ -70,7 +69,7 @@ public final class SecurityUtils {
 
     /**
      * Return the current user.
-     * 
+     *
      * @return the current user
      */
     public static CustomUserDetails getCurrentUser() {
@@ -90,7 +89,7 @@ public final class SecurityUtils {
 
     /**
      * If the current user has a specific authority (security role).
-     *
+     * <p>
      * <p> The name of this method comes from the isUserInRole() method in the Servlet API</p>
      */
     public static boolean isUserInRole(String authority) {

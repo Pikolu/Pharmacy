@@ -124,7 +124,7 @@ public class Evaluation implements Serializable {
 
         Evaluation evaluation = (Evaluation) o;
 
-        if ( ! Objects.equals(id, evaluation.id)) return false;
+        if (!Objects.equals(id, evaluation.id)) return false;
 
         return true;
     }
@@ -137,13 +137,13 @@ public class Evaluation implements Serializable {
     @Override
     public String toString() {
         return "Evaluation{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            ", description='" + description + "'" +
-            ", points='" + points + "'" +
-            ", descriptionPoints='" + descriptionPoints + "'" +
-            ", shippingPoints='" + shippingPoints + "'" +
-            ", shippingPricePoints='" + shippingPricePoints + "'" +
-            '}';
+                "id=" + id +
+                ", name='" + name + "'" +
+                ", description='" + description + "'" +
+                ", points='" + points + "'" +
+                ", descriptionPoints='" + descriptionPoints + "'" +
+                ", shippingPoints='" + shippingPoints + "'" +
+                ", shippingPricePoints='" + shippingPricePoints + "'" +
+                '}';
     }
 }

@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldIndex;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -42,8 +39,8 @@ public class Pharmacy implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "pharmacy_payment",
-               joinColumns = @JoinColumn(name="pharmacys_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="payments_id", referencedColumnName="ID"))
+            joinColumns = @JoinColumn(name = "pharmacys_id", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "payments_id", referencedColumnName = "ID"))
     private Set<Payment> payments = new HashSet<>();
 
     @OneToOne
@@ -135,7 +132,7 @@ public class Pharmacy implements Serializable {
 
         Pharmacy pharmacy = (Pharmacy) o;
 
-        if ( ! Objects.equals(id, pharmacy.id)) return false;
+        if (!Objects.equals(id, pharmacy.id)) return false;
 
         return true;
     }
@@ -148,11 +145,11 @@ public class Pharmacy implements Serializable {
     @Override
     public String toString() {
         return "Pharmacy{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            ", shipping='" + shipping + "'" +
-            ", logoURL='" + logoURL + "'" +
-            ", totalEvaluationPoints='" + totalEvaluationPoints + "'" +
-            '}';
+                "id=" + id +
+                ", name='" + name + "'" +
+                ", shipping='" + shipping + "'" +
+                ", logoURL='" + logoURL + "'" +
+                ", totalEvaluationPoints='" + totalEvaluationPoints + "'" +
+                '}';
     }
 }

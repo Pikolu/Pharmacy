@@ -1,7 +1,6 @@
 package com.pharmacy.service.api;
 
 import com.pharmacy.domain.User;
-import com.pharmacy.exceptions.ServiceException;
 
 import java.util.Optional;
 
@@ -17,7 +16,7 @@ public interface UserService {
     public Optional<User> requestPasswordReset(String mail);
 
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
-                                 String langKey);
+                                      String langKey);
 
     public void updateUserInformation(String firstName, String lastName, String email, String langKey);
 

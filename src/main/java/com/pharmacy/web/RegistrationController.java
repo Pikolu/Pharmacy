@@ -1,12 +1,10 @@
 package com.pharmacy.web;
 
 import com.pharmacy.domain.User;
-import com.pharmacy.exceptions.ServiceException;
 import com.pharmacy.service.api.UserService;
 import com.pharmacy.web.validator.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
@@ -38,17 +36,17 @@ public class RegistrationController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView registration(@ModelAttribute("command") User user, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
         LOG.trace("Enter registration: user={}, result={}", user, result);
-            validator.validate(user, result);
-            if (result.hasErrors()) {
-                if (modelAndView == null) {
-                    modelAndView = new ModelAndView("redirect:registration.html", "command", new User());
-                }
-                modelAndView.getModel().putAll(result.getModel());
-            } else {
-                modelAndView = new ModelAndView("redirect:welcome.html", "command", user);
-                userService.createUserInformation(user.getLogin(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getEmail(), "de_DE");
-                authenticateUserAndSetSession(user, request);
+        validator.validate(user, result);
+        if (result.hasErrors()) {
+            if (modelAndView == null) {
+                modelAndView = new ModelAndView("redirect:registration.html", "command", new User());
             }
+            modelAndView.getModel().putAll(result.getModel());
+        } else {
+            modelAndView = new ModelAndView("redirect:welcome.html", "command", user);
+            userService.createUserInformation(user.getLogin(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getEmail(), "de_DE");
+            authenticateUserAndSetSession(user, request);
+        }
         LOG.trace("Exit registration: modelAndView={}", modelAndView);
         return modelAndView;
     }

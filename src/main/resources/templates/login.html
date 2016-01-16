@@ -7,45 +7,48 @@
 </head>
 <body>
 <div th:fragment="content">
-        <h1>Einloggen</h1>
-        <div id="content">
-            <div class="box">
+    <h1>Einloggen</h1>
 
-                <div class="box-container">
-                    <div class="login-content">
-                        <div class="left">
-                            <h2>Neu bei medizin-finder.de?</h2>
+    <div id="content">
+        <div class="box">
+
+            <div class="box-container">
+                <div class="login-content">
+                    <div class="left">
+                        <h2>Neu bei medizin-finder.de?</h2>
+
+                        <div class="content">
+                            <h2 style="color: black; font-size: 16px">Jetzt bei medizin-finder.de anmelden</h2>
+                            <a th:href="@{/registration}" class="button">
+                                <span>Anmelden</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <form id="login" name='loginForm' th:action="@{/login}" method='POST'>
                             <div class="content">
-                                <h2 style="color: black; font-size: 16px">Jetzt bei medizin-finder.de anmelden</h2>
-                                <a th:href="@{/registration}" class="button">
-                                    <span>Anmelden</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <form id="login" name='loginForm' th:action="@{/login}" method='POST'>
-                                <div class="content">
-                                    <!--<p>I am a returning customer</p>-->
-                                    <!--<c:if test="${not empty error}">-->
-                                        <!--<div class="error">${error}</div>-->
-                                    <!--</c:if>-->
-                                    <b class="padd-form">E-Mail Adresse:</b>
-                                    <input class="q1 margen-bottom" name="j_username" value="" type="text" />
-                                    <b class="padd-form">Password:</b>
-                                    <input class="q1 margen-bottom" name="j_password" value="" type="password" />
-                                    <br />
-                                    <div>
-                                        <a class="link-login" href="#">Passwort vergessen?</a>
-                                    </div>
-                                    <a onclick="$('#login').submit();" class="button"><span>Login</span></a>
-                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                <!--<p>I am a returning customer</p>-->
+                                <!--<c:if test="${not empty error}">-->
+                                <div class="error" th:if="${error != null}" th:text="${error}">Fehler</div>
+                                <!--</c:if>-->
+                                <b class="padd-form">E-Mail Adresse:</b>
+                                <input class="q1 margen-bottom" name="j_username" value="" type="text"/>
+                                <b class="padd-form">Password:</b>
+                                <input class="q1 margen-bottom" name="j_password" value="" type="password"/>
+                                <br/>
+
+                                <div>
+                                    <a class="link-login" href="#">Passwort vergessen?</a>
                                 </div>
-                            </form>
-                        </div>
+                                <a onclick="$('#login').submit();" class="button"><span>Login</span></a>
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 package com.pharmacy.repository;
 
 import com.pharmacy.domain.User;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.ZonedDateTime;
 import java.util.List;
