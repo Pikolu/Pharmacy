@@ -7,12 +7,12 @@
 </head>
 <body>
 <div th:fragment="content">
-    <script>
+    <script th:inline="javascript"> /*<![CDATA[*/
+
         function openDialog() {
             $("#dialog").modal();
         }
-
-    </script>
+        /*]]>*/</script>
 
     <h1>Einloggen</h1>
 
@@ -45,7 +45,7 @@
                                 <br/>
 
                                 <div>
-                                    <a id="link-login" class="link-login" href="#" onclick="openDialog()">Passwort vergessen?</a>
+                                    <a id="link-login" class="link-login" onclick="openDialog()">Passwort vergessen?</a>
                                 </div>
                                 <a onclick="$('#login').submit();" class="button"><span>Login</span></a>
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
@@ -53,21 +53,31 @@
                         </form>
 
                         <div id="dialog" title="Basic dialog" style="display: none">
-                            <form id="passwortForm" th="@{/passwort}">
+                            <form id="passwort-form" th:action="@{/login/passwort}" method='POST'>
                                 <h1>Ich habe mein Passwort vergessen</h1>
                                 <div style="margin-top: 30px">
                                     <form>
                                         <h2 class="padd-form">E-Mail Adresse:</h2>
-                                        <input class="q1 margen-bottom" name="username" value="" type="text" style="width: 100%"/>
-                                        <a onclick="$('#passwortForm').submit();" class="button" style="margin-top: 10px"><span>E-Mail versenden</span></a>
+                                        <input id="reset-passwort-email" class="q1 margen-bottom" name="email" value="" type="text" style="width: 100%"/>
+                                        <span th:if="${changePasswordError != null}" class="error" th:text="${changePasswordError}">Fehler</span>
+                                        <a onclick="$('#passwort-form').submit();" class="button" style="margin-top: 10px"><span>E-Mail versenden</span></a>
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                     </form>
                                 </div>
                             </form>
                         </div>
                         <!-- preload the images -->
                         <div style='display:none'>
-                            <img src='img/basic/x.png' alt='' />
+                            <img th:src='@{/images/x.png}' alt='' />
                         </div>
+
+                        <script th:inline="javascript">
+                            var changePasswordError = [[${changePasswordError}]];
+                            console.log("error: " + changePasswordError);
+                            if(changePasswordError.length != 0) {
+                                openDialog();
+                            }
+                        </script>
 
                     </div>
                 </div>

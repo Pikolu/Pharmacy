@@ -71,7 +71,7 @@ public class PharmacyException extends Exception {
         LOG.trace("Enter: getMessage");
         StringBuilder message = new StringBuilder();
 
-        if (!StringUtils.isEmpty(super.getCause().getMessage())) {
+        if (super.getCause() != null && !StringUtils.isEmpty(super.getCause().getMessage())) {
             message.append("ExceptionType: ").append(this.exceptionType).append(" | ");
             message.append("Description: ").append(this.exceptionType.getDescription()).append(" | ");
             message.append("Message: ").append(super.getCause().getMessage()).append(" | ");

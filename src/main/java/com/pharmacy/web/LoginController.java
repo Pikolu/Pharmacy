@@ -1,16 +1,22 @@
 package com.pharmacy.web;
 
+import com.pharmacy.domain.User;
 import com.pharmacy.exceptions.ControllerException;
 import com.pharmacy.exceptions.type.ExceptionType;
+import com.pharmacy.service.api.UserService;
+import com.pharmacy.service.impl.UserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 /**
  * Created by apopow on 25.12.2015.
@@ -19,6 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
 
     private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
+
+    @Inject
+    private UserService userService;
 
     @RequestMapping(value = "/login")
     public ModelAndView initLoginPage(@RequestParam(value = "error", required = false) String error,
@@ -41,7 +50,7 @@ public class LoginController {
         return model;
     }
 
-    // customize the error message
+    // customize the error message#
     private void getErrorMessage(HttpServletRequest request, String key) throws ControllerException {
         Exception exception = (Exception) request.getSession().getAttribute(key);
         if (exception != null) {
@@ -51,8 +60,17 @@ public class LoginController {
         }
     }
 
-    @RequestMapping(value = "/passwort", method = RequestMethod.POST)
-    private void resetPasswort(@RequestParam String username){
 
+    @RequestMapping(value = "/login/passwort", method = RequestMethod.POST)
+    private ModelAndView resetPasswort(@RequestParam String email){
+        ModelAndView model = new ModelAndView("login");
+        try {
+            User user = userService.requestPasswordReset(email)
+                    .orElseThrow(() -> new ControllerException(ExceptionType.RESET_PASSWORD_0001));
+        } catch (ControllerException e) {
+            e.writeLog(LOG);
+            model.addObject("changePasswordError", e.getExceptionType().getResourceKey());
+        }
+        return model;
     }
 }
