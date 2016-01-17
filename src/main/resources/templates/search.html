@@ -7,17 +7,38 @@
 </head>
 <body>
 <div th:fragment="content">
-    <!--<h1>Suchergebnisse zu-->
-    <!--<span th:text="${parameter}">Parameter</span>-->
-    <!--</h1>-->
     <div id="notification"></div>
     <div id="content">
 
-        <!--<div style="width: 250px">-->
-        <!--Test-->
-        <!--</div>-->
+        <div id="column-left">
+            <div class="box category">
+                <div class="box-heading">Kategorie</div>
+                <div class="box-content">
+                    <div class="box-category">
+                        <div th:if="${page.hasFacets()}" th:each="facet : ${page.getFacets()}">
+                            <div th:each="range: ${facet.ranges}">
+                                <span th:if="${range.from == null}">
+                                    &lt;
+                                    <span th:text="${range.to}"/>
+                                </span>
 
-        <div class="box">
+                                <span th:if="${range.to != null and range.from != null}">
+                                    <span th:text="${range.from}"/> - <span th:text="${range.to}"/>
+                                </span>
+
+                                <span th:if="${range.to == null}">
+                                &gt;
+                                <span th:text="${range.from}"/>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box" style="margin-left: 250px">
             <div class="box-heading">Suchergebnisse zu <span th:text="${parameter}"></span></div>
             <div class="box-content">
                 <div class="box-product">

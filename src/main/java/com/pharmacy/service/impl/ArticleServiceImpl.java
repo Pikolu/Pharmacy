@@ -48,15 +48,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public FacetedPage<Article> findArticlesByParameter(String parameter, Pageable pageable) {
 
-
-        RangeFacetBuilder test = FacetBuilders.rangeFacet("f")
-                .field("prices.price")         // Field to compute on
+        RangeFacetBuilder rangeFacetBuilder = new RangeFacetBuilder("prices.price");
+        rangeFacetBuilder.field("prices.price")         // Field to compute on
                 .addUnboundedFrom(10)    // from -infinity to 3 (excluded)
                 .addRange(10, 20)         // from 3 to 6 (excluded)
                 .addUnboundedTo(20);     // from 6 to +infinity
 
 
-        FacetRequest facetRequest = new NativeFacetRequest(test);
+        FacetRequest facetRequest = new NativeFacetRequest(rangeFacetBuilder);
 
         QueryBuilder queryBuilder;
         if (StringUtils.isBlank(parameter)) {
