@@ -2,6 +2,8 @@ package com.pharmacy.repository;
 
 import com.pharmacy.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -18,7 +20,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findOneByResetKey(String resetKey);
 
-    Optional<User> findOneByEmail(String email);
+    @Query(value = "SELECT u FROM User u WHERE u.email = :email")
+    Optional<User> findOneByEmail(@Param(value = "email") String email);
 
     Optional<User> findOneByLogin(String login);
 

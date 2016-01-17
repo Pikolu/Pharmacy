@@ -193,4 +193,13 @@ public class UserServiceImpl implements UserService {
 //            userSearchRepository.delete(user);
         }
     }
+
+    @Override
+    public User getUser(Long id) {
+        return userRepository.getOne(id);
+    }
+
+    public Optional<User> findOneByEmail(String mail) {
+        return userRepository.findOneByEmail(mail);
+    }
 }

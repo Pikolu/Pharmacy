@@ -65,8 +65,8 @@ public class LoginController {
     private ModelAndView resetPasswort(@RequestParam String email){
         ModelAndView model = new ModelAndView("login");
         try {
-            User user = userService.requestPasswordReset(email)
-                    .orElseThrow(() -> new ControllerException(ExceptionType.RESET_PASSWORD_0001));
+            Optional<User> user = userService.requestPasswordReset(email);
+            user.orElseThrow(() -> new ControllerException(ExceptionType.RESET_PASSWORD_0001));
         } catch (ControllerException e) {
             e.writeLog(LOG);
             model.addObject("changePasswordError", e.getExceptionType().getResourceKey());
