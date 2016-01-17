@@ -51,6 +51,9 @@ public class UserValidator implements Validator {
                 errors.rejectValue("email", "message.NotValidEmail");
             }
         }
+        if (!user.isAcceptedPrivacy()) {
+            errors.rejectValue("acceptedPrivacy", "message.PrivacyNotAccepted");
+        }
 
         validatePassword(user.getPassword(), errors);
 

@@ -104,7 +104,8 @@
                                     medizin-finder.de AGB
                                 </b>
                             </a>
-                            <input name="acceptedGeneralTerms" value="1" type="checkbox"/>
+                            <input name="acceptedGeneralTerms" value="1" type="checkbox" th:field="*{acceptedPrivacy}"/>
+                            <span th:if="${#fields.hasErrors('acceptedPrivacy')}" class="error" th:utext="#{message.PrivacyNotAccepted}">Bitte geben Sie Ihre E-Mail-Adresse ein.</span>
                             <a onclick="$('#register').submit();" class="button">
                                 <span>
                                     <span>Weiter</span>
