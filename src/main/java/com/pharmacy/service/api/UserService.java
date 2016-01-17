@@ -27,4 +27,8 @@ public interface UserService {
     public User getUserWithAuthorities(Long id);
 
     public User getUserWithAuthorities();
+
+    public User getUser(Long id);
+
+    Optional<User> findOneByEmail(String mail);
 }

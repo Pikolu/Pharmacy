@@ -87,7 +87,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private Set<PersistentToken> persistentTokens = new HashSet<>();
 
     @Column(name = "accepted_privacy")
-    private boolean acceptedPrivacy;
+    private Boolean acceptedPrivacy;
 
     public User() {
 
@@ -201,11 +201,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.persistentTokens = persistentTokens;
     }
 
-    public boolean isAcceptedPrivacy() {
+    public Boolean getAcceptedPrivacy() {
         return acceptedPrivacy;
     }
 
-    public void setAcceptedPrivacy(boolean acceptedPrivacy) {
+    public void setAcceptedPrivacy(Boolean acceptedPrivacy) {
         this.acceptedPrivacy = acceptedPrivacy;
     }
 
