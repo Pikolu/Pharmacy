@@ -15,22 +15,9 @@
                 <div class="box-heading">Kategorie</div>
                 <div class="box-content">
                     <div class="box-category">
-                        <div th:if="${page.hasFacets()}" th:each="facet : ${page.getFacets()}">
-                            <div th:each="range: ${facet.ranges}">
-                                <span th:if="${range.from == null}">
-                                    &lt;
-                                    <span th:text="${range.to}"/>
-                                </span>
-
-                                <span th:if="${range.to != null and range.from != null}">
-                                    <span th:text="${range.from}"/> - <span th:text="${range.to}"/>
-                                </span>
-
-                                <span th:if="${range.to == null}">
-                                &gt;
-                                <span th:text="${range.from}"/>
-                                </span>
-
+                        <div th:with="facet=${page.getFacet('prices.pharmacy.name')}">
+                            <div th:each="term : ${facet.terms}">
+                                <div th:text="${term.term}"></div>
                             </div>
                         </div>
                     </div>

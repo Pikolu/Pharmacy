@@ -21,7 +21,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "article")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "article")
+@Document(indexName = "article", type = "parent-entity")
 public class Article implements Serializable {
 
     @Id
@@ -51,6 +51,7 @@ public class Article implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "article_id")
+    @Field(index = FieldIndex.not_analyzed, type = FieldType.Object)
     private List<Price> prices;
 
     public Long getId() {
