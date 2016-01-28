@@ -92,7 +92,7 @@
                            th:if="${!page.getContent().isEmpty()}">
                         <tr>
                             <td>
-                                <a th:href="@{/produkte(parameter=${parameter},page=${page.getNumber() -1})}"
+                                <a th:href="@{/suche(parameter=${parameter},page=${page.getNumber() -1})}"
                                    th:if="${!page.isFirst()}" style="float: right;">Zurück</a>
                             </td>
                             <td th:each="i : ${#numbers.sequence(0, page.getTotalPages() -1)}"
