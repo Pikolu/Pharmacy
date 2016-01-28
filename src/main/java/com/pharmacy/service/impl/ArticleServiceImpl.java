@@ -8,10 +8,6 @@ import com.pharmacy.service.api.ArticleService;
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
-import org.elasticsearch.search.facet.FacetBuilders;
-import org.elasticsearch.search.facet.range.RangeFacetBuilder;
 import org.elasticsearch.search.facet.terms.TermsFacetBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortBuilder;
@@ -54,17 +50,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public FacetedPage<Article> findArticlesByParameter(String parameter, Pageable pageable) {
 
-        RangeFacetBuilder rangeFacetBuilder = new RangeFacetBuilder("prices.price");
-        rangeFacetBuilder.field("prices.price")         // Field to compute on
-                .addUnboundedFrom(10)    // from -infinity to 3 (excluded)
-                .addRange(10, 20)         // from 3 to 6 (excluded)
-                .addUnboundedTo(20);     // from 6 to +infinity
-
         TermsFacetBuilder termsFacetBuilder = new TermsFacetBuilder("prices.pharmacy.name");
         termsFacetBuilder.field("prices.pharmacy.name");
 
-        FacetRequest facetRequest = new NativeFacetRequest(rangeFacetBuilder);
-        FacetRequest facetRequest2 = new NativeFacetRequest(termsFacetBuilder);
+        FacetRequest facetRequest = new NativeFacetRequest(termsFacetBuilder);
 
 
         QueryBuilder queryBuilder;
@@ -77,10 +66,9 @@ public class ArticleServiceImpl implements ArticleService {
 
         SortBuilder sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
 
-        SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(queryBuilder).withFacet(facetRequest).withFacet(facetRequest2).withPageable(pageable).withSort(sortBuilder).build();
+        SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(queryBuilder).withFacet(facetRequest).withPageable(pageable).withSort(sortBuilder).build();
 
         FacetedPage<Article> articles = articleSearchRepository.search(searchQuery);
-
 
         for (FacetResult facetResult : articles.getFacets()) {
 //            System.out.println(facetResult);

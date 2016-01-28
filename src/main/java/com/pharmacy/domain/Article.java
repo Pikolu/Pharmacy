@@ -54,6 +54,16 @@ public class Article implements Serializable {
     @Field(index = FieldIndex.not_analyzed, type = FieldType.Object)
     private List<Price> prices;
 
+    @Field(index = FieldIndex.not_analyzed, type = FieldType.String)
+    @Column(name = "packaging")
+    private String packaging;
+
+    @Column(name = "recipe")
+    private Boolean recipe;
+
+    @Column(name = "concentration")
+    private Float concentration;
+
     public Long getId() {
         return id;
     }
@@ -119,6 +129,30 @@ public class Article implements Serializable {
 
     public void setPrices(List<Price> prices) {
         this.prices = prices;
+    }
+
+    public String getPackaging() {
+        return packaging;
+    }
+
+    public void setPackaging(String packaging) {
+        this.packaging = packaging;
+    }
+
+    public Boolean getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Boolean recipe) {
+        this.recipe = recipe;
+    }
+
+    public Float getConcentration() {
+        return concentration;
+    }
+
+    public void setConcentration(Float concentration) {
+        this.concentration = concentration;
     }
 
     @Override

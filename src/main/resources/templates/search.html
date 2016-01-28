@@ -12,7 +12,7 @@
 
         <div id="column-left">
             <div class="box category">
-                <div class="box-heading">Kategorie</div>
+                <div class="box-heading">Herrsteller</div>
                 <div class="box-content">
                     <div class="box-category">
                         <div th:with="facet=${page.getFacet('prices.pharmacy.name')}">
@@ -24,6 +24,7 @@
                 </div>
             </div>
         </div>
+
 
         <div class="box" style="margin-left: 250px">
             <div class="box-heading">Suchergebnisse zu <span th:text="${parameter}"></span></div>
