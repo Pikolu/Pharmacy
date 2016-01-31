@@ -10,10 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
@@ -54,7 +51,8 @@ public class SearchController extends AbstractController {
     @RequestMapping(value = "/live_suche", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<Article> search(HttpServletRequest request, @RequestParam String parameter) {
+    List<Article> search(HttpServletRequest request, @RequestParam String parameter,
+                         @ModelAttribute("pharmacyName") String pharmacyName) {
         List<Article> articles = null;
         try {
             LOG.info("SEARCH_REQUEST: {}", parameter);
