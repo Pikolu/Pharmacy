@@ -27,6 +27,7 @@ public class SearchController extends AbstractController {
 
     @Inject
     private ArticleService articleService;
+    private String pharmacyName;
 
     /**
      * This method searched the articles for the result list in search field.
@@ -38,13 +39,16 @@ public class SearchController extends AbstractController {
     @RequestMapping(value = "suche", method = RequestMethod.GET)
     public
     @ResponseBody
-    ModelAndView search(@RequestParam String parameter, Pageable pageable) {
+    ModelAndView search(@RequestParam String parameter, @RequestParam(required = false) String pharmacyName, Pageable pageable) {
         ModelAndView resultView = new ModelAndView("search");
+        pharmacyName = new String();
+
         FacetedPage<Article> page = articleService.findArticlesByParameter(parameter, pageable);
         resultView.addObject("page", page);
         resultView.addObject("parameter", parameter);
         resultView.addObject("urlEncoder", new URLHelper());
         resultView.addObject("articleHelper", new ArticleHelper());
+        resultView.addObject("pharmacyName", pharmacyName);
         return resultView;
     }
 
@@ -52,7 +56,7 @@ public class SearchController extends AbstractController {
     public
     @ResponseBody
     List<Article> search(HttpServletRequest request, @RequestParam String parameter,
-                         @ModelAttribute("pharmacyName") String pharmacyName) {
+                         @RequestParam(required = false) String pharmacyName) {
         List<Article> articles = null;
         try {
             LOG.info("SEARCH_REQUEST: {}", parameter);
@@ -61,5 +65,14 @@ public class SearchController extends AbstractController {
             ex.fillInStackTrace();
         }
         return articles;
+    }
+
+
+    public String getPharmacyName() {
+        return pharmacyName;
+    }
+
+    public void setPharmacyName(String pharmacyName) {
+        this.pharmacyName = pharmacyName;
     }
 }

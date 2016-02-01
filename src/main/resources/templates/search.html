@@ -17,7 +17,7 @@
                     <div class="box-category">
                         <div th:with="facet=${page.getFacet('prices.pharmacy.name')}">
                             <div th:each="term : ${facet.terms}">
-                                <input type="checkbox" th:field="*{pharmacyName}" th:value="${term.term}" />
+                                <input type="checkbox" th:field="*{pharmacyName}" th:value="${term.term}" th:text="${term.term}" onclick="updateResultList()"/>
                                 <!--<input type="checkbox" th:value="${term.term}" th:text="${term.term}"/>-->
                             </div>
                         </div>
