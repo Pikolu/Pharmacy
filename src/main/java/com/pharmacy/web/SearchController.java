@@ -4,17 +4,21 @@ import com.pharmacy.domain.Article;
 import com.pharmacy.service.api.ArticleService;
 import com.pharmacy.web.helper.ArticleHelper;
 import com.pharmacy.web.helper.URLHelper;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.FacetedPage;
+import org.springframework.data.elasticsearch.core.FacetedPageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,7 +31,6 @@ public class SearchController extends AbstractController {
 
     @Inject
     private ArticleService articleService;
-    private String pharmacyName;
 
     /**
      * This method searched the articles for the result list in search field.
@@ -41,9 +44,16 @@ public class SearchController extends AbstractController {
     @ResponseBody
     ModelAndView search(@RequestParam String parameter, @RequestParam(required = false) String pharmacyName, Pageable pageable) {
         ModelAndView resultView = new ModelAndView("search");
-        pharmacyName = new String();
 
         FacetedPage<Article> page = articleService.findArticlesByParameter(parameter, pageable);
+        if (StringUtils.isNotEmpty(pharmacyName)) {
+            String[] names = pharmacyName.split(":");
+            LOG.info("names {}", names);
+        } else {
+            pharmacyName = new String();
+//            page = articleService.findArticlesByParameter(parameter, pageable);
+        }
+
         resultView.addObject("page", page);
         resultView.addObject("parameter", parameter);
         resultView.addObject("urlEncoder", new URLHelper());
@@ -65,14 +75,5 @@ public class SearchController extends AbstractController {
             ex.fillInStackTrace();
         }
         return articles;
-    }
-
-
-    public String getPharmacyName() {
-        return pharmacyName;
-    }
-
-    public void setPharmacyName(String pharmacyName) {
-        this.pharmacyName = pharmacyName;
     }
 }
