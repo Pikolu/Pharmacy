@@ -1,24 +1,23 @@
 package com.pharmacy.web;
 
 import com.pharmacy.domain.Article;
+import com.pharmacy.repository.utils.FilterOptions;
 import com.pharmacy.service.api.ArticleService;
 import com.pharmacy.web.helper.ArticleHelper;
 import com.pharmacy.web.helper.URLHelper;
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.FacetedPage;
-import org.springframework.data.elasticsearch.core.FacetedPageImpl;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -44,16 +43,15 @@ public class SearchController extends AbstractController {
     @ResponseBody
     ModelAndView search(@RequestParam String parameter, @RequestParam(required = false) String pharmacyName, Pageable pageable) {
         ModelAndView resultView = new ModelAndView("search");
-
-        FacetedPage<Article> page = articleService.findArticlesByParameter(parameter, pageable);
+        FilterOptions filterOptions = new FilterOptions();
         if (StringUtils.isNotEmpty(pharmacyName)) {
             String[] names = pharmacyName.split(":");
             LOG.info("names {}", names);
+            filterOptions.setPharmacies(names);
         } else {
             pharmacyName = new String();
-//            page = articleService.findArticlesByParameter(parameter, pageable);
         }
-
+        FacetedPage<Article> page = articleService.findArticlesByParameter(parameter, pageable, filterOptions);
         resultView.addObject("page", page);
         resultView.addObject("parameter", parameter);
         resultView.addObject("urlEncoder", new URLHelper());
@@ -65,15 +63,17 @@ public class SearchController extends AbstractController {
     @RequestMapping(value = "/live_suche", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<Article> search(HttpServletRequest request, @RequestParam String parameter,
-                         @RequestParam(required = false) String pharmacyName) {
-        List<Article> articles = null;
-        try {
-            LOG.info("SEARCH_REQUEST: {}", parameter);
-            articles = null; //articleService.findArticlesByParameter(parameter);
-        } catch (ServiceException ex) {
-            ex.fillInStackTrace();
+    FacetedPage<Article> category(@RequestParam String parameter, @RequestParam(required = false) String pharmacyName, Pageable pageable) {
+        FilterOptions filterOptions = new FilterOptions();
+        LOG.info("SEARCH_REQUEST: {}", parameter);
+        if (StringUtils.isNotEmpty(pharmacyName)) {
+            String[] names = pharmacyName.split(":");
+            LOG.info("names {}", names);
+            filterOptions.setPharmacies(names);
+        } else {
+            pharmacyName = new String();
         }
-        return articles;
+        FacetedPage<Article> page = articleService.findArticlesByParameter(parameter, pageable, filterOptions);
+        return page;
     }
 }
