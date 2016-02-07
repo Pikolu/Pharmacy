@@ -1,19 +1,29 @@
 package com.pharmacy.repository.utils;
 
+import org.springframework.data.elasticsearch.core.facet.result.Term;
+import org.springframework.data.elasticsearch.core.facet.result.TermResult;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Created by Alexander on 01.02.2016.
  */
 public class FilterOptions {
 
-    private String[] pharmacies;
+    private List<String> pharmacies;
 
     private SortOrder sortOrder = SortOrder.UNSORTED;
 
-    public String[] getPharmacies() {
+    public void addPharmacies(TermResult termResult) {
+        this.pharmacies = termResult.getTerms().stream().map(Term::getTerm).collect(Collectors.toList());
+    }
+
+    public List<String> getPharmacies() {
         return pharmacies;
     }
 
-    public void setPharmacies(String[] pharmacies) {
+    public void setPharmacies(List<String> pharmacies) {
         this.pharmacies = pharmacies;
     }
 

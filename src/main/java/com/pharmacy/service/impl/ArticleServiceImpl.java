@@ -74,12 +74,12 @@ public class ArticleServiceImpl implements ArticleService {
 
         // build filter for the elastic search
         FilterBuilder filterBuilder= null;
-        if (ArrayUtils.isNotEmpty(filterOptions.getPharmacies())) {
+        if (CollectionUtils.isNotEmpty(filterOptions.getPharmacies())) {
             filterBuilder = buildAndFilter("prices.pharmacy.name", filterOptions.getPharmacies());
 
         }
 
-        SearchQuery searchQuery = buldSearchQuery(queryBuilder, facetRequest, filterBuilder, pageable, sortBuilder);
+        SearchQuery searchQuery = buildSearchQuery(queryBuilder, facetRequest, filterBuilder, pageable, sortBuilder);
         FacetedPage<Article> articles = articleSearchRepository.search(searchQuery);
 
         for (FacetResult facetResult : articles.getFacets()) {
@@ -96,7 +96,7 @@ public class ArticleServiceImpl implements ArticleService {
         return articles;
     }
 
-    private SearchQuery buldSearchQuery(QueryBuilder queryBuilder, FacetRequest facetRequest, FilterBuilder filterBuilder, Pageable pageable, SortBuilder sortBuilder) {
+    private SearchQuery buildSearchQuery(QueryBuilder queryBuilder, FacetRequest facetRequest, FilterBuilder filterBuilder, Pageable pageable, SortBuilder sortBuilder) {
         SearchQuery searchQuery = new NativeSearchQueryBuilder().
                 withQuery(queryBuilder).
                 withFacet(facetRequest).
@@ -107,16 +107,15 @@ public class ArticleServiceImpl implements ArticleService {
         return searchQuery;
     }
 
-    private BoolFilterBuilder buildAndFilter(String name, String[] values) {
-        BoolFilterBuilder boolFilterBuilder = FilterBuilders.boolFilter();
+    private OrFilterBuilder buildAndFilter(String name, List<String> values) {
+        OrFilterBuilder filterBuilder = FilterBuilders.orFilter();
 
-        Stream<String> vl = Stream.of(values);
-        vl.forEach(e -> {
+        values.forEach(e -> {
             TermFilterBuilder termFilterBuilder = FilterBuilders.termFilter(name, e);
-            boolFilterBuilder.must(termFilterBuilder);
+            filterBuilder.add(termFilterBuilder);
         });
 
-        return boolFilterBuilder;
+        return filterBuilder;
     }
 
     @Override

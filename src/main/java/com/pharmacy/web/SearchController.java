@@ -1,11 +1,13 @@
 package com.pharmacy.web;
 
 import com.pharmacy.domain.Article;
+import com.pharmacy.domain.SearchResult;
 import com.pharmacy.repository.utils.FilterOptions;
 import com.pharmacy.service.api.ArticleService;
 import com.pharmacy.web.helper.ArticleHelper;
 import com.pharmacy.web.helper.URLHelper;
 import org.apache.commons.lang.StringUtils;
+import org.elasticsearch.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
@@ -47,33 +49,16 @@ public class SearchController extends AbstractController {
         if (StringUtils.isNotEmpty(pharmacyName)) {
             String[] names = pharmacyName.split(":");
             LOG.info("names {}", names);
-            filterOptions.setPharmacies(names);
+            filterOptions.setPharmacies(Lists.newArrayList(names));
         } else {
             pharmacyName = new String();
         }
         FacetedPage<Article> page = articleService.findArticlesByParameter(parameter, pageable, filterOptions);
-        resultView.addObject("page", page);
+        resultView.addObject("searchResult", new SearchResult<>(page, filterOptions));
         resultView.addObject("parameter", parameter);
         resultView.addObject("urlEncoder", new URLHelper());
         resultView.addObject("articleHelper", new ArticleHelper());
         resultView.addObject("pharmacyName", pharmacyName);
         return resultView;
-    }
-
-    @RequestMapping(value = "/live_suche", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    FacetedPage<Article> category(@RequestParam String parameter, @RequestParam(required = false) String pharmacyName, Pageable pageable) {
-        FilterOptions filterOptions = new FilterOptions();
-        LOG.info("SEARCH_REQUEST: {}", parameter);
-        if (StringUtils.isNotEmpty(pharmacyName)) {
-            String[] names = pharmacyName.split(":");
-            LOG.info("names {}", names);
-            filterOptions.setPharmacies(names);
-        } else {
-            pharmacyName = new String();
-        }
-        FacetedPage<Article> page = articleService.findArticlesByParameter(parameter, pageable, filterOptions);
-        return page;
     }
 }

@@ -12,16 +12,12 @@ function updateResultList(input, parameter) {
     console.log(field)
     var htmlContent = "";
     $.ajax({
-        url: '/live_suche?parameter=' + parameter + '&pharmacyName=' + names,
+        url: '/suche?parameter=' + parameter + '&pharmacyName=' + names,
         contentType: "application/json",
         success: function (data) {
-            console.log(data.content);
-            $.each(data.content, function (key, value) {
-                var v = $(this)[0];
-                var div = '<div>' + v.name + '</div>';
-                htmlContent = htmlContent + div;
-            });
-            $('.box-product').html(htmlContent);
+            var content = $(data);
+            var box = content.find('.box-product').html();
+            $('.box-product').html(box);
         }
     });
 }
