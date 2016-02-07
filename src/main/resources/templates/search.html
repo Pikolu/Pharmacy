@@ -92,14 +92,36 @@
                     <table border="0" cellpadding="5" cellspacing="5" style="margin: auto;"
                            th:if="${!searchResult.page.getContent().isEmpty()}">
                         <tr>
-
+                            <td>
+                                <a th:onclick="'javascript:updateResultList(\'' + ${parameter} + '\', \'' + ${searchResult.page.getNumber() -1} + '\');'"
+                                   th:if="${!searchResult.page.isFirst()}" style="float: right;">Zurück</a>
+                            </td>
                             <td th:each="i : ${#numbers.sequence(0, searchResult.page.getTotalPages() -1)}"
                                 th:if="${searchResult.page.getTotalPages() le 6 and searchResult.page.getNumber() le 6}">
-                                <a th:onclick="'javascript:updateResultList(\'' + ${parameter} + '\', \'' + ${i} + '\');'" th:text="${i +1}"
+                                <a th:text="${i +1}" th:onclick="'javascript:updateResultList(\'' + ${parameter} + '\', \'' + ${i} + '\');'"
                                    th:if="${i != searchResult.page.getNumber() and !searchResult.page.getContent().isEmpty()}"></a>
                                 <span th:text="${i+1}"
                                       th:if="${i == searchResult.page.getNumber() and !searchResult.page.getContent().isEmpty()}"></span>
                             </td>
+
+                            <td th:each="i : ${#numbers.sequence(0, 9)}"
+                                th:if="${searchResult.page.getTotalPages() gt 6 and page.getNumber() lt 6}">
+                                <a th:text="${i + 1}" th:onclick="'javascript:updateResultList(\'' + ${parameter} + '\', \'' + ${i} + '\');'"
+                                   th:if="${i != searchResult.page.getNumber()}"></a>
+                                <span th:text="${i +1}" th:if="${i == page.getNumber()}"></span>
+                            </td>
+                            <td th:each="i : ${#numbers.sequence(searchResult.page.getNumber()-5, searchResult.page.getNumber() +4)}"
+                                th:if="${searchResult.page.getTotalPages() ge 6 and searchResult.page.getNumber() ge 6}">
+                                <a th:text="${i+1}" th:onclick="'javascript:updateResultList(\'' + ${parameter} + '\', \'' + ${i} + '\');'"
+                                   th:if="${i != searchResult.page.getNumber() and i lt searchResult.page.getTotalPages()}"></a>
+                                <span th:text="${i +1}" th:if="${i == searchResult.page.getNumber()}"></span>
+                            </td>
+
+                            <td>
+                                <a th:onclick="'javascript:updateResultList(\'' + ${parameter} + '\', \'' + ${searchResult.page.getNumber() +1} + '\');'"
+                                   th:if="${!searchResult.page.isLast()}" style="float: right;">Weiter</a>
+                            </td>
+
 
 
                             <!--<td>-->
