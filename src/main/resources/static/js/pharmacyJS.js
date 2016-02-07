@@ -1,4 +1,4 @@
-function updateResultList(input, parameter) {
+function updateResultList(parameter, page) {
     var names = "";
 
     var checkboxes = $('.name-category-checkbox:checked');
@@ -7,12 +7,8 @@ function updateResultList(input, parameter) {
         names += box.val() + ':';
     });
 
-    var field = $(input);
-    var pharmacyName = field.val();
-    console.log(field)
-    var htmlContent = "";
     $.ajax({
-        url: '/suche?parameter=' + parameter + '&pharmacyName=' + names,
+        url: '/suche?parameter=' + parameter + '&pharmacyName=' + names + '&page=' + page,
         contentType: "application/json",
         success: function (data) {
             var content = $(data);
