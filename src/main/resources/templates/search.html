@@ -108,7 +108,7 @@
                                 th:if="${searchResult.page.getTotalPages() gt 6 and searchResult.page.getNumber() lt 6}">
                                 <a th:text="${i + 1}" th:onclick="'javascript:updateResultList(\'' + ${parameter} + '\', \'' + ${i} + '\');'"
                                    th:if="${i != searchResult.page.getNumber()}"></a>
-                                <span th:text="${i +1}" th:if="${i == searchResult.page.getNumber()}"></span>
+                                <span th:text="${i +1}" th:if="${i == searchResult.page.getNumber()}" ></span>
                             </td>
                             <td th:each="i : ${#numbers.sequence(searchResult.page.getNumber()-5, searchResult.page.getNumber() +4)}"
                                 th:if="${searchResult.page.getTotalPages() ge 6 and searchResult.page.getNumber() ge 6}">
