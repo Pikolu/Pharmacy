@@ -2,6 +2,7 @@ package com.pharmacy.service.api;
 
 import com.pharmacy.domain.Article;
 import com.pharmacy.exceptions.ServiceException;
+import com.pharmacy.repository.utils.FilterOptions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.FacetedPage;
@@ -13,7 +14,7 @@ public interface ArticleService {
 
     Page<Article> findArticlesByBestPrice(Pageable pageable);
 
-    FacetedPage<Article> findArticlesByParameter(String parameter, Pageable pageable);
+    FacetedPage<Article> findArticlesByParameter(String parameter, Pageable pageable, FilterOptions filterOptions);
 
     Article findArticleByArticleNumber(Long id) throws ServiceException;
 }

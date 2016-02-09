@@ -4,10 +4,13 @@ import com.pharmacy.domain.Article;
 import com.pharmacy.repository.ArticleRepository;
 import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.repository.search.PriceSearchRepository;
+import com.pharmacy.repository.utils.FilterOptions;
 import com.pharmacy.service.api.ArticleService;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.common.collect.Collections2;
+import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.facet.terms.TermsFacetBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortBuilder;
@@ -26,6 +29,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.inject.Inject;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
 
 
 /**
@@ -48,26 +54,32 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public FacetedPage<Article> findArticlesByParameter(String parameter, Pageable pageable) {
+    public FacetedPage<Article> findArticlesByParameter(String parameter, Pageable pageable, FilterOptions filterOptions) {
 
+        //Sort
+        SortBuilder sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+
+        //Facet builder for pharmacy names
         TermsFacetBuilder termsFacetBuilder = new TermsFacetBuilder("prices.pharmacy.name");
         termsFacetBuilder.field("prices.pharmacy.name");
-
         FacetRequest facetRequest = new NativeFacetRequest(termsFacetBuilder);
 
-
+        //creates query for elastic search
         QueryBuilder queryBuilder;
         if (StringUtils.isBlank(parameter)) {
             queryBuilder = QueryBuilders.wildcardQuery("name", "*");
         } else {
-
-            queryBuilder = QueryBuilders.wildcardQuery("name", "*" + parameter.toLowerCase() + "*");//QueryBuilders.matchQuery("name", parameter);
+            queryBuilder = QueryBuilders.wildcardQuery("name", "*" + parameter.toLowerCase() + "*");
         }
 
-        SortBuilder sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+        // build filter for the elastic search
+        FilterBuilder filterBuilder= null;
+        if (CollectionUtils.isNotEmpty(filterOptions.getPharmacies())) {
+            filterBuilder = buildAndFilter("prices.pharmacy.name", filterOptions.getPharmacies());
 
-        SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(queryBuilder).withFacet(facetRequest).withPageable(pageable).withSort(sortBuilder).build();
+        }
 
+        SearchQuery searchQuery = buildSearchQuery(queryBuilder, facetRequest, filterBuilder, pageable, sortBuilder);
         FacetedPage<Article> articles = articleSearchRepository.search(searchQuery);
 
         for (FacetResult facetResult : articles.getFacets()) {
@@ -82,6 +94,28 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         return articles;
+    }
+
+    private SearchQuery buildSearchQuery(QueryBuilder queryBuilder, FacetRequest facetRequest, FilterBuilder filterBuilder, Pageable pageable, SortBuilder sortBuilder) {
+        SearchQuery searchQuery = new NativeSearchQueryBuilder().
+                withQuery(queryBuilder).
+                withFacet(facetRequest).
+                withFilter(filterBuilder).
+                withPageable(pageable).
+                withSort(sortBuilder).
+                build();
+        return searchQuery;
+    }
+
+    private OrFilterBuilder buildAndFilter(String name, List<String> values) {
+        OrFilterBuilder filterBuilder = FilterBuilders.orFilter();
+
+        values.forEach(e -> {
+            TermFilterBuilder termFilterBuilder = FilterBuilders.termFilter(name, e);
+            filterBuilder.add(termFilterBuilder);
+        });
+
+        return filterBuilder;
     }
 
     @Override

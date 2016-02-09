@@ -1,10 +1,13 @@
 package com.pharmacy.web;
 
 import com.pharmacy.domain.Article;
+import com.pharmacy.domain.SearchResult;
+import com.pharmacy.repository.utils.FilterOptions;
 import com.pharmacy.service.api.ArticleService;
 import com.pharmacy.web.helper.ArticleHelper;
 import com.pharmacy.web.helper.URLHelper;
-import org.hibernate.service.spi.ServiceException;
+import org.apache.commons.lang.StringUtils;
+import org.elasticsearch.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -41,27 +43,22 @@ public class SearchController extends AbstractController {
     @RequestMapping(value = "suche", method = RequestMethod.GET)
     public
     @ResponseBody
-    ModelAndView search(@RequestParam String parameter, Pageable pageable) {
+    ModelAndView search(@RequestParam String parameter, @RequestParam(required = false) String pharmacyName, Pageable pageable) {
         ModelAndView resultView = new ModelAndView("search");
-        FacetedPage<Article> page = articleService.findArticlesByParameter(parameter, pageable);
-        resultView.addObject("page", page);
+        FilterOptions filterOptions = new FilterOptions();
+        if (StringUtils.isNotEmpty(pharmacyName)) {
+            String[] names = pharmacyName.split(":");
+            LOG.info("names {}", names);
+            filterOptions.setPharmacies(Lists.newArrayList(names));
+        } else {
+            pharmacyName = new String();
+        }
+        FacetedPage<Article> page = articleService.findArticlesByParameter(parameter, pageable, filterOptions);
+        resultView.addObject("searchResult", new SearchResult<>(page, filterOptions));
         resultView.addObject("parameter", parameter);
         resultView.addObject("urlEncoder", new URLHelper());
         resultView.addObject("articleHelper", new ArticleHelper());
+        resultView.addObject("pharmacyName", pharmacyName);
         return resultView;
-    }
-
-    @RequestMapping(value = "/live_suche", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<Article> search(HttpServletRequest request, @RequestParam String parameter) {
-        List<Article> articles = null;
-        try {
-            LOG.info("SEARCH_REQUEST: {}", parameter);
-            articles = null; //articleService.findArticlesByParameter(parameter);
-        } catch (ServiceException ex) {
-            ex.fillInStackTrace();
-        }
-        return articles;
     }
 }
