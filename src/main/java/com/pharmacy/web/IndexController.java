@@ -1,5 +1,6 @@
 package com.pharmacy.web;
 
+import com.pharmacy.domain.SearchResult;
 import com.pharmacy.service.api.ImportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,9 @@ public class IndexController extends AbstractController {
 
     @RequestMapping(value = {"/", "/index", "/welcome**"}, method = RequestMethod.GET)
     public ModelAndView index() {
-        return new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("searchResult", new SearchResult());
+        return modelAndView;
     }
 
 

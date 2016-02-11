@@ -1,6 +1,7 @@
 package com.pharmacy.service.impl;
 
 import com.pharmacy.domain.Article;
+import com.pharmacy.domain.SearchResult;
 import com.pharmacy.repository.ArticleRepository;
 import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.repository.search.PriceSearchRepository;
@@ -54,7 +55,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public FacetedPage<Article> findArticlesByParameter(String parameter, Pageable pageable, FilterOptions filterOptions) {
+    public FacetedPage<Article> findArticlesByParameter(String parameter, Pageable pageable, SearchResult searchResult) {
 
         //Sort
         SortBuilder sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
@@ -74,8 +75,8 @@ public class ArticleServiceImpl implements ArticleService {
 
         // build filter for the elastic search
         FilterBuilder filterBuilder= null;
-        if (CollectionUtils.isNotEmpty(filterOptions.getPharmacies())) {
-            filterBuilder = buildAndFilter("prices.pharmacy.name", filterOptions.getPharmacies());
+        if (CollectionUtils.isNotEmpty(searchResult.getPharmacies())) {
+            filterBuilder = buildAndFilter("prices.pharmacy.name", searchResult.getPharmacies());
 
         }
 
