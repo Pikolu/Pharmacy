@@ -19,9 +19,9 @@ website:   	http://www.themepunch.com
     background-color: #fff;
     border: 1px solid #e6e6e6;
     padding: 30px;
-    -webkit-box-shadow: 0px 0px 5px 1px rgba(100, 100, 100, 0.1);
-    -moz-box-shadow: 0px 0px 5px 1px rgba(100, 100, 100, 0.1);
-    box-shadow: 0px 0px 5px 1px rgba(100, 100, 100, 0.1);
+    -webkit-box-shadow: 0 0 5px 1px rgba(100, 100, 100, 0.1);
+    -moz-box-shadow: 0 0 5px 1px rgba(100, 100, 100, 0.1);
+    box-shadow: 0 0 5px 1px rgba(100, 100, 100, 0.1);
 }
 
 .theme1 {
@@ -37,7 +37,7 @@ website:   	http://www.themepunch.com
     font-weight: normal;
     color: #999;
     text-shadow: #fff 1px 1px 1px;
-    margin: 0px;
+    margin: 0;
     width: 100%;
 }
 
@@ -98,10 +98,11 @@ website:   	http://www.themepunch.com
     margin-right: 30px;
 }
 
+/*noinspection ALL*/
 .theme1 .check {
     list-style: none;
-    margin-left: 0px;
-    padding-left: 0px;
+    margin-left: 0;
+    padding-left: 0;
 
 }
 
@@ -111,7 +112,7 @@ website:   	http://www.themepunch.com
     padding-left: 25px;
     list-style: none;
     line-height: 27px;
-    margin: 0px;
+    margin: 0;
 }
 
 .theme1 .closer {
@@ -119,10 +120,10 @@ website:   	http://www.themepunch.com
     height: 30px;
     position: absolute;
     background: url("../../images/assets/button/close.png") no-repeat top;
-    right: 0px;
+    right: 0;
     margin-right: -20px;
     margin-top: -20px;
-    top: 0px;
+    top: 0;
     cursor: pointer;
     z-index: 10000;
 }
@@ -162,13 +163,13 @@ website:   	http://www.themepunch.com
     font-weight: bold;
     color: #ddd;
     text-shadow: #000 1px 1px 1px;
-    margin: 0px;
+    margin: 0;
     width: 100%;
 }
 
 .theme2 .thumb {
     border: 1px solid #111;
-    padding: 0px;
+    padding: 0;
     height: auto;
     background: #fff;
     position: relative;
@@ -222,8 +223,8 @@ website:   	http://www.themepunch.com
 
 .theme2 .check {
     list-style: none;
-    margin-left: 0px;
-    padding-left: 0px;
+    margin-left: 0;
+    padding-left: 0;
 
 }
 
@@ -232,7 +233,7 @@ website:   	http://www.themepunch.com
     padding-left: 25px;
     list-style: none;
     line-height: 27px;
-    margin: 0px;
+    margin: 0;
 }
 
 .theme2 .closer {
@@ -241,10 +242,10 @@ website:   	http://www.themepunch.com
     position: absolute;
 
     background: url("#{resource['images/assets/button:close_dark.png']}") no-repeat top;
-    right: 0px;
+    right: 0;
     margin-right: -10px;
     margin-top: -10px;
-    top: 0px;
+    top: 0;
     cursor: pointer;
     z-index: 10000;
 }
@@ -275,7 +276,7 @@ website:   	http://www.themepunch.com
     color: #777;
     padding: 5px 20px 5px 20px;
     text-align: center;
-    text-shadow: 1px 1px 0px #fff;
+    text-shadow: 1px 1px 0 #fff;
     /*url("#{resource['images/assets/button:btn_light.png']}")*/
     /*background: #999 url("#{resource['images/assets/button:btn_light.png']}") repeat-x center top;*/
     border: 1px solid #cdcdcd;
@@ -285,7 +286,7 @@ website:   	http://www.themepunch.com
 
 .buttonlight:hover, .comment-reply-link:hover {
     color: #fff;
-    text-shadow: 1px 1px 0px #000;
+    text-shadow: 1px 1px 0 #000;
     background: #333;
     border: 1px solid #555555;
     text-decoration: none;
@@ -309,7 +310,7 @@ website:   	http://www.themepunch.com
     color: #fff;
     padding: 0 20px 0 20px;
     text-align: center;
-    text-shadow: 1px 1px 0px #000;
+    text-shadow: 1px 1px 0 #000;
 
     background: #999 url("#{resource['images/assets/button:btn_dark.png']}") repeat-x center top;
     border: 1px solid #151515;
@@ -319,7 +320,7 @@ website:   	http://www.themepunch.com
 
 .buttondark:hover, .comment-reply-link:hover {
     color: #fff;
-    text-shadow: 1px 1px 0px #000;
+    text-shadow: 1px 1px 0 #000;
     background: #333;
     border: 1px solid #555555;
     text-decoration: none;
@@ -339,7 +340,7 @@ website:   	http://www.themepunch.com
     width: 30px;
     height: 45px;
     position: absolute;
-    left: 0px;
+    left: 0;
     top: 195px;
     z-index: 100;
     margin-left: -29px;
@@ -352,7 +353,7 @@ website:   	http://www.themepunch.com
     width: 30px;
     height: 45px;
     position: absolute;
-    left: 0px;
+    left: 0;
     top: 60px;
     z-index: 100;
     margin-left: -29px;
@@ -368,7 +369,7 @@ website:   	http://www.themepunch.com
     width: 30px;
     height: 45px;
     position: absolute;
-    right: 0px;
+    right: 0;
     top: 195px;
     z-index: 100;
     margin-right: -30px;
@@ -381,7 +382,7 @@ website:   	http://www.themepunch.com
     width: 30px;
     height: 45px;
     position: absolute;
-    right: 0px;
+    right: 0;
     top: 60px;
     z-index: 100;
     margin-right: -30px;

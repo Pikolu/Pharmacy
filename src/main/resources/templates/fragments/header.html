@@ -46,7 +46,12 @@
                     </div>
                     <script th:inline="javascript">
                         /*<![CDATA[*/
-                        var context = [[@{/live_suche}]];
+                        var context = [[;
+                        @
+                        {/
+                            live_suche
+                        }
+                        ]]
                         console.log(context);
                         /*]]>*/
                         jQuery(document).ready(function () {

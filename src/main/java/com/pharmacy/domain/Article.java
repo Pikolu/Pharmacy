@@ -166,9 +166,8 @@ public class Article implements Serializable {
 
         Article article = (Article) o;
 
-        if (!Objects.equals(id, article.id)) return false;
+        return Objects.equals(id, article.id);
 
-        return true;
     }
 
     @Override

@@ -54,7 +54,7 @@
 
                                         <td style="vertical-align: baseline;">
                                             <div style="margin-left: 25px; float: left;">
-                                                <h4 style="margin: 0px;">
+                                                <h4 style="margin: 0;">
                                                     <!--<%&#45;&#45;<c:url value="/produkte/${article.articelNumber}/${article.name}" var="check" />&#45;&#45;%>-->
                                                     <a th:href="${article.deepLink}" th:text="${article.name}">URL</a>
                                                 </h4>
@@ -70,15 +70,15 @@
                                                 jQuery(id).raty({
                                                     readOnly: true,
                                                     start: 3,
-                                                    path: [[
+                                                    path: [[;
                                                 @
                                                 {
-                                                    /images/
+                                                    /images/;
                                                     raiting /
                                                 }
                                                 ]]
                                                 })
-                                                ;
+
                                                 /*]]>*/</script>
                                                 <br/>
 
