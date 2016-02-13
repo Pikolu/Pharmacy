@@ -29,7 +29,7 @@ public class Article implements Serializable {
     private Long id;
 
     @Column(name = "name")
-    @Field(index = FieldIndex.analyzed, type = FieldType.String, store = true)
+    @Field(index = FieldIndex.analyzed, type = FieldType.String)
     private String name;
 
     @Size(max = 4000)

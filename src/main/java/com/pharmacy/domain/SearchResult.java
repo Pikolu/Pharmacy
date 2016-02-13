@@ -54,4 +54,14 @@ public class SearchResult {
     public void setSortOrder(SortOrder sortOrder) {
         this.sortOrder = sortOrder;
     }
+
+    @Override
+    public String toString() {
+        return "SearchResult{" +
+                "page=" + page +
+                ", pharmacies=" + pharmacies +
+                ", parameter='" + parameter + '\'' +
+                ", sortOrder=" + sortOrder +
+                '}';
+    }
 }

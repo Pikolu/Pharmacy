@@ -1,15 +1,11 @@
-package com.pharmacy.web;
+package com.pharmacy.web.rest;
 
 import com.pharmacy.domain.Article;
 import com.pharmacy.domain.SearchResult;
-import com.pharmacy.domain.User;
-import com.pharmacy.repository.utils.FilterOptions;
 import com.pharmacy.repository.utils.SortOrder;
 import com.pharmacy.service.api.ArticleService;
 import com.pharmacy.web.helper.ArticleHelper;
 import com.pharmacy.web.helper.URLHelper;
-import org.apache.commons.lang.StringUtils;
-import org.elasticsearch.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
@@ -17,10 +13,8 @@ import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
-import java.util.List;
 
 /**
  * Created by Alexander on 12.11.2015.

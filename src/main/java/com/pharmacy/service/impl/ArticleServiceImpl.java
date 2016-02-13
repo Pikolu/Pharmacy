@@ -5,12 +5,9 @@ import com.pharmacy.domain.SearchResult;
 import com.pharmacy.repository.ArticleRepository;
 import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.repository.search.PriceSearchRepository;
-import com.pharmacy.repository.utils.FilterOptions;
 import com.pharmacy.service.api.ArticleService;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.elasticsearch.common.collect.Collections2;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.facet.terms.TermsFacetBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
@@ -30,14 +27,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.inject.Inject;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 
 /**
+ * Pharmacy GmbH
  * Created by Alexander on 14.11.2015.
  */
+@SuppressWarnings("ALL")
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
@@ -56,6 +53,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public FacetedPage<Article> findArticlesByParameter(String parameter, Pageable pageable, SearchResult searchResult) {
+
+        Assert.notNull(pageable);
+        Assert.notNull(searchResult);
 
         //Sort
         SortBuilder sortBuilder = buildSortBuilder(searchResult.getSortOrder());
@@ -97,20 +97,22 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     private SortBuilder buildSortBuilder(com.pharmacy.repository.utils.SortOrder order) {
+        FieldSortBuilder sortBuilder;
         switch (order) {
             case NAME_ASC:
-                return new FieldSortBuilder("name").order(SortOrder.ASC);
+                sortBuilder = new FieldSortBuilder("name").order(SortOrder.ASC);
             case NAME_DESC:
-                return new FieldSortBuilder("name").order(SortOrder.DESC);
+                sortBuilder = new FieldSortBuilder("name").order(SortOrder.DESC);
             case PRICE_ASC:
-                return new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+                sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
             case PRICE_DESC:
-                return new FieldSortBuilder("prices.price").order(SortOrder.DESC);
+                sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.DESC);
             case RELEVANCE:
-                return new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+                sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
             default:
-                return new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+                sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
         }
+        return sortBuilder;
     }
 
     private SearchQuery buildSearchQuery(QueryBuilder queryBuilder, FacetRequest facetRequest, FilterBuilder filterBuilder, Pageable pageable, SortBuilder sortBuilder) {
