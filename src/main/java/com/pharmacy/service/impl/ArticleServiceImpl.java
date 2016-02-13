@@ -58,7 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
     public FacetedPage<Article> findArticlesByParameter(String parameter, Pageable pageable, SearchResult searchResult) {
 
         //Sort
-        SortBuilder sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+        SortBuilder sortBuilder = buildSortBuilder(searchResult.getSortOrder());
 
         //Facet builder for pharmacy names
         TermsFacetBuilder termsFacetBuilder = new TermsFacetBuilder("prices.pharmacy.name");
@@ -84,7 +84,6 @@ public class ArticleServiceImpl implements ArticleService {
         FacetedPage<Article> articles = articleSearchRepository.search(searchQuery);
 
         for (FacetResult facetResult : articles.getFacets()) {
-//            System.out.println(facetResult);
             if (facetResult instanceof TermResult) {
                 TermResult termResult = (TermResult) facetResult;
                 for (Term term : termResult.getTerms()) {
@@ -95,6 +94,23 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         return articles;
+    }
+
+    private SortBuilder buildSortBuilder(com.pharmacy.repository.utils.SortOrder order) {
+        switch (order) {
+            case NAME_ASC:
+                return new FieldSortBuilder("name").order(SortOrder.ASC);
+            case NAME_DESC:
+                return new FieldSortBuilder("name").order(SortOrder.DESC);
+            case PRICE_ASC:
+                return new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+            case PRICE_DESC:
+                return new FieldSortBuilder("prices.price").order(SortOrder.DESC);
+            case RELEVANCE:
+                return new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+            default:
+                return new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+        }
     }
 
     private SearchQuery buildSearchQuery(QueryBuilder queryBuilder, FacetRequest facetRequest, FilterBuilder filterBuilder, Pageable pageable, SortBuilder sortBuilder) {
