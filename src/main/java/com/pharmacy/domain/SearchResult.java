@@ -1,6 +1,6 @@
 package com.pharmacy.domain;
 
-import com.pharmacy.repository.utils.FilterOptions;
+import com.pharmacy.repository.utils.SortOrder;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 
 import java.util.List;
@@ -13,6 +13,7 @@ public class SearchResult {
     private FacetedPage<Article> page;
     private List<String> pharmacies;
     private String parameter;
+    private SortOrder sortOrder = SortOrder.RELEVANCE;
 
     public SearchResult() {
 
@@ -44,5 +45,13 @@ public class SearchResult {
 
     public void setParameter(String parameter) {
         this.parameter = parameter;
+    }
+
+    public SortOrder getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(SortOrder sortOrder) {
+        this.sortOrder = sortOrder;
     }
 }

@@ -16,13 +16,12 @@
                 <div class="box-content">
                     <div class="box-category">
                         <form th:object="${searchResult}" id="searchResult">
-                            <input type="hidden" th:field="*{parameter}" />
+                            <input type="hidden" th:field="*{parameter}"/>
                             <div th:with="facet=${searchResult.page.getFacet('prices.pharmacy.name')}">
                                 <div th:each="term : ${facet.terms}">
                                     <input type="checkbox" class="name-category-checkbox" th:field="*{pharmacies}"
                                            th:value="${term.term}" th:text="${term.term}"
                                            onclick="$('#searchResult').submit();"/>
-                                    <!--<input type="checkbox" th:value="${term.term}" th:text="${term.term}"/>-->
                                 </div>
                             </div>
                         </form>
@@ -33,7 +32,21 @@
 
 
         <div class="box" style="margin-left: 250px">
-            <div class="box-heading">Suchergebnisse zu <span th:text="${parameter}"></span></div>
+            <div class="box-heading">
+                <form th:object="${searchResult}" id="search-settings-order">
+                    <span>Suchergebnisse zu <span th:text="${parameter}"></span></span>
+                    <span style="float: right; text-transform: none; margin-right: 10px">
+                        <b>Sortiert nach:</b>
+                        <select th:field="*{sortOrder}" th:remove="all-but-first" onchange="$('#search-settings-order').submit();">
+                            <option th:each="order : ${sortOrders}" th:selected="${order == searchResult.sortOrder}"
+                                    th:value="${order}" th:text="${order.value}">Credit card
+                            </option>
+                            <option>Another payment method</option>
+                            <option>Another payment method</option>
+                        </select>
+                    </span>
+                </form>
+            </div>
             <div class="box-content">
                 <div id="resultsBlock" class="box-product">
                     <div style="padding: 10px;" th:if="${searchResult.page.getContent().isEmpty()}">
@@ -98,68 +111,34 @@
                            th:if="${!searchResult.page.getContent().isEmpty()}">
                         <tr>
                             <td>
-                                <a th:onclick="'javascript:updateResultList(\'' + ${parameter} + '\', \'' + ${searchResult.page.getNumber() -1} + '\');'"
+                                <a th:href="@{/suche(parameter=${parameter},page=${searchResult.page.getNumber() -1})}"
                                    th:if="${!searchResult.page.isFirst()}" style="float: right;">Zurück</a>
                             </td>
                             <td th:each="i : ${#numbers.sequence(0, searchResult.page.getTotalPages() -1)}"
                                 th:if="${searchResult.page.getTotalPages() le 6 and searchResult.page.getNumber() le 6}">
-                                <a th:text="${i +1}"
-                                   th:onclick="'javascript:updateResultList(\'' + ${parameter} + '\', \'' + ${i} + '\');'"
+                                <a th:href="@{/suche(parameter=${parameter},page=${i})}" th:text="${i +1}"
                                    th:if="${i != searchResult.page.getNumber() and !searchResult.page.getContent().isEmpty()}"></a>
-                                <span th:text="${i+1}"
-                                      th:if="${i == searchResult.page.getNumber() and !searchResult.page.getContent().isEmpty()}"></span>
+                            <span th:text="${i+1}"
+                                  th:if="${i == searchResult.page.getNumber() and !searchResult.page.getContent().isEmpty()}"></span>
                             </td>
 
                             <td th:each="i : ${#numbers.sequence(0, 9)}"
-                                th:if="${searchResult.page.getTotalPages() gt 6 and searchResult.page.getNumber() lt 6}">
-                                <a th:text="${i + 1}"
-                                   th:onclick="'javascript:updateResultList(\'' + ${parameter} + '\', \'' + ${i} + '\');'"
+                                th:if="${searchResult.page.getTotalPages() gt 6 and page.getNumber() lt 6}">
+                                <a th:href="@{/suche(parameter=${parameter},page=${i})}" th:text="${i + 1}"
                                    th:if="${i != searchResult.page.getNumber()}"></a>
-                                <span th:text="${i +1}" th:if="${i == searchResult.page.getNumber()}"></span>
+                                <span th:text="${i +1}" th:if="${i == page.getNumber()}"></span>
                             </td>
                             <td th:each="i : ${#numbers.sequence(searchResult.page.getNumber()-5, searchResult.page.getNumber() +4)}"
                                 th:if="${searchResult.page.getTotalPages() ge 6 and searchResult.page.getNumber() ge 6}">
-                                <a th:text="${i+1}"
-                                   th:onclick="'javascript:updateResultList(\'' + ${parameter} + '\', \'' + ${i} + '\');'"
+                                <a th:href="@{/suche(parameter=${parameter},page=${i})}" th:text="${i+1}"
                                    th:if="${i != searchResult.page.getNumber() and i lt searchResult.page.getTotalPages()}"></a>
                                 <span th:text="${i +1}" th:if="${i == searchResult.page.getNumber()}"></span>
                             </td>
 
                             <td>
-                                <a th:onclick="'javascript:updateResultList(\'' + ${parameter} + '\', \'' + ${searchResult.page.getNumber() +1} + '\');'"
+                                <a th:href="@{/suche(parameter=${parameter},page=${searchResult.page.getNumber() +1})}"
                                    th:if="${!searchResult.page.isLast()}" style="float: right;">Weiter</a>
                             </td>
-
-
-                            <!--<td>-->
-                            <!--<a th:href="@{/suche(parameter=${parameter},page=${searchResult.page.getNumber() -1})}"-->
-                            <!--th:if="${!searchResult.page.isFirst()}" style="float: right;">Zurück</a>-->
-                            <!--</td>-->
-                            <!--<td th:each="i : ${#numbers.sequence(0, searchResult.page.getTotalPages() -1)}"-->
-                            <!--th:if="${searchResult.page.getTotalPages() le 6 and searchResult.page.getNumber() le 6}">-->
-                            <!--<a th:href="@{/suche(parameter=${parameter},page=${i})}" th:text="${i +1}"-->
-                            <!--th:if="${i != searchResult.page.getNumber() and !searchResult.page.getContent().isEmpty()}"></a>-->
-                            <!--<span th:text="${i+1}"-->
-                            <!--th:if="${i == searchResult.page.getNumber() and !searchResult.page.getContent().isEmpty()}"></span>-->
-                            <!--</td>-->
-
-                            <!--<td th:each="i : ${#numbers.sequence(0, 9)}"-->
-                            <!--th:if="${searchResult.page.getTotalPages() gt 6 and page.getNumber() lt 6}">-->
-                            <!--<a th:href="@{/suche(parameter=${parameter},page=${i})}" th:text="${i + 1}"-->
-                            <!--th:if="${i != searchResult.page.getNumber()}"></a>-->
-                            <!--<span th:text="${i +1}" th:if="${i == page.getNumber()}"></span>-->
-                            <!--</td>-->
-                            <!--<td th:each="i : ${#numbers.sequence(searchResult.page.getNumber()-5, searchResult.page.getNumber() +4)}"-->
-                            <!--th:if="${searchResult.page.getTotalPages() ge 6 and searchResult.page.getNumber() ge 6}">-->
-                            <!--<a th:href="@{/suche(parameter=${parameter},page=${i})}" th:text="${i+1}"-->
-                            <!--th:if="${i != searchResult.page.getNumber() and i lt searchResult.page.getTotalPages()}"></a>-->
-                            <!--<span th:text="${i +1}" th:if="${i == searchResult.page.getNumber()}"></span>-->
-                            <!--</td>-->
-
-                            <!--<td>-->
-                            <!--<a th:href="@{/suche(parameter=${parameter},page=${searchResult.page.getNumber() +1})}"-->
-                            <!--th:if="${!searchResult.page.isLast()}" style="float: right;">Weiter</a>-->
-                            <!--</td>-->
                         </tr>
                     </table>
                 </div>
