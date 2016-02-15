@@ -8,6 +8,7 @@
 
 # Datenbank
 PostgreSQL
+
 DB-Name: adm
 
 Erstellung der Tabellen erfolgt über Liquibase.
