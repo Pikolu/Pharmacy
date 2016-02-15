@@ -4,3 +4,5 @@
 
 # Datenbank
 PostgreSQL
+Tabelle: adm
+Erstellung erfolgt über Liquibase
