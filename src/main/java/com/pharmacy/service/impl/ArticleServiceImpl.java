@@ -83,16 +83,6 @@ public class ArticleServiceImpl implements ArticleService {
         SearchQuery searchQuery = buildSearchQuery(queryBuilder, facetRequest, filterBuilder, pageable, sortBuilder);
         FacetedPage<Article> articles = articleSearchRepository.search(searchQuery);
 
-        for (FacetResult facetResult : articles.getFacets()) {
-            if (facetResult instanceof TermResult) {
-                TermResult termResult = (TermResult) facetResult;
-                for (Term term : termResult.getTerms()) {
-                    System.out.println(term.getTerm() + " : " + term.getCount());
-                }
-
-            }
-        }
-
         return articles;
     }
 

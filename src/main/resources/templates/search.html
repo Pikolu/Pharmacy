@@ -107,7 +107,7 @@
                             </tr>
                         </table>
 
-                        <table border="0" cellpadding="5" cellspacing="5" style="margin: auto;">
+                        <table border="0" cellpadding="5" cellspacing="5" style="margin: auto;" th:if="*{!facetedPage.getContent().isEmpty()}">
                             <tr>
                                 <td>
                                     <a th:href="@{/suche(parameter=*{parameter}, pharmacies=*{pharmacies}, sortOrder=*{sortOrder}, page=${currentPage - 1})}" style="float: right;" th:if="${currentPage > 1}">Zurück</a>

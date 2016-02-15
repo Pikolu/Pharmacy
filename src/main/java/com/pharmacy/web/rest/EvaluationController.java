@@ -2,6 +2,7 @@ package com.pharmacy.web.rest;
 
 import com.pharmacy.domain.Evaluation;
 import com.pharmacy.domain.Pharmacy;
+import com.pharmacy.domain.SearchResult;
 import com.pharmacy.service.api.PharmacyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,7 @@ public class EvaluationController extends AbstractController {
         } else {
             model.setViewName("login");
         }
+        model.addObject("searchResult", new SearchResult());
         return model;
     }
 
