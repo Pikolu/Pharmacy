@@ -6,6 +6,6 @@ pom.xml.next
 release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
-.idea/workspace.xml
+.idea
 hs_err_pid15120.log
 log.roo
