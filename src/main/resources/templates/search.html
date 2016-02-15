@@ -88,9 +88,9 @@
                                             </td>
                                             <td style="width: 130px; vertical-align: baseline;"
                                                 th:with="bestPrice=${articleHelper.getBestDiscount(article.prices)}">
-                                                <div>ab <span th:text="${bestPrice.price}"></span> €</div>
+                                                <div>ab <span th:text="${bestPrice.get().price}"></span> €</div>
                                                 <div style="color: #D14F4F">
-                                                    <span th:text="${bestPrice.discount}">discount</span>
+                                                    <span th:text="${bestPrice.get().discount}">discount</span>
                                                     %
                                                     <span> Ersparnis</span>
                                                 </div>

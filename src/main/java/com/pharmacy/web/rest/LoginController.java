@@ -1,5 +1,6 @@
 package com.pharmacy.web.rest;
 
+import com.pharmacy.domain.SearchResult;
 import com.pharmacy.domain.User;
 import com.pharmacy.exceptions.ControllerException;
 import com.pharmacy.exceptions.type.ExceptionType;
@@ -45,6 +46,7 @@ public class LoginController {
         } else {
             model.setViewName("login");
         }
+        model.addObject("searchResult", new SearchResult());
         return model;
     }
 
