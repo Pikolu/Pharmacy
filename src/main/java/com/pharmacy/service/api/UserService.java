@@ -9,22 +9,26 @@ import java.util.Optional;
  */
 public interface UserService {
 
-    public Optional<User> activateRegistration(String key);
+    Optional<User> activateRegistration(String key);
 
-    public Optional<User> completePasswordReset(String newPassword, String key);
+    Optional<User> completePasswordReset(String newPassword, String key);
 
-    public Optional<User> requestPasswordReset(String mail);
+    Optional<User> requestPasswordReset(String mail);
 
-    public User createUserInformation(String login, String password, String firstName, String lastName, String email,
-                                      String langKey);
+    User createUserInformation(String login, String password, String firstName, String lastName, String email,
+                               String langKey);
 
-    public void updateUserInformation(String firstName, String lastName, String email, String langKey);
+    void updateUserInformation(String firstName, String lastName, String email, String langKey);
 
-    public void changePassword(String password);
+    void changePassword(String password);
 
-    public Optional<User> getUserWithAuthoritiesByLogin(String login);
+    Optional<User> getUserWithAuthoritiesByLogin(String login);
 
-    public User getUserWithAuthorities(Long id);
+    User getUserWithAuthorities(Long id);
 
-    public User getUserWithAuthorities();
+    User getUserWithAuthorities();
+
+    User getUser(Long id);
+
+    Optional<User> findOneByEmail(String mail);
 }

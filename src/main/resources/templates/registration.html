@@ -37,7 +37,7 @@
                                 </td>
                                 <td>
                                     <input class="q1" name="login" type="text" th:field="*{login}"/>
-                                    <span th:if="${#fields.hasErrors('login')}" class="error">Bitte geben Sie Ihren Benutzername ein.</span>
+                                    <span th:if="${#fields.hasErrors('login')}" class="error" th:errors="*{login}">Bitte geben Sie Ihren Benutzername ein.</span>
                                 </td>
                             </tr>
                             <tr>
@@ -47,7 +47,7 @@
                                 </td>
                                 <td>
                                     <input class="q1" name="firstName" type="text" th:field="*{firstName}"/>
-                                    <span th:if="${#fields.hasErrors('firstName')}" class="error">Bitte geben Sie Ihren Vornamen ein.</span>
+                                    <span th:if="${#fields.hasErrors('firstName')}" class="error" th:errors="*{firstName}">Bitte geben Sie Ihren Vornamen ein.</span>
                                 </td>
                             </tr>
                             <tr>
@@ -57,7 +57,7 @@
                                 </td>
                                 <td>
                                     <input class="q1" name="lastName" type="text" th:field="*{lastName}"/>
-                                    <span th:if="${#fields.hasErrors('lastName')}" class="error">Bitte geben Sie Ihren Nachnamen ein.</span>
+                                    <span th:if="${#fields.hasErrors('lastName')}" class="error" th:errors="*{lastName}">Bitte geben Sie Ihren Nachnamen ein.</span>
                                 </td>
                             </tr>
                             <tr>
@@ -67,7 +67,7 @@
                                 </td>
                                 <td>
                                     <input class="q1" name="email" value="" type="text" th:field="*{email}"/>
-                                    <span th:if="${#fields.hasErrors('email')}" class="error">Bitte geben Sie Ihre E-Mail-Adresse ein.</span>
+                                    <span th:if="${#fields.hasErrors('email')}" class="error" th:errors="*{email}">Bitte geben Sie Ihre E-Mail-Adresse ein.</span>
                                 </td>
                             </tr>
                             </tbody>
@@ -104,7 +104,8 @@
                                     medizin-finder.de AGB
                                 </b>
                             </a>
-                            <input name="acceptedGeneralTerms" value="1" type="checkbox"/>
+                            <input name="acceptedGeneralTerms" value="1" type="checkbox" th:field="*{acceptedPrivacy}"/>
+                            <span th:if="${#fields.hasErrors('acceptedPrivacy')}" class="error" th:utext="#{message.PrivacyNotAccepted}">Bitte geben Sie Ihre E-Mail-Adresse ein.</span>
                             <a onclick="$('#register').submit();" class="button">
                                 <span>
                                     <span>Weiter</span>

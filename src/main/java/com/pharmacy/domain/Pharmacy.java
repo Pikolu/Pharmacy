@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldIndex;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,6 +28,7 @@ public class Pharmacy implements Serializable {
     private Long id;
 
     @Column(name = "name")
+    @Field(index = FieldIndex.not_analyzed, type = FieldType.String)
     private String name;
 
     @Column(name = "shipping")
@@ -132,9 +136,8 @@ public class Pharmacy implements Serializable {
 
         Pharmacy pharmacy = (Pharmacy) o;
 
-        if (!Objects.equals(id, pharmacy.id)) return false;
+        return Objects.equals(id, pharmacy.id);
 
-        return true;
     }
 
     @Override

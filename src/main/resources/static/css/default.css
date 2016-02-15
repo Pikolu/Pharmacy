@@ -416,8 +416,8 @@ h2 {
     width: 7px;
     float: right;
     display: inline-block;
-    padding: 0px;
-    margin: 0px 5px 0px 0px;
+    padding: 0;
+    margin: 0 5px 0 0;
 }
 
 #header #cart .heading span.cart-icon {
@@ -1445,7 +1445,7 @@ a.button:hover span {
 
 .box {
     border: 1px solid #E5E5E5;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .box .box-content.inform {
@@ -1469,7 +1469,7 @@ a.button:hover span {
 }
 
 .box-evaluation {
-    padding: 7px 0 0px !important;
+    padding: 7px 0 0 !important;
 }
 
 .box-shining {
@@ -5057,7 +5057,7 @@ hr {
 /*Modal dialog*/
 #simplemodal-container {
     height: 220px;
-    width: 490px;
+    width: 500px;
     background-color: #FFFFFF;
     border: 4px solid #e6e6e6;
     padding: 12px;

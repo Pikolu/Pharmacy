@@ -14,21 +14,20 @@
                     <ul>
                         <!--	###############		-	SLIDE 4	-	###############	 -->
                         <li th:each="article : ${articles}">
-                            <img th:width="150" th:height="110" th:class="thumb" src="${article.imageURL}"
+                            <img th:width="150" th:height="110" th:class="thumb" th:src="${article.imageURL}"
                                  data-bw="${article.imageURL}"/>
 
                             <div style="margin-top:16px"></div>
-                            <h2 style="height: 75px">${article.name}</h2>
+                            <h2 style="height: 75px" th:text="${article.name}">Name</h2>
 
-                            <p style="height: 100px; vertical-align: bottom;">${article.description}</p>
+                            <p style="height: 100px; vertical-align: bottom;" th:text="${article.description}">Beschreibung</p>
 
                             <div style="float: left; width: 60%">
-                                <span>ab</span>
-                                <span>Preis</span>
+                                <span th:text="${#numbers.formatDecimal(articleHelper.getBestDiscount(article.prices).get().price, 0, 'COMMA', 2, 'POINT') + ' €'}">Preis</span>
                             </div>
                             <div>
-                                <span style="float:left;width:40%;line-height:1em; font-size: 18px; color: #E31010">${bestPrice.discount} %</span>
-                                <span>Ersparnis</span>
+                                <span style="float:left;width:40%;line-height:1em; font-size: 18px; color: #E31010" th:text="${articleHelper.getBestDiscount(article.prices).get().discount + ' %'}">Preis</span>
+                                <span style="color: #E31010">Ersparnis</span>
                                 <!--<h:outputText style="float:left;width:40%;line-height:1em; font-size: 18px; color: #E31010" value="{article.discount} % " />-->
                                 <!--<h:outputText value="Ersparnis"/>-->
                             </div>
@@ -40,21 +39,25 @@
                             ***********************************************************************************************************
                             -->
                             <div class="page-more">
-                                <img width="150" height="110" class="big-image" src="${article.imageURL}"/>
+                                <img width="150" height="110" class="big-image" th:src="${article.imageURL}"/>
                                 <a class="buttonlight morebutton" style="position: relative; top: 175px; right: 186px;"
-                                   href="${checkPrice}">Zum Preisvergleich</a>
+                                   th:href="@{/preisvergleich/} + ${article.id} + '/' + ${urlEncoder.encodeURL(article.name)}">Zum Preisvergleich</a>
 
                                 <div style="overflow-y: scroll; height: 400px;">
                                     <div class="details_double">
-                                        <h2>${article.name}</h2>
+                                        <h2 th:text="${article.name}">Name</h2>
 
-                                        <p>${article.descriptionLong}</p>
+                                        <p th:text="${article.description}">Beschreibung</p>
                                     </div>
                                 </div>
                                 <div class="closer"></div>
                             </div>
                         </li>
                     </ul>
+                    <!--	###############		-	TOOLBAR (LEFT/RIGHT) BUTTONS	-	###############	 -->
+                    <div class="toolbar">
+                        <div class="left"></div><div class="right"></div>
+                    </div>
                 </div>
             </div>
             <script type="text/javascript">
@@ -73,7 +76,7 @@
                                 height: 448,
                                 slideAmount: 5,
                                 slideSpacing: 30,
-                                carousel: "on",
+                                carousel: "off",
                                 touchenabled: "off",
                                 mouseWheel: "off",
                                 hoverAlpha: "off", // Turns Alpha Fade on/off by Hovering

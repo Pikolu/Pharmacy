@@ -72,14 +72,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_date", nullable = true)
     private ZonedDateTime resetDate = null;
 
-    public User() {
-
-    }
-
-    public User(String login) {
-        this.login = login;
-    }
-
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -93,6 +85,17 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PersistentToken> persistentTokens = new HashSet<>();
+
+    @Column(name = "accepted_privacy")
+    private Boolean acceptedPrivacy;
+
+    public User() {
+
+    }
+
+    public User(String login) {
+        this.login = login;
+    }
 
     public Long getId() {
         return id;
@@ -198,6 +201,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.persistentTokens = persistentTokens;
     }
 
+    public Boolean getAcceptedPrivacy() {
+        return acceptedPrivacy;
+    }
+
+    public void setAcceptedPrivacy(Boolean acceptedPrivacy) {
+        this.acceptedPrivacy = acceptedPrivacy;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -209,11 +220,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
         User user = (User) o;
 
-        if (!login.equals(user.login)) {
-            return false;
-        }
+        return login.equals(user.login);
 
-        return true;
     }
 
     @Override

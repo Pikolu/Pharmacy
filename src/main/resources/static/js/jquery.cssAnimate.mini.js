@@ -297,4 +297,4 @@
     };
     a.fn.cssOriginal = a.fn.css;
 
-})(jQuery)
+})(jQuery);

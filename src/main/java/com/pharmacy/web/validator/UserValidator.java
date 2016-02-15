@@ -2,6 +2,7 @@ package com.pharmacy.web.validator;
 
 import com.pharmacy.domain.User;
 import com.pharmacy.service.api.UserService;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import javax.inject.Inject;
+import java.util.Optional;
 
 /**
  * Created by Alexander on 28.12.2015.
@@ -46,10 +48,19 @@ public class UserValidator implements Validator {
         if (StringUtils.isBlank(user.getEmail())) {
             errors.rejectValue("email", "message.EmptyEmail");
         } else {
+
             EmailValidator emailValidator = EmailValidator.getInstance();
             if (!emailValidator.isValid(user.getEmail())) {
                 errors.rejectValue("email", "message.NotValidEmail");
+            } else {
+                Optional<User> currentUser = userService.findOneByEmail(user.getEmail());
+                if (currentUser.isPresent() && currentUser.get().getEmail().equals(user.getEmail())) {
+                    errors.rejectValue("email", "message.AlreadyInUseEmail");
+                }
             }
+        }
+        if (BooleanUtils.isFalse(user.getAcceptedPrivacy())) {
+            errors.rejectValue("acceptedPrivacy", "message.PrivacyNotAccepted");
         }
 
         validatePassword(user.getPassword(), errors);

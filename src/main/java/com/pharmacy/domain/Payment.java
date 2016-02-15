@@ -67,9 +67,8 @@ public class Payment implements Serializable {
 
         Payment payment = (Payment) o;
 
-        if (!Objects.equals(id, payment.id)) return false;
+        return Objects.equals(id, payment.id);
 
-        return true;
     }
 
     @Override

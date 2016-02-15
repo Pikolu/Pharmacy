@@ -23,7 +23,7 @@ public enum ExceptionType {
     private String resourceKey;
     private String description;
 
-    private ExceptionType(LogLevel logLevel, String resourceKey, String description) {
+    ExceptionType(LogLevel logLevel, String resourceKey, String description) {
         this.logLevel = logLevel;
         this.resourceKey = resourceKey;
         this.description = description;

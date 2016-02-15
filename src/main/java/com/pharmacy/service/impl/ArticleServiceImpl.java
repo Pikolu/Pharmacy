@@ -1,34 +1,44 @@
 package com.pharmacy.service.impl;
 
 import com.pharmacy.domain.Article;
+import com.pharmacy.domain.SearchResult;
+import com.pharmacy.exceptions.PersistenceException;
 import com.pharmacy.repository.ArticleRepository;
 import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.repository.search.PriceSearchRepository;
 import com.pharmacy.service.api.ArticleService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.facet.FacetBuilders;
-import org.elasticsearch.search.facet.range.RangeFacetBuilder;
+import org.elasticsearch.index.query.*;
+import org.elasticsearch.index.search.NumericRangeFieldDataFilter;
+import org.elasticsearch.search.facet.terms.TermsFacetBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.facet.FacetRequest;
+import org.springframework.data.elasticsearch.core.facet.FacetResult;
 import org.springframework.data.elasticsearch.core.facet.request.NativeFacetRequest;
+import org.springframework.data.elasticsearch.core.facet.result.Term;
+import org.springframework.data.elasticsearch.core.facet.result.TermResult;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.inject.Inject;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 
 /**
+ * Pharmacy GmbH
  * Created by Alexander on 14.11.2015.
  */
+@SuppressWarnings("ALL")
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
@@ -46,31 +56,84 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public FacetedPage<Article> findArticlesByParameter(String parameter, Pageable pageable) {
+    public FacetedPage<Article> findArticlesByParameter(String parameter, Pageable pageable, SearchResult searchResult) {
 
+        Assert.notNull(pageable);
+        Assert.notNull(searchResult);
 
-        RangeFacetBuilder test = FacetBuilders.rangeFacet("f")
-                .field("prices.price")         // Field to compute on
-                .addUnboundedFrom(10)    // from -infinity to 3 (excluded)
-                .addRange(10, 20)         // from 3 to 6 (excluded)
-                .addUnboundedTo(20);     // from 6 to +infinity
+        //Sort
+        SortBuilder sortBuilder = buildSortBuilder(searchResult.getSortOrder());
 
+        //Facet builder for pharmacy names
+        TermsFacetBuilder termsFacetBuilder = new TermsFacetBuilder("prices.pharmacy.name");
+        termsFacetBuilder.field("prices.pharmacy.name");
+        FacetRequest facetRequest = new NativeFacetRequest(termsFacetBuilder);
 
-        FacetRequest facetRequest = new NativeFacetRequest(test);
-
+        //creates query for elastic search
         QueryBuilder queryBuilder;
         if (StringUtils.isBlank(parameter)) {
             queryBuilder = QueryBuilders.wildcardQuery("name", "*");
         } else {
-            queryBuilder = QueryBuilders.wildcardQuery("name", "*" + parameter.toLowerCase() + "*");//QueryBuilders.matchQuery("name", parameter);
+            queryBuilder = QueryBuilders.wildcardQuery("name", "*" + parameter.toLowerCase() + "*");
         }
 
-        SortBuilder sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+        // build filter for the elastic search
+        FilterBuilder filterBuilder= null;
+        if (CollectionUtils.isNotEmpty(searchResult.getPharmacies())) {
+            filterBuilder = buildAndFilter("prices.pharmacy.name", searchResult.getPharmacies());
 
-        SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(queryBuilder).withFacet(facetRequest).withPageable(pageable).withSort(sortBuilder).build();
+        }
 
+        SearchQuery searchQuery = buildSearchQuery(queryBuilder, facetRequest, filterBuilder, pageable, sortBuilder);
         FacetedPage<Article> articles = articleSearchRepository.search(searchQuery);
 
+        return articles;
+    }
+
+    private SortBuilder buildSortBuilder(com.pharmacy.repository.utils.SortOrder order) {
+        FieldSortBuilder sortBuilder;
+        switch (order) {
+            case NAME_ASC:
+                sortBuilder = new FieldSortBuilder("name").order(SortOrder.ASC);
+            case NAME_DESC:
+                sortBuilder = new FieldSortBuilder("name").order(SortOrder.DESC);
+            case PRICE_ASC:
+                sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+            case PRICE_DESC:
+                sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.DESC);
+            case RELEVANCE:
+                sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+            default:
+                sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+        }
+        return sortBuilder;
+    }
+
+    private SearchQuery buildSearchQuery(QueryBuilder queryBuilder, FacetRequest facetRequest, FilterBuilder filterBuilder, Pageable pageable, SortBuilder sortBuilder) {
+        SearchQuery searchQuery = new NativeSearchQueryBuilder().
+                withQuery(queryBuilder).
+                withFacet(facetRequest).
+                withFilter(filterBuilder).
+                withPageable(pageable).
+                withSort(sortBuilder).
+                build();
+        return searchQuery;
+    }
+
+    private OrFilterBuilder buildAndFilter(String name, List<String> values) {
+        OrFilterBuilder filterBuilder = FilterBuilders.orFilter();
+
+        values.forEach(e -> {
+            TermFilterBuilder termFilterBuilder = FilterBuilders.termFilter(name, e);
+            filterBuilder.add(termFilterBuilder);
+        });
+
+        return filterBuilder;
+    }
+
+    public List<Article> loadBestDiscountedArticles() {
+        Pageable topTen = new PageRequest(0, 10);
+        List<Article> articles = articleRepository.loadBestDiscountedArticles(topTen);
         return articles;
     }
 

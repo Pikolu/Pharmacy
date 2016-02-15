@@ -36,35 +36,40 @@
                         <img th:class="logo" th:src="@{/images/logo1.png}"/>
                     </a>
                 </div>
-                <form th:id="searchForm" action="#" th:action="@{/suche}" th:method="GET">
+                <form th:id="searchForm" action="#" th:action="@{/suche}" th:method="GET" th:object="${searchResult}">
                     <div th:id="search">
                         <div th:class="button-search"></div>
                         <span th:class="search-bg">
-                            <input th:class="input" th:id="globar_search_input" th:type="text" th:name="parameter"
-                                   th:value="${parameter != null} ? ${parameter} : ''"/>
+                            <input th:class="input" th:id="globar_search_input" th:type="text" th:name="parameter" th:field="*{parameter}"
+                                   th:value="*{parameter != null} ? *{parameter} : ''"/>
                         </span>
                     </div>
-                    <script th:inline="javascript">
-                        /*<![CDATA[*/
-                        var context = [[@{/live_suche}]];
-                        console.log(context);
-                        /*]]>*/
-                        jQuery(document).ready(function () {
-                            jQuery('#globar_search_input').autocomplete({
-                                serviceUrl: context,
-                                paramName: "parameter",
-                                delimiter: ",",
-                                transformResult: function (response) {
-                                    return {
-                                        suggestions: $.map($.parseJSON(response), function (item) {
+                    <!--<script th:inline="javascript">-->
+                        <!--/*<![CDATA[*/-->
+                        <!--var context = [[;-->
+                        <!--@-->
+                        <!--{/-->
+                            <!--live_suche-->
+                        <!--}-->
+                        <!--]]-->
+                        <!--console.log(context);-->
+                        <!--/*]]>*/-->
+                        <!--jQuery(document).ready(function () {-->
+                            <!--jQuery('#globar_search_input').autocomplete({-->
+                                <!--serviceUrl: context,-->
+                                <!--paramName: "parameter",-->
+                                <!--delimiter: ",",-->
+                                <!--transformResult: function (response) {-->
+                                    <!--return {-->
+                                        <!--suggestions: $.map($.parseJSON(response), function (item) {-->
 
-                                            return {value: item.name, data: item.id};
-                                        })
-                                    };
-                                }
-                            });
-                        });
-                    </script>
+                                            <!--return {value: item.name, data: item.id};-->
+                                        <!--})-->
+                                    <!--};-->
+                                <!--}-->
+                            <!--});-->
+                        <!--});-->
+                    <!--</script>-->
                 </form>
 
                 <div th:id="cart">

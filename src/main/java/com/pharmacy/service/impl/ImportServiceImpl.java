@@ -49,14 +49,23 @@ public class ImportServiceImpl implements ImportService {
     public void importCSVFile() {
         InputStream inputStream = null;
         Long PHARMACY_ID = 1003L;
+        Long PHARMACY_ID_TWO = 1004L;
+        boolean first = true;
         Pharmacy pharmacy = pharmacyRepository.findOne(PHARMACY_ID);
+        Pharmacy pharmacy2 = pharmacyRepository.findOne(PHARMACY_ID_TWO);
         try {
             inputStream = new FileInputStream("C:\\Users\\Alexander\\Dropbox\\Mappe1.csv");
             List<List<String>> csvList = parseCsv(inputStream, ';');
             Article article;
             assert csvList != null;
             for (List<String> attr : csvList) {
-                article = getArticle(attr, pharmacy);
+                if (first) {
+                    article = getArticle(attr, pharmacy);
+                    first = false;
+                } else {
+                    article = getArticle(attr, pharmacy2);
+                    first = true;
+                }
                 Article saveArticle = articleRepository.save(article);
                 articleSearchRepository.save(saveArticle);
             }

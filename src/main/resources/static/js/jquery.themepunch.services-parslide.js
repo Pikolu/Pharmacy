@@ -130,7 +130,7 @@
 
             })
         }
-    })
+    });
 
 
     ///////////////////////////////
@@ -224,7 +224,7 @@
 
                         var $this = $(this);
 
-                        $this.data('id', $this.data('id') - 1)
+                        $this.data('id', $this.data('id') - 1);
                         if ($this.data('id') < 0) $this.data('id', opt.maxitem - 1);
 
                     });
@@ -305,7 +305,7 @@
                     right.css({'display': 'block'});
                     top.find('ul:first >li .slide').each(function () {
                         var $this = $(this);
-                        $this.data('id', $this.data('id') + 1)
+                        $this.data('id', $this.data('id') + 1);
                         if ($this.data('id') == opt.maxitem) $this.data('id', 0);
                     });
                     reSlideItems(top, opt, 1);
@@ -323,7 +323,7 @@
         var $this = $(this);
 
         // TURN ON SLIDE BUTTONS
-        sideButtons(opt, "visible")
+        sideButtons(opt, "visible");
 
         opt.top.animate({'top': (opt.height * 1.5) + "px"}, {duration: 500, queue: false});
         opt.actSlide = slide.parent().index();
@@ -370,7 +370,6 @@
 
             opt.callBack.call();
         }
-        ;
     }
 
 
@@ -433,9 +432,7 @@
             }
         });
 
-    };
-
-
+    }
     ///////////////////////////////////////////
     //	--	Set the Containers of Slides --	 //
     ///////////////////////////////////////////
@@ -445,7 +442,7 @@
         opt.positionArray = [];
         opt.positionArray[0] = 0 - opt.slidewidths;
 
-        top.find('ul:first').wrap('<div style="position:absolute;top:0px;left:0px" class="services-wrapper-top"></div>');
+        top.find('ul:first').wrap('<div style="position:absolute;top:0;left:0" class="services-wrapper-top"></div>');
         opt.top = top.find('.services-wrapper-top');
         opt.maxitem = 0;
 
@@ -498,8 +495,6 @@
             var bl = parseInt(img.css('border-left-width'), 0);
             var pl = parseInt(img.css('paddingLeft'), 0);
             var ml = parseInt(img.css('marginLeft'), 0);
-            ;
-
             if (!bl > 0) bl = 0;
             if (!pl > 0) pl = 0;
             if (!ml > 0) ml = 0;
@@ -540,7 +535,7 @@
                                 utarget = slide.find('.morebutton').attr('target');
                             window.open(slide.find('.morebutton').attr('href'), utarget);
                         }
-                    })
+                    });
 
 
             if (opt.hovereffect == "on") {
@@ -648,7 +643,7 @@
                         if ($this.data('link') == true)
                             var plus = item.find('.hover-blog-link-sign');
                         else
-                            var plus = item.find('.hover-more-sign')
+                            var plus = item.find('.hover-more-sign');
 
                         plus.cssStop(true, true);
 
@@ -691,8 +686,8 @@
 
         opt.positionArray[opt.maxitem + 1] = (opt.slidewidths + opt.slideSpacing) * (opt.maxitems + 1) + opt.slideSpacing;
 
-        sideButtons(opt, "visible")
-        if (opt.maxitem <= opt.slideAmount) sideButtons(opt, "none")
+        sideButtons(opt, "visible");
+        if (opt.maxitem <= opt.slideAmount) sideButtons(opt, "none");
         top.find('ul:first').css({'visibility': 'visible'});
     }
 
