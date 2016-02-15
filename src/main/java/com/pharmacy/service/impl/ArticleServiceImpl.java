@@ -2,6 +2,7 @@ package com.pharmacy.service.impl;
 
 import com.pharmacy.domain.Article;
 import com.pharmacy.domain.SearchResult;
+import com.pharmacy.exceptions.PersistenceException;
 import com.pharmacy.repository.ArticleRepository;
 import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.repository.search.PriceSearchRepository;
@@ -9,11 +10,13 @@ import com.pharmacy.service.api.ArticleService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.index.query.*;
+import org.elasticsearch.index.search.NumericRangeFieldDataFilter;
 import org.elasticsearch.search.facet.terms.TermsFacetBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.facet.FacetRequest;
@@ -27,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.inject.Inject;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 
@@ -125,6 +129,12 @@ public class ArticleServiceImpl implements ArticleService {
         });
 
         return filterBuilder;
+    }
+
+    public List<Article> loadBestDiscountedArticles() {
+        Pageable topTen = new PageRequest(0, 10);
+        List<Article> articles = articleRepository.loadBestDiscountedArticles(topTen);
+        return articles;
     }
 
     @Override

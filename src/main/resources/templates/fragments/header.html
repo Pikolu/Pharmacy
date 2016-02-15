@@ -44,32 +44,32 @@
                                    th:value="*{parameter != null} ? *{parameter} : ''"/>
                         </span>
                     </div>
-                    <script th:inline="javascript">
-                        /*<![CDATA[*/
-                        var context = [[;
-                        @
-                        {/
-                            live_suche
-                        }
-                        ]]
-                        console.log(context);
-                        /*]]>*/
-                        jQuery(document).ready(function () {
-                            jQuery('#globar_search_input').autocomplete({
-                                serviceUrl: context,
-                                paramName: "parameter",
-                                delimiter: ",",
-                                transformResult: function (response) {
-                                    return {
-                                        suggestions: $.map($.parseJSON(response), function (item) {
+                    <!--<script th:inline="javascript">-->
+                        <!--/*<![CDATA[*/-->
+                        <!--var context = [[;-->
+                        <!--@-->
+                        <!--{/-->
+                            <!--live_suche-->
+                        <!--}-->
+                        <!--]]-->
+                        <!--console.log(context);-->
+                        <!--/*]]>*/-->
+                        <!--jQuery(document).ready(function () {-->
+                            <!--jQuery('#globar_search_input').autocomplete({-->
+                                <!--serviceUrl: context,-->
+                                <!--paramName: "parameter",-->
+                                <!--delimiter: ",",-->
+                                <!--transformResult: function (response) {-->
+                                    <!--return {-->
+                                        <!--suggestions: $.map($.parseJSON(response), function (item) {-->
 
-                                            return {value: item.name, data: item.id};
-                                        })
-                                    };
-                                }
-                            });
-                        });
-                    </script>
+                                            <!--return {value: item.name, data: item.id};-->
+                                        <!--})-->
+                                    <!--};-->
+                                <!--}-->
+                            <!--});-->
+                        <!--});-->
+                    <!--</script>-->
                 </form>
 
                 <div th:id="cart">
