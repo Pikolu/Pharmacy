@@ -23,7 +23,7 @@
                             <p style="height: 100px; vertical-align: bottom;" th:text="${article.description}">Beschreibung</p>
 
                             <div style="float: left; width: 60%">
-                                <span th:text="${articleHelper.getBestDiscount(article.prices).get().price + ' €'}">Preis</span>
+                                <span th:text="${#numbers.formatDecimal(articleHelper.getBestDiscount(article.prices).get().price, 0, 'COMMA', 2, 'POINT') + ' €'}">Preis</span>
                             </div>
                             <div>
                                 <span style="float:left;width:40%;line-height:1em; font-size: 18px; color: #E31010" th:text="${articleHelper.getBestDiscount(article.prices).get().discount + ' %'}">Preis</span>
@@ -41,7 +41,7 @@
                             <div class="page-more">
                                 <img width="150" height="110" class="big-image" th:src="${article.imageURL}"/>
                                 <a class="buttonlight morebutton" style="position: relative; top: 175px; right: 186px;"
-                                   th:href="${checkPrice}">Zum Preisvergleich</a>
+                                   th:href="@{/preisvergleich/} + ${article.id} + '/' + ${urlEncoder.encodeURL(article.name)}">Zum Preisvergleich</a>
 
                                 <div style="overflow-y: scroll; height: 400px;">
                                     <div class="details_double">

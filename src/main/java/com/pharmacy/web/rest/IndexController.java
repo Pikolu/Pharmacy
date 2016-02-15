@@ -5,6 +5,7 @@ import com.pharmacy.domain.SearchResult;
 import com.pharmacy.service.api.ArticleService;
 import com.pharmacy.service.api.ImportService;
 import com.pharmacy.web.helper.ArticleHelper;
+import com.pharmacy.web.helper.URLHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,7 @@ public class IndexController extends AbstractController {
         modelAndView.addObject("searchResult", new SearchResult());
         modelAndView.addObject("articles", articles);
         modelAndView.addObject("articleHelper", new ArticleHelper());
+        modelAndView.addObject("urlEncoder", new URLHelper());
         return modelAndView;
     }
 
