@@ -112,9 +112,8 @@ public class Price implements Serializable {
 
         Price price = (Price) o;
 
-        if (!Objects.equals(id, price.id)) return false;
+        return Objects.equals(id, price.id);
 
-        return true;
     }
 
     @Override

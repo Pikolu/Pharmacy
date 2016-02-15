@@ -1,5 +1,6 @@
-package com.pharmacy.web;
+package com.pharmacy.web.rest;
 
+import com.pharmacy.domain.SearchResult;
 import com.pharmacy.domain.User;
 import com.pharmacy.service.api.UserService;
 import com.pharmacy.web.validator.UserValidator;
@@ -71,6 +72,7 @@ public class RegistrationController {
     public ModelAndView initRegistrition() {
         LOG.trace("Enter showContacts");
         modelAndView = new ModelAndView(REGISTRATION, "command", new User(""));
+        modelAndView.addObject("searchResult", new SearchResult());
         LOG.trace("Exit initRegistrition: modelAndView={}", modelAndView);
         return modelAndView;
     }

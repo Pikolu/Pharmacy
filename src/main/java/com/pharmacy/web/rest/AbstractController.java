@@ -1,4 +1,4 @@
-package com.pharmacy.web;
+package com.pharmacy.web.rest;
 
 import com.pharmacy.config.SecurityUtils;
 import com.pharmacy.security.CustomUserDetails;

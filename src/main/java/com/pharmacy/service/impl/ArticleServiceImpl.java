@@ -5,12 +5,9 @@ import com.pharmacy.domain.SearchResult;
 import com.pharmacy.repository.ArticleRepository;
 import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.repository.search.PriceSearchRepository;
-import com.pharmacy.repository.utils.FilterOptions;
 import com.pharmacy.service.api.ArticleService;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.elasticsearch.common.collect.Collections2;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.facet.terms.TermsFacetBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
@@ -30,14 +27,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.inject.Inject;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 
 /**
+ * Pharmacy GmbH
  * Created by Alexander on 14.11.2015.
  */
+@SuppressWarnings("ALL")
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
@@ -57,8 +54,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public FacetedPage<Article> findArticlesByParameter(String parameter, Pageable pageable, SearchResult searchResult) {
 
+        Assert.notNull(pageable);
+        Assert.notNull(searchResult);
+
         //Sort
-        SortBuilder sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+        SortBuilder sortBuilder = buildSortBuilder(searchResult.getSortOrder());
 
         //Facet builder for pharmacy names
         TermsFacetBuilder termsFacetBuilder = new TermsFacetBuilder("prices.pharmacy.name");
@@ -84,7 +84,6 @@ public class ArticleServiceImpl implements ArticleService {
         FacetedPage<Article> articles = articleSearchRepository.search(searchQuery);
 
         for (FacetResult facetResult : articles.getFacets()) {
-//            System.out.println(facetResult);
             if (facetResult instanceof TermResult) {
                 TermResult termResult = (TermResult) facetResult;
                 for (Term term : termResult.getTerms()) {
@@ -95,6 +94,25 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         return articles;
+    }
+
+    private SortBuilder buildSortBuilder(com.pharmacy.repository.utils.SortOrder order) {
+        FieldSortBuilder sortBuilder;
+        switch (order) {
+            case NAME_ASC:
+                sortBuilder = new FieldSortBuilder("name").order(SortOrder.ASC);
+            case NAME_DESC:
+                sortBuilder = new FieldSortBuilder("name").order(SortOrder.DESC);
+            case PRICE_ASC:
+                sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+            case PRICE_DESC:
+                sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.DESC);
+            case RELEVANCE:
+                sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+            default:
+                sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+        }
+        return sortBuilder;
     }
 
     private SearchQuery buildSearchQuery(QueryBuilder queryBuilder, FacetRequest facetRequest, FilterBuilder filterBuilder, Pageable pageable, SortBuilder sortBuilder) {

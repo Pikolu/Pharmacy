@@ -13,7 +13,7 @@ public class FilterOptions {
 
     private List<String> pharmacies;
 
-    private SortOrder sortOrder = SortOrder.UNSORTED;
+    private SortOrder sortOrder = SortOrder.RELEVANCE;
 
     public void addPharmacies(TermResult termResult) {
         this.pharmacies = termResult.getTerms().stream().map(Term::getTerm).collect(Collectors.toList());

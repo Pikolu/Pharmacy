@@ -136,9 +136,8 @@ public class Pharmacy implements Serializable {
 
         Pharmacy pharmacy = (Pharmacy) o;
 
-        if (!Objects.equals(id, pharmacy.id)) return false;
+        return Objects.equals(id, pharmacy.id);
 
-        return true;
     }
 
     @Override

@@ -1,6 +1,7 @@
-package com.pharmacy.web;
+package com.pharmacy.web.rest;
 
 import com.pharmacy.domain.Article;
+import com.pharmacy.domain.SearchResult;
 import com.pharmacy.exceptions.ServiceException;
 import com.pharmacy.service.api.ArticleService;
 import com.pharmacy.web.helper.ArticleHelper;
@@ -31,6 +32,7 @@ public class PriceCheckController extends AbstractController {
             ArticleHelper.sortPrice(article.getPrices());
             modelAndView.addObject("article", article);
             modelAndView.addObject("articleHelper", new ArticleHelper());
+            modelAndView.addObject("searchResult", new SearchResult());
         } catch (ServiceException | NumberFormatException e) {
         }
         return modelAndView;

@@ -416,8 +416,8 @@ h2 {
     width: 7px;
     float: right;
     display: inline-block;
-    padding: 0px;
-    margin: 0px 5px 0px 0px;
+    padding: 0;
+    margin: 0 5px 0 0;
 }
 
 #header #cart .heading span.cart-icon {
@@ -1469,7 +1469,7 @@ a.button:hover span {
 }
 
 .box-evaluation {
-    padding: 7px 0 0px !important;
+    padding: 7px 0 0 !important;
 }
 
 .box-shining {

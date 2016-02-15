@@ -124,9 +124,8 @@ public class Evaluation implements Serializable {
 
         Evaluation evaluation = (Evaluation) o;
 
-        if (!Objects.equals(id, evaluation.id)) return false;
+        return Objects.equals(id, evaluation.id);
 
-        return true;
     }
 
     @Override
