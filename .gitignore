@@ -9,3 +9,5 @@ buildNumber.properties
 hs_err_pid15120.log
 log.roo
 pharmacy-web.iml
+.idea/dataSources.ids
+.idea/dataSources.local.xml

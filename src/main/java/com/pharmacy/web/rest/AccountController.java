@@ -1,5 +1,6 @@
 package com.pharmacy.web.rest;
 
+import com.pharmacy.domain.SearchResult;
 import com.pharmacy.domain.User;
 import com.pharmacy.security.CustomUserDetails;
 import com.pharmacy.service.api.UserService;
@@ -41,6 +42,7 @@ public class AccountController extends AbstractController {
         } else {
             page = "login";
         }
+        model.addAttribute("searchResult", new SearchResult());
         return page;
     }
 
