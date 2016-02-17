@@ -3,6 +3,7 @@ package com.pharmacy.web.rest;
 import com.pharmacy.domain.Evaluation;
 import com.pharmacy.domain.Pharmacy;
 import com.pharmacy.domain.SearchResult;
+import com.pharmacy.service.api.EvaluationService;
 import com.pharmacy.service.api.PharmacyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,8 @@ public class EvaluationController extends AbstractController {
 
     @Inject
     private PharmacyService pharmacyService;
+    @Inject
+    private EvaluationService evaluationService;
 
     @RequestMapping(value = "/bewertungen", method = RequestMethod.GET)
     public ModelAndView initEvaluations() {
@@ -51,6 +54,7 @@ public class EvaluationController extends AbstractController {
         modelAndView.addObject("evaluations", new Evaluation());
         modelAndView.addObject("pharm", pharm);
         modelAndView.addObject("pharmacies", pharmacies);
+        modelAndView.addObject("searchResult", new SearchResult());
         return modelAndView;
     }
 
@@ -60,6 +64,7 @@ public class EvaluationController extends AbstractController {
         modelAndView = new ModelAndView("evaluate", "evaluation", new Evaluation());
         Pharmacy pharmacy = pharmacyService.getPharmacyById(pharmId);
         modelAndView.addObject("pharmacy", pharmacy);
+        modelAndView.addObject("searchResult", new SearchResult());
         return modelAndView;
     }
 
@@ -68,9 +73,10 @@ public class EvaluationController extends AbstractController {
         ModelAndView modelAndView = null;
         modelAndView = new ModelAndView("evaluate", "evaluation", new Evaluation());
         Pharmacy pharmacy = pharmacyService.getPharmacyById(pharmId);
-        pharmacy.getEvaluations().add(evaluation);
+        evaluation.setPharmacy(pharmacy);
         modelAndView.addObject("pharmacy", pharmacy);
-        pharmacyService.save(pharmacy);
+        modelAndView.addObject("searchResult", new SearchResult());
+        evaluationService.save(evaluation);
         return modelAndView;
     }
 }

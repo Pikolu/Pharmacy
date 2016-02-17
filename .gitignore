@@ -6,7 +6,8 @@ pom.xml.next
 release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
-.idea
 hs_err_pid15120.log
 log.roo
 pharmacy-web.iml
+.idea/dataSources.ids
+.idea/dataSources.local.xml
