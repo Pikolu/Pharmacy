@@ -18,4 +18,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("SELECT a FROM Article a LEFT JOIN a.prices p ORDER BY p.discount DESC")
     List<Article> loadBestDiscountedArticles(Pageable pageable);
+
+    @Query("SELECT a FROM Article a WHERE a.exported = false")
+    List<Article> findArticlesForExport(Pageable pageable);
 }
