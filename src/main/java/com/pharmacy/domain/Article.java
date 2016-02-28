@@ -29,7 +29,7 @@ public class Article implements Serializable {
     private Long id;
 
     @Column(name = "name")
-    @Field(index = FieldIndex.analyzed, type = FieldType.String)
+    @Field(index = FieldIndex.analyzed, type = FieldType.String, store = true)
     private String name;
 
     @Size(max = 4000)
@@ -63,6 +63,9 @@ public class Article implements Serializable {
 
     @Column(name = "concentration")
     private Float concentration;
+
+    @Column(name = "exported")
+    private Boolean exported;
 
     public Long getId() {
         return id;
@@ -153,6 +156,14 @@ public class Article implements Serializable {
 
     public void setConcentration(Float concentration) {
         this.concentration = concentration;
+    }
+
+    public Boolean getExported() {
+        return exported;
+    }
+
+    public void setExported(Boolean exported) {
+        this.exported = exported;
     }
 
     @Override

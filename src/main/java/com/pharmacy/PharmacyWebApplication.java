@@ -8,12 +8,14 @@ import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @SpringBootApplication
 @EnableConfigurationProperties(LiquibaseProperties.class)
+@EnableScheduling
 public class PharmacyWebApplication {
 
     private static final Logger log = LoggerFactory.getLogger(PharmacyWebApplication.class);
