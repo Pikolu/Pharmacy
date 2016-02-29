@@ -90,15 +90,20 @@ public class ArticleServiceImpl implements ArticleService {
         FieldSortBuilder sortBuilder;
         switch (order) {
             case NAME_ASC:
-                sortBuilder = new FieldSortBuilder("name").order(SortOrder.ASC);
+                sortBuilder = new FieldSortBuilder("sortName").order(SortOrder.ASC);
+                break;
             case NAME_DESC:
-                sortBuilder = new FieldSortBuilder("name").order(SortOrder.DESC);
+                sortBuilder = new FieldSortBuilder("sortName").order(SortOrder.DESC);
+                break;
             case PRICE_ASC:
                 sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+                break;
             case PRICE_DESC:
                 sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.DESC);
+                break;
             case RELEVANCE:
                 sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
+                break;
             default:
                 sortBuilder = new FieldSortBuilder("prices.price").order(SortOrder.ASC);
         }

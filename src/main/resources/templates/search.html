@@ -18,7 +18,7 @@
                         <div class="box-category">
                             <input type="hidden" th:field="*{parameter}"/>
 
-                            <div th:with="facet=${searchResult.facetedPage.getFacet('prices.pharmacy.name')}">
+                            <div th:with="facet=${searchResult.facetedPage.getFacet('prices.pharmacy.name')}" style="height: 100px; overflow: auto">
                                 <div th:each="term : ${facet.terms}">
                                     <input type="checkbox" class="name-category-checkbox" th:field="*{pharmacies}"
                                            th:value="${term.term}" th:text="${term.term}"

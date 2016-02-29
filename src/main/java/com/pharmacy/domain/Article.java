@@ -29,8 +29,12 @@ public class Article implements Serializable {
     private Long id;
 
     @Column(name = "name")
-    @Field(index = FieldIndex.analyzed, type = FieldType.String, store = true)
+    @Field(index = FieldIndex.analyzed, type = FieldType.String)
     private String name;
+
+    @Column(name = "sort_name")
+    @Field(index = FieldIndex.not_analyzed, type = FieldType.String)
+    private String sortName;
 
     @Size(max = 4000)
     @Column(name = "description", length = 4000)
@@ -81,6 +85,14 @@ public class Article implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSortName() {
+        return sortName;
+    }
+
+    public void setSortName(String sortName) {
+        this.sortName = sortName;
     }
 
     public String getDescription() {
