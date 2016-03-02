@@ -17,6 +17,7 @@
     <include file="config/liquibase/changelog/20160128-2319_changelog.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20160227-1637_changelog.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20160227-2258_quartz_tables.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20160229-2204_changelog.xml" relativeToChangelogFile="false"/>
 
 
     <!-- JHipster will add liquibase changelogs here -->

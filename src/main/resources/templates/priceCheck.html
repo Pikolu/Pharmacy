@@ -70,19 +70,13 @@
                                                 jQuery(id).raty({
                                                     readOnly: true,
                                                     start: 3,
-                                                    path: [[;
-                                                @
-                                                {
-                                                    /images/;
-                                                    raiting /
-                                                }
-                                                ]]
-                                                })
+                                                    path: [[@{/images/raiting/}]]
+                                                });
 
                                                 /*]]>*/</script>
                                                 <br/>
 
-                                                <a th:href="${pharmacyURL}">Apothekenprofil</a>
+                                                <a th:href="@{/apotheke/{id}/{name}(id=${price.pharmacy.id},name=${price.pharmacy.name})}">Apothekenprofil</a>
                                                 <br/><br/>
 
                                                 <!--<span th:each="payment : ${price.pharmacy.paymentTypes}">-->

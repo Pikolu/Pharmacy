@@ -30,8 +30,11 @@ public class ExporterServiceImpl implements ExporterService {
     @Override
     public void exportArticles() {
         List<Article> articles = articleRepository.findArticlesForExport(new PageRequest(0, DEFAULT_SIZE));
-        articles.stream().forEach(e -> e.setExported(true));
-        articleSearchRepository.save(articles);
-        articleRepository.save(articles);
+        if (articles != null && !articles.isEmpty()) {
+            articles.stream().forEach(e -> e.setExported(true));
+            articleSearchRepository.save(articles);
+            articleRepository.save(articles);
+        }
+
     }
 }
