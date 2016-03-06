@@ -73,6 +73,7 @@ public class EvaluationController extends AbstractController {
         ModelAndView modelAndView = null;
         modelAndView = new ModelAndView("evaluate", "evaluation", new Evaluation());
         Pharmacy pharmacy = pharmacyService.getPharmacyById(pharmId);
+        evaluation.setActive(false);
         evaluation.setPharmacy(pharmacy);
         modelAndView.addObject("pharmacy", pharmacy);
         modelAndView.addObject("searchResult", new SearchResult());
