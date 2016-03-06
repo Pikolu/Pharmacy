@@ -47,6 +47,18 @@ public class Pharmacy implements Serializable {
     @Field(type = FieldType.String)
     private String city;
 
+    @Column(name = "phone_number", length = 12)
+    @Field(type = FieldType.String)
+    private String phoneNumber;
+
+    @Column(name = "fax", length = 12)
+    @Field(type = FieldType.String)
+    private String fax;
+
+    @Column(name = "home_page", length = 100)
+    @Field(type = FieldType.String)
+    private String homePage;
+
     @Column(name = "shipping")
     private Double shipping;
 
@@ -64,6 +76,7 @@ public class Pharmacy implements Serializable {
     private Set<Payment> payments = new HashSet<>();
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private User user;
 
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -85,6 +98,62 @@ public class Pharmacy implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    public String getHomePage() {
+        return homePage;
+    }
+
+    public void setHomePage(String homePage) {
+        this.homePage = homePage;
     }
 
     public Double getShipping() {
