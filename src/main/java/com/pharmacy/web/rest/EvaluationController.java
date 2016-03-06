@@ -48,7 +48,7 @@ public class EvaluationController extends AbstractController {
     }
 
     @RequestMapping(value = "/apotheken", method = RequestMethod.GET)
-    public ModelAndView findPharmacy(@RequestParam String pharm, HttpServletRequest request, HttpSession session, Pageable pageable) {
+    public ModelAndView findPharmacy(@RequestParam String pharm, Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("evaluations");
         final Page<Pharmacy> pharmacies = pharmacyService.getPharmacyByName(pharm, pageable);
         modelAndView.addObject("evaluations", new Evaluation());
@@ -73,6 +73,7 @@ public class EvaluationController extends AbstractController {
         ModelAndView modelAndView = null;
         modelAndView = new ModelAndView("evaluate", "evaluation", new Evaluation());
         Pharmacy pharmacy = pharmacyService.getPharmacyById(pharmId);
+        evaluation.setActive(false);
         evaluation.setPharmacy(pharmacy);
         modelAndView.addObject("pharmacy", pharmacy);
         modelAndView.addObject("searchResult", new SearchResult());

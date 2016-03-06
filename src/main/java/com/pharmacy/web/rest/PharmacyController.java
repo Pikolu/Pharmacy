@@ -3,6 +3,7 @@ package com.pharmacy.web.rest;
 import com.pharmacy.domain.Pharmacy;
 import com.pharmacy.domain.SearchResult;
 import com.pharmacy.service.api.PharmacyService;
+import org.apache.commons.math3.analysis.function.Abs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ import javax.inject.Inject;
  * Created by Alexander on 01.03.2016.
  */
 @Controller
-public class PharmacyController {
+public class PharmacyController extends AbstractController {
 
     private final static Logger LOG = LoggerFactory.getLogger(PharmacyController.class);
 
