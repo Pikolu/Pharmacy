@@ -18,9 +18,9 @@
                         <h3 style="margin: 0px;">${pharm}</h3>
                         <span th:text="${pharmacy.user.firstName}">Name</span>
                         <br />
-                        <span>${pharmacy.user.address.address}</span>
+                        <span>${pharmacy.steet} ${pharmacy.houseNumber}</span>
                         <br />
-                        <span>${pharmacy.user.address.postCode} ${pharmacy.user.address.city}</span>
+                        <span>${pharmacy.ZipCode} ${pharmacy.city}</span>
                         <br /><br />
                         <span>Telefon: ${pharmacy.user.phoneNumber}</span>
                         <br />

@@ -31,6 +31,22 @@ public class Pharmacy implements Serializable {
     @Field(index = FieldIndex.not_analyzed, type = FieldType.String)
     private String name;
 
+    @Column(name = "street", length = 100)
+    @Field(type = FieldType.String)
+    private String street;
+
+    @Column(name = "house_number", length = 100)
+    @Field(type = FieldType.String)
+    private String houseNumber;
+
+    @Column(name = "zip_code")
+    @Field(type = FieldType.Integer)
+    private int zipCode;
+
+    @Column(name = "city", length = 100)
+    @Field(type = FieldType.String)
+    private String city;
+
     @Column(name = "shipping")
     private Double shipping;
 
