@@ -25,13 +25,13 @@
                         <span th:text="${pharmacy.ZipCode}">POST Code</span>
                         <span th:text="${pharmacy.city}">City</span>
                         <br /><br />
-                        <!--<span>Telefon: <span th:text="${pharmacy.user.phoneNumber}"></span></span>-->
-                        <!--<br />-->
-                        <!--<span>Telefax: ${pharmacy.user.fax}</span>-->
-                        <!--<br />-->
+                        <span>Telefon: <span th:text="${pharmacy.phoneNumber}"></span></span>
+                        <br />
+                        <span>Telefax: <span th:text="${pharmacy.fax}"></span></span>
+                        <br />
                         <span>E-Mail: <a th:href="'mailto:' + ${pharmacy.user.email}" th:text="${pharmacy.user.email}">E-Mail</a></span>
                         <br />
-                        <!--<span>Internet: <a th:href="${pharmacy.user.homePage}">${pharmacy.user.homePage}</a></span>-->
+                        <span>Internet: <a th:href="${pharmacy.homePage}" th:text="${pharmacy.homePage}" target="_blank"></a></span>
                     </div>
                 </div>
             </div>
