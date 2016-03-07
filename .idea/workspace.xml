@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c720340d-f1bb-4ddd-8d4d-054d9db07f54" name="Default" comment="test">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/pharmacy/domain/Payment.java" afterPath="$PROJECT_DIR$/src/main/java/com/pharmacy/domain/Payment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/search.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/search.html" />
     </list>
     <ignored path="pharmacy-web.iws" />
@@ -109,8 +108,8 @@
       <file leaf-file-name="search.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/search.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.36653388">
-              <caret line="90" column="120" selection-start-line="90" selection-start-column="120" selection-end-line="90" selection-end-column="120" />
+            <state vertical-scroll-proportion="0.50199205">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1066,12 +1065,12 @@
       <workItem from="1457210218703" duration="5512000" />
       <workItem from="1457277537253" duration="4487000" />
       <workItem from="1457300610853" duration="1874000" />
-      <workItem from="1457382154274" duration="1405000" />
+      <workItem from="1457382154274" duration="1766000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="392826000" />
+    <option name="totallyTimeSpent" value="393187000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1083,7 +1082,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1645,8 +1644,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/search.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36653388">
-          <caret line="90" column="120" selection-start-line="90" selection-start-column="120" selection-end-line="90" selection-end-column="120" />
+        <state vertical-scroll-proportion="0.50199205">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
