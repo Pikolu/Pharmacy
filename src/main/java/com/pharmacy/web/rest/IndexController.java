@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
@@ -48,4 +49,15 @@ public class IndexController extends AbstractController {
         Assert.notNull(model);
         importService.importCSVFile();
     }
+
+    @RequestMapping("/robots.txt")
+    @ResponseBody
+    public String getRobotsTXT() {
+        StringBuilder result = new StringBuilder();
+        result.append("User-agent: ").append("*")
+                .append("\n")
+                .append("Disallow:");
+        return result.toString();
+    }
+
 }
