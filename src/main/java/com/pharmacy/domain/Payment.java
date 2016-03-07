@@ -25,12 +25,13 @@ public class Payment implements Serializable {
     private Long id;
 
     @Column(name = "name")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private String name;
 
-    @ManyToMany(mappedBy = "payments")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Pharmacy> pharmacys = new HashSet<>();
+//    @ManyToMany(mappedBy = "payments")
+//    @JsonIgnore
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+//    private Set<Pharmacy> pharmacys = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -48,13 +49,13 @@ public class Payment implements Serializable {
         this.name = name;
     }
 
-    public Set<Pharmacy> getPharmacys() {
-        return pharmacys;
-    }
-
-    public void setPharmacys(Set<Pharmacy> pharmacys) {
-        this.pharmacys = pharmacys;
-    }
+//    public Set<Pharmacy> getPharmacys() {
+//        return pharmacys;
+//    }
+//
+//    public void setPharmacys(Set<Pharmacy> pharmacys) {
+//        this.pharmacys = pharmacys;
+//    }
 
     @Override
     public boolean equals(Object o) {

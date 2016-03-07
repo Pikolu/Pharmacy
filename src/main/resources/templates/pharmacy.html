@@ -46,43 +46,11 @@
                     <div>
                         <h2>Zahlungsarten</h2>
                         <hr/>
-                        <div th:each="payment : pharmacy.payments">
+                        <div th:each="payment : ${pharmacy.payments}">
                             <div style="margin: 5px 0 5px 0;">
-                                <img th:src='@{/images/ + ${payment.name}}' alt='${payment.name}' />
+                                <img th:src="@{/images/payment/} + ${payment.name} + '.png' " th:alt="${payment.name}"/>
                             </div>
                         </div>
-
-                        <!--<c:forEach items="${pharmacy.paymentTypes}" var="payment">-->
-                            <!--<c:if test="${payment.name() eq 'PAY_PAL'}">-->
-                                <!--<div style="margin: 5px 0 5px 0;">-->
-                                    <!--<img src="" />-->
-                                <!--</div>-->
-                            <!--</c:if>-->
-
-                            <!--<c:if test="${payment.name() eq 'KREDIT_CARD'}">-->
-                                <!--<div style="margin: 5px 0 5px 0;">-->
-                                    <!--<img src="" />-->
-                                <!--</div>-->
-                            <!--</c:if>-->
-
-                            <!--<c:if test="${payment.name() eq 'DIRECT_BANKING'}">-->
-                                <!--<div style="margin: 5px 0 5px 0;">-->
-                                    <!--<img src=""/>-->
-                                <!--</div>-->
-                            <!--</c:if>-->
-
-                            <!--<c:if test="${payment.name() eq 'DEBIT'}">-->
-                                <!--<div style="margin: 5px 0 5px 0;">-->
-                                    <!--<img src="" />-->
-                                <!--</div>-->
-                            <!--</c:if>-->
-
-                            <!--<c:if test="${payment.name() eq 'DEBIT'}">-->
-                                <!--<div style="margin: 5px 0 5px 0;">-->
-                                    <!--<img src="" />-->
-                                <!--</div>-->
-                            <!--</c:if>-->
-                        <!--</c:forEach>-->
                     </div>
                     <div style="margin-top: 50px">
                         <h2>Versandkosten</h2>
