@@ -6,6 +6,7 @@ import com.pharmacy.service.api.ArticleService;
 import com.pharmacy.service.api.ImportService;
 import com.pharmacy.web.helper.ArticleHelper;
 import com.pharmacy.web.helper.URLHelper;
+import com.redfin.sitemapgenerator.WebSitemapGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.List;
 
 /**
@@ -58,6 +62,27 @@ public class IndexController extends AbstractController {
                 .append("\n")
                 .append("Disallow:");
         return result.toString();
+    }
+
+    @RequestMapping("/sitemap.xml")
+    public @ResponseBody String generateSitemap(HttpServletRequest request) {
+
+        String scheme = request.getScheme();             // http
+        String serverName = request.getServerName();     // hostname.com
+
+        StringBuilder url = new StringBuilder();
+        url.append(scheme).append("://").append(serverName);
+
+        try {
+            WebSitemapGenerator wsg = new WebSitemapGenerator(url.toString(), new File("/"));
+            wsg.addUrl(url.toString() + "/index.html"); // repeat multiple times
+            wsg.write();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        String sitemap = "";
+        return sitemap;
     }
 
 }

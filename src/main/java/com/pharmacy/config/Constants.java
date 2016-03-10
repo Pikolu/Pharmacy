@@ -18,6 +18,12 @@ public final class Constants {
 
     public static final String SECURITY_REMERBERME_KEY = "4d0d1e0cad915f2075e65279bbc20a952bfe11d7";
 
+    //E-mail addresses for send the notification
+    public static final String SENDER_E_MAIL = "noname@gmail.com";
+    public static final String RECIPIENT_E_MAIL = "apopow@gmail.com";
+
+
+
     private Constants() {
     }
 }
