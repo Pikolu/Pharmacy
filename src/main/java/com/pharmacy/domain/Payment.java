@@ -1,15 +1,12 @@
 package com.pharmacy.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A Payment.
@@ -25,12 +22,8 @@ public class Payment implements Serializable {
     private Long id;
 
     @Column(name = "name")
-    private String name;
-
-    @ManyToMany(mappedBy = "payments")
-    @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Pharmacy> pharmacys = new HashSet<>();
+    private String name;
 
     public Long getId() {
         return id;
@@ -46,14 +39,6 @@ public class Payment implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Pharmacy> getPharmacys() {
-        return pharmacys;
-    }
-
-    public void setPharmacys(Set<Pharmacy> pharmacys) {
-        this.pharmacys = pharmacys;
     }
 
     @Override
