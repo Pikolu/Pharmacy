@@ -32,7 +32,7 @@ public class ThymeleafConfiguration {
     public MessageSource emailMessageSource() {
         log.info("loading non-reloadable mail messages resources");
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:/mails/messages/messages");
+        messageSource.setBasename("classpath:/i18n/messages");
         messageSource.setDefaultEncoding(CharEncoding.UTF_8);
         return messageSource;
     }
