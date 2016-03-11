@@ -1,5 +1,6 @@
 package com.pharmacy.web.rest;
 
+import com.pharmacy.domain.SearchResult;
 import com.pharmacy.domain.pojo.ContactForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,12 +19,14 @@ public class ContactController extends AbstractController {
     public ModelAndView initContactForm(ModelAndView model) {
         model.setViewName("contact");
         model.addObject("contactForm", new ContactForm());
+        model.addObject("searchResult", new SearchResult());
         return model;
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView registration(@ModelAttribute("contactForm") ContactForm user, BindingResult result) {
+    @RequestMapping(value = "/kontakt", method = RequestMethod.POST)
+    public ModelAndView validateAndSendEmail(@ModelAttribute("contactForm") ContactForm user, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("searchResult", new SearchResult());
         return modelAndView;
     }
 
