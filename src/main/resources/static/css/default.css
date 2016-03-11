@@ -3418,6 +3418,9 @@ ul {
     width: 315px;
 }
 
+#contactForm .q1 {
+    width: 315px;
+}
 #evaluationForm select {
     width: 322px;
 }
@@ -5100,4 +5103,12 @@ hr {
 /* Overlay */
 #simplemodal-overlay {
     background-color: #000;
+}
+
+textarea {
+    resize: none;
+}
+
+.contact-form-wrapper {
+    width: 489px;
 }

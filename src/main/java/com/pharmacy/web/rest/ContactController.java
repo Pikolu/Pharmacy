@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ContactController extends AbstractController {
 
-    @RequestMapping(value = "/kontakt")
+    @RequestMapping(value = "/kontakt", method = RequestMethod.GET)
     public ModelAndView initContactForm(ModelAndView model) {
         model.setViewName("contact");
         model.addObject("contactForm", new ContactForm());
