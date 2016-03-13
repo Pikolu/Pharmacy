@@ -5112,3 +5112,12 @@ textarea {
 .contact-form-wrapper {
     width: 489px;
 }
+
+.info {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E5E5E5;
+    clear: both;
+    margin: 20px auto;
+    overflow: hidden;
+    padding: 20px;
+}

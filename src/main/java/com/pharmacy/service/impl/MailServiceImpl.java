@@ -16,16 +16,19 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
+import javax.activation.FileTypeMap;
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 import java.util.Locale;
+import java.util.Properties;
 
 /**
  * Pharmacy GmbH
  * Created by Alexander on 12.03.2016.
  */
 @Service
-public class MailServiceImpl implements MailService {
+public class MailServiceImpl {
 
     private final Logger LOG = LoggerFactory.getLogger(MailServiceImpl.class);
 
@@ -36,7 +39,6 @@ public class MailServiceImpl implements MailService {
     private MessageSource messageSource;
 
     @Async
-    @Override
     public void sendContactEmail(ContactForm contactForm, String baseUrl){
         LOG.debug("Sending e-mail from '{}'", contactForm.getEmail());
         Locale locale = Locale.GERMAN;
@@ -51,13 +53,23 @@ public class MailServiceImpl implements MailService {
         LOG.debug("Send e-mail[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
                 isMultipart, isHtml, to, subject, content);
 
+        Properties props = System.getProperties();
+        String host = "smtp-relay.gmail.com";
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.user", to);
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+
 //         Prepare message using a Spring helper
-        JavaMailSender javaMailSender = new JavaMailSenderImpl();
+        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+        javaMailSender.setPassword("K.568136");
+
+        javaMailSender.setJavaMailProperties(props);
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper message = new MimeMessageHelper(mimeMessage, isMultipart, CharEncoding.UTF_8);
             message.setTo(to);
-            message.setFrom(Constants.SENDER_E_MAIL);
+            message.setFrom(to);
             message.setSubject(subject);
             message.setText(content, isHtml);
             javaMailSender.send(mimeMessage);

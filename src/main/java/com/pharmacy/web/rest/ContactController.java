@@ -3,6 +3,7 @@ package com.pharmacy.web.rest;
 import com.pharmacy.domain.SearchResult;
 import com.pharmacy.domain.pojo.ContactForm;
 import com.pharmacy.service.api.MailService;
+import com.pharmacy.service.impl.MailServiceImpl;
 import com.pharmacy.web.validator.ContactValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,7 @@ public class ContactController extends AbstractController {
     private ContactValidator contactValidator;
 
     @Inject
-    private MailService mailService;
+    private MailServiceImpl mailService;
 
     @RequestMapping(value = "/kontakt", method = RequestMethod.GET)
     public ModelAndView initContactForm(ModelAndView model) {
@@ -43,7 +44,8 @@ public class ContactController extends AbstractController {
             modelAndView = new ModelAndView("contact");
             modelAndView.addObject("contactForm", contactForm);
         } else {
-            modelAndView = new ModelAndView("index");
+            modelAndView = new ModelAndView("redirect:/index?contactSuccessful=true");
+            modelAndView.addObject("contactSuccessful", true);
             String baseUrl = request.getScheme() + // "http"
                     "://" +                                // "://"
                     request.getServerName() +              // "myhost"

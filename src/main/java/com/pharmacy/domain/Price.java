@@ -37,11 +37,11 @@ public class Price implements Serializable {
     @Column(name = "price")
     private Double price;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @Field(type = FieldType.Object, index = FieldIndex.not_analyzed)
     private Pharmacy pharmacy;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     private Article article;
 

@@ -6,6 +6,7 @@ import com.pharmacy.service.api.ArticleService;
 import com.pharmacy.service.api.ImportService;
 import com.pharmacy.web.helper.ArticleHelper;
 import com.pharmacy.web.helper.URLHelper;
+import com.redfin.sitemapgenerator.SitemapIndexGenerator;
 import com.redfin.sitemapgenerator.WebSitemapGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Alexander on 09.11.2015.
@@ -37,9 +41,11 @@ public class IndexController extends AbstractController {
     private ArticleService articleService;
 
     @RequestMapping(value = {"/", "/index", "/welcome**"}, method = RequestMethod.GET)
-    public ModelAndView index() {
+    public ModelAndView index(HttpServletRequest request) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
         List<Article> articles = articleService.loadBestDiscountedArticles();
         ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addAllObjects(parameterMap);
         modelAndView.addObject("searchResult", new SearchResult());
         modelAndView.addObject("articles", articles);
         modelAndView.addObject("articleHelper", new ArticleHelper());
@@ -65,24 +71,35 @@ public class IndexController extends AbstractController {
     }
 
     @RequestMapping("/sitemap.xml")
-    public @ResponseBody String generateSitemap(HttpServletRequest request) {
+    public
+    @ResponseBody
+    String generateSitemap(HttpServletRequest request) {
 
-        String scheme = request.getScheme();             // http
-        String serverName = request.getServerName();     // hostname.com
-
-        StringBuilder url = new StringBuilder();
-        url.append(scheme).append("://").append(serverName);
+        String baseUrl = request.getScheme() + // "http"
+                "://" +                                // "://"
+                request.getServerName() +              // "myhost"
+                ":" +                                  // ":"
+                request.getServerPort();               // "80"
 
         try {
-            WebSitemapGenerator wsg = new WebSitemapGenerator(url.toString(), new File("/"));
-            wsg.addUrl(url.toString() + "/index.html"); // repeat multiple times
-            wsg.write();
+            WebSitemapGenerator wsg = new WebSitemapGenerator(baseUrl, new File("/"));
+            Iterable<Article> articles = articleService.findAll();
+            articles.forEach(e -> {
+                try {
+                    wsg.addUrl(baseUrl + "/preisvergleich/" + e.getId() + "/" + URLEncoder.encode(e.getName(), "UTF-8")); // repeat multiple times
+                } catch (MalformedURLException | UnsupportedEncodingException ex) {
+                    ex.printStackTrace();
+                }
+            });
+            List<File> sitemaps = wsg.write();
+
+            if (sitemaps.size() > 0){
+                wsg.writeSitemapsWithIndex();
+            }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
-        String sitemap = "";
-        return sitemap;
+        return "";
     }
 
 }

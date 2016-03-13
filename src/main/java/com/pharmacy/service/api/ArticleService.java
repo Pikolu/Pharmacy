@@ -28,4 +28,6 @@ public interface ArticleService extends Job {
     List<Article> loadBestDiscountedArticles();
 
     void execute(JobExecutionContext var1) throws JobExecutionException;
+
+    Iterable<Article> findAll();
 }
