@@ -31,6 +31,10 @@ public class Pharmacy implements Serializable {
     @Field(index = FieldIndex.not_analyzed, type = FieldType.String)
     private String name;
 
+    @Column(name = "owner_name")
+    @Field(index = FieldIndex.not_analyzed, type = FieldType.String)
+    private String ownerName;
+
     @Column(name = "street", length = 100)
     @Field(type = FieldType.String)
     private String street;
@@ -75,10 +79,6 @@ public class Pharmacy implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "payments_id", referencedColumnName = "ID"))
     private Set<Payment> payments = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private User user;
-
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -98,6 +98,14 @@ public class Pharmacy implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public String getStreet() {
@@ -189,14 +197,6 @@ public class Pharmacy implements Serializable {
 
     public void setPayments(Set<Payment> payments) {
         this.payments = payments;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Set<Evaluation> getEvaluations() {

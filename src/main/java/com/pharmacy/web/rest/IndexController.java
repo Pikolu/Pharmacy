@@ -6,8 +6,10 @@ import com.pharmacy.service.api.ArticleService;
 import com.pharmacy.service.api.ImportService;
 import com.pharmacy.web.helper.ArticleHelper;
 import com.pharmacy.web.helper.URLHelper;
+import com.redfin.sitemapgenerator.ChangeFreq;
 import com.redfin.sitemapgenerator.SitemapIndexGenerator;
 import com.redfin.sitemapgenerator.WebSitemapGenerator;
+import com.redfin.sitemapgenerator.WebSitemapUrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -60,17 +63,17 @@ public class IndexController extends AbstractController {
         importService.importCSVFile();
     }
 
-    @RequestMapping("/robots.txt")
-    @ResponseBody
-    public String getRobotsTXT() {
-        StringBuilder result = new StringBuilder();
-        result.append("User-agent: ").append("*")
-                .append("\n")
-                .append("Disallow:");
-        return result.toString();
-    }
+//    @RequestMapping("/robots.txt")
+//    @ResponseBody
+//    public String getRobotsTXT() {
+//        StringBuilder result = new StringBuilder();
+//        result.append("User-agent: ").append("*")
+//                .append("\n")
+//                .append("Disallow:");
+//        return result.toString();
+//    }
 
-    @RequestMapping("/sitemap.xml")
+    @RequestMapping("/sitemap_generator")
     public
     @ResponseBody
     String generateSitemap(HttpServletRequest request) {
@@ -82,18 +85,20 @@ public class IndexController extends AbstractController {
                 request.getServerPort();               // "80"
 
         try {
-            WebSitemapGenerator wsg = new WebSitemapGenerator(baseUrl, new File("/"));
+            WebSitemapGenerator wsg = new WebSitemapGenerator(baseUrl, new File("D:\\Workspace\\Pharmacy\\src\\main\\webapp"));
             Iterable<Article> articles = articleService.findAll();
             articles.forEach(e -> {
                 try {
-                    wsg.addUrl(baseUrl + "/preisvergleich/" + e.getId() + "/" + URLEncoder.encode(e.getName(), "UTF-8")); // repeat multiple times
+                    WebSitemapUrl url = new WebSitemapUrl.Options(baseUrl + "/preisvergleich/" + e.getId() + "/" + URLEncoder.encode(e.getName(), "UTF-8"))
+                            .lastMod(new Date()).priority(1.0).changeFreq(ChangeFreq.WEEKLY).build();
+                    wsg.addUrl(url); // repeat multiple times
                 } catch (MalformedURLException | UnsupportedEncodingException ex) {
                     ex.printStackTrace();
                 }
             });
             List<File> sitemaps = wsg.write();
 
-            if (sitemaps.size() > 0){
+            if (sitemaps.size() > 1){
                 wsg.writeSitemapsWithIndex();
             }
         } catch (MalformedURLException e) {
