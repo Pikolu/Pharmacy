@@ -41,7 +41,11 @@ public class ContactController extends AbstractController {
         contactValidator.validate(contactForm, result);
         ModelAndView modelAndView;
         if (result.hasErrors()) {
-            modelAndView = new ModelAndView("contact");
+            if (contactForm.isError()) {
+                modelAndView = new ModelAndView("error");
+            } else {
+                modelAndView = new ModelAndView("contact");
+            }
             modelAndView.addObject("contactForm", contactForm);
         } else {
             modelAndView = new ModelAndView("redirect:/index?contactSuccessful=true");

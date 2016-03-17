@@ -4,9 +4,12 @@
 <head>
 </head>
 <body>
-<form id="contactForm" th:object="${contactForm}" method="POST" th:fragment="contactForm">
+<form id="contactForm" th:object="${contactForm}" method="POST" th:fragment="contactForm" th:action="@{/kontakt}">
 
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+    <input type="hidden" th:field="*{error}" th:value="*{error}"/>
+
 
     <div class="content">
         <table class="form">
