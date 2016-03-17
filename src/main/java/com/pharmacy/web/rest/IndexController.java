@@ -73,6 +73,12 @@ public class IndexController extends AbstractController {
 //        return result.toString();
 //    }
 
+    @RequestMapping("/404")
+    public ModelAndView page404() {
+        ModelAndView modelAndView = new ModelAndView("redirect:404");
+        return modelAndView;
+    }
+
     @RequestMapping("/sitemap_generator")
     public
     @ResponseBody
