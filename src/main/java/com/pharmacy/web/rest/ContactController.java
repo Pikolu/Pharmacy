@@ -2,18 +2,31 @@ package com.pharmacy.web.rest;
 
 import com.pharmacy.domain.SearchResult;
 import com.pharmacy.domain.pojo.ContactForm;
+import com.pharmacy.service.api.MailService;
+import com.pharmacy.service.impl.MailServiceImpl;
+import com.pharmacy.web.validator.ContactValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Pharmacy GmbH
  * Created by Alexander on 10.03.2016.
  */
 @Controller
 public class ContactController extends AbstractController {
+
+    @Inject
+    private ContactValidator contactValidator;
+
+    @Inject
+    private MailServiceImpl mailService;
 
     @RequestMapping(value = "/kontakt", method = RequestMethod.GET)
     public ModelAndView initContactForm(ModelAndView model) {
@@ -24,8 +37,26 @@ public class ContactController extends AbstractController {
     }
 
     @RequestMapping(value = "/kontakt", method = RequestMethod.POST)
-    public ModelAndView validateAndSendEmail(@ModelAttribute("contactForm") ContactForm user, BindingResult result) {
-        ModelAndView modelAndView = new ModelAndView("index");
+    public ModelAndView validateAndSendEmail(@ModelAttribute("contactForm") ContactForm contactForm, BindingResult result, HttpServletRequest request) {
+        contactValidator.validate(contactForm, result);
+        ModelAndView modelAndView;
+        if (result.hasErrors()) {
+            if (contactForm.isError()) {
+                modelAndView = new ModelAndView("error");
+            } else {
+                modelAndView = new ModelAndView("contact");
+            }
+            modelAndView.addObject("contactForm", contactForm);
+        } else {
+            modelAndView = new ModelAndView("redirect:/index?contactSuccessful=true");
+            modelAndView.addObject("contactSuccessful", true);
+            String baseUrl = request.getScheme() + // "http"
+                    "://" +                                // "://"
+                    request.getServerName() +              // "myhost"
+                    ":" +                                  // ":"
+                    request.getServerPort();               // "80"
+            mailService.sendContactEmail(contactForm, baseUrl);
+        }
         modelAndView.addObject("searchResult", new SearchResult());
         return modelAndView;
     }

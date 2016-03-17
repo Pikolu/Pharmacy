@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout/template :: page">
+<head>
+    <title></title>
+</head>
+<body>
+<div th:fragment="content">
+    <div id="notification"></div>
+    <div id="content">
+        <div class="box">
+            <div class="box-heading">Kontakt</div>
+            <div class="box-content">
+                <div class="box-product">
+                    <div class="contact-form-wrapper">
+                        <div th:replace="fragments/contactForm :: contactForm">
+                            Form
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

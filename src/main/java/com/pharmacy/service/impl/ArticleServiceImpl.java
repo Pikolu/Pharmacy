@@ -148,4 +148,8 @@ public class ArticleServiceImpl implements ArticleService {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         System.out.print("Job wird ausgeführt");
     }
+
+    public Iterable<Article> findAll() {
+        return articleSearchRepository.findAll();
+    }
 }

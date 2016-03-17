@@ -9,6 +9,13 @@
 <div th:fragment="content">
     <div th:id="container">
         <div th:id="content">
+            <div th:if="${contactSuccessful} == 'true'">
+                <div class="info">
+                    <label>Hinweis</label>
+                    <br />
+                    <span>Ihre Nachricht wurde erfolgreich versendet.</span>
+                </div>
+            </div>
             <div th:class="example-wrapper">
                 <div th:id="services-example-1" th:class="theme1">
                     <ul>
@@ -20,13 +27,15 @@
                             <div style="margin-top:16px"></div>
                             <h2 style="height: 75px" th:text="${article.name}">Name</h2>
 
-                            <p style="height: 100px; vertical-align: bottom;" th:text="${article.description}">Beschreibung</p>
+                            <p style="height: 100px; vertical-align: bottom;" th:text="${article.description}">
+                                Beschreibung</p>
 
                             <div style="float: left; width: 60%">
                                 <span th:text="${#numbers.formatDecimal(articleHelper.getBestDiscount(article.prices).get().price, 0, 'COMMA', 2, 'POINT') + ' €'}">Preis</span>
                             </div>
                             <div>
-                                <span style="float:left;width:40%;line-height:1em; font-size: 18px; color: #E31010" th:text="${articleHelper.getBestDiscount(article.prices).get().discount + ' %'}">Preis</span>
+                                <span style="float:left;width:40%;line-height:1em; font-size: 18px; color: #E31010"
+                                      th:text="${articleHelper.getBestDiscount(article.prices).get().discount + ' %'}">Preis</span>
                                 <span style="color: #E31010">Ersparnis</span>
                                 <!--<h:outputText style="float:left;width:40%;line-height:1em; font-size: 18px; color: #E31010" value="{article.discount} % " />-->
                                 <!--<h:outputText value="Ersparnis"/>-->
@@ -41,7 +50,8 @@
                             <div class="page-more">
                                 <img width="150" height="110" class="big-image" th:src="${article.imageURL}"/>
                                 <a class="buttonlight morebutton" style="position: relative; top: 175px; right: 186px;"
-                                   th:href="@{/preisvergleich/} + ${article.id} + '/' + ${urlEncoder.encodeURL(article.name)}">Zum Preisvergleich</a>
+                                   th:href="@{/preisvergleich/} + ${article.id} + '/' + ${urlEncoder.encodeURL(article.name)}">Zum
+                                    Preisvergleich</a>
 
                                 <div style="overflow-y: scroll; height: 400px;">
                                     <div class="details_double">
@@ -56,7 +66,8 @@
                     </ul>
                     <!--	###############		-	TOOLBAR (LEFT/RIGHT) BUTTONS	-	###############	 -->
                     <div class="toolbar">
-                        <div class="left"></div><div class="right"></div>
+                        <div class="left"></div>
+                        <div class="right"></div>
                     </div>
                 </div>
             </div>

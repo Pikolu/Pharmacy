@@ -18,6 +18,15 @@ public class ContactForm {
     private String lastName;
     @Email
     private String email;
+    private boolean error;
+
+    public ContactForm() {
+
+    }
+
+    public ContactForm(boolean error) {
+        this.error = error;
+    }
 
     public String getSubject() {
         return subject;
@@ -57,5 +66,13 @@ public class ContactForm {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
     }
 }

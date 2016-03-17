@@ -65,7 +65,7 @@ input:focus, textarea:focus, select:focus {
     outline: medium none;
 }
 
-input[type="text"], input[type="password"], textarea {
+input[type="text"], input[type="password"], input[type="email"], textarea {
     background: none repeat scroll 0 0 #FFFFFF;
     color: #929292;
     font-family: Arial, Helvetica, sans-serif;
@@ -121,7 +121,7 @@ label {
     width: 0;
 }
 
-.box-container, .pagination .links a, .pagination .links b, .htabs a, .tab-content, .manufacturer-list, .product-grid, .product-list, .product-info, .related .box-product, .block-compare, .login-content .left, .login-content .right, .order-list, .return-box-2, .return-box, .return-box-3, .shop-cart, .cart-module .cart-heading, .cart-module .cart-heading, .cart-module .cart-content, .checkout-heading, .checkout-content, .contact-info, #content .content.contact-f, #content .shop-cart-content, .related.related-carousel .box-product, #content .cart-module > div, .cart-bottom .buttons, input[type="text"], input[type="password"], textarea, select, .return-list, .account-transaction table.list {
+.box-container, .pagination .links a, .pagination .links b, .htabs a, .tab-content, .manufacturer-list, .product-grid, .product-list, .product-info, .related .box-product, .block-compare, .login-content .left, .login-content .right, .order-list, .return-box-2, .return-box, .return-box-3, .shop-cart, .cart-module .cart-heading, .cart-module .cart-heading, .cart-module .cart-content, .checkout-heading, .checkout-content, .contact-info, #content .content.contact-f, #content .shop-cart-content, .related.related-carousel .box-product, #content .cart-module > div, .cart-bottom .buttons, input[type="text"], input[type="password"], input[type="email"], textarea, select, .return-list, .account-transaction table.list {
     border: 1px solid #E5E5E5;
 }
 
@@ -5111,4 +5111,13 @@ textarea {
 
 .contact-form-wrapper {
     width: 489px;
+}
+
+.info {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E5E5E5;
+    clear: both;
+    margin: 20px auto;
+    overflow: hidden;
+    padding: 20px;
 }
