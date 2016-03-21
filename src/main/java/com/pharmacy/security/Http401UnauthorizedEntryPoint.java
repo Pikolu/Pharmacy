@@ -32,7 +32,9 @@ public class Http401UnauthorizedEntryPoint implements AuthenticationEntryPoint {
             ServletException {
 
         log.debug("Pre-authenticated entry point called. Rejecting access");
-        if (ACCOUNT_PATH.equals(request.getRequestURI()) || EVALUATION_PATH.equals(request.getRequestURI()) || PHARMACY_SEARCH_PATH.equals(request.getRequestURI())) {
+        if (ACCOUNT_PATH.equals(request.getRequestURI())
+                || EVALUATION_PATH.equals(request.getRequestURI())
+                || PHARMACY_SEARCH_PATH.equals(request.getRequestURI())) {
             response.sendRedirect("/login");
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied");

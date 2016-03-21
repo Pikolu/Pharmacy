@@ -10,8 +10,31 @@
     <div id="notification"></div>
     <div id="content">
         <div class="box">
-            <div class="box-heading">Kontakt</div>
+            <div class="box-heading">Fehler</div>
             <div class="box-content">
+                <div class="box-product" style="padding: 10px">
+                    <p>
+                        Die von Ihnen aufgerufene Seite konnte leider nicht gefunden werden.
+                    </p>
+                    <div class="wrapper">
+                        <p><strong>Mögliche Ursache:</strong></p>
+                        <ul>
+                            <li>Die Seite existiert nicht mehr</li>
+                            <li>Sie haben sich bei der Eingabe der Adresse vertippt</li>
+                        </ul>
+                        <br />
+                        <div class="message">
+                           <br />
+                            <p>Bitte versuchen Sie, die gewünschten Informationen in einem der Bereiche unseres Internetauftrittes unter
+                            <a th:href="@{/}">www.medizin-finder.de</a> zu finden. Sollte Ihnen dies nicht möglich sein und Sie benötigen Hilfe,
+                            so wenden Sie sich bitte per Kontaltformular an unsere Hotline.<br /><br />
+                            Mit freundlichen Grüßen<br />
+                            Ihr Medizin-finder Team</p>
+
+                        </div>
+
+                    </div>
+                </div>
                 <div class="box-product">
                     <div class="contact-form-wrapper">
                         <div th:replace="fragments/contactForm :: contactForm">

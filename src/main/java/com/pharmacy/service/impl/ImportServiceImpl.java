@@ -17,8 +17,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
+import java.awt.*;
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -105,6 +109,9 @@ public class ImportServiceImpl implements ImportService {
         article.setName(attr.get(2));
         article.setDescription(attr.get(3));
         article.setImageURL(attr.get(7));
+
+        downloadProductImage(attr.get(7), attr.get(2), articleNumber);
+
         article.setDeepLink(attr.get(8));
         article.setKeyWords(attr.get(9));
         Assert.notNull(pharmacy);
@@ -204,6 +211,22 @@ public class ImportServiceImpl implements ImportService {
             }
         }
         return null;
+    }
+
+    private void downloadProductImage(String imageURL, String productName, String id) {
+        Image image = null;
+        try {
+            URL url = new URL(imageURL);
+            InputStream in = new BufferedInputStream(url.openStream());
+            OutputStream out = new BufferedOutputStream(new FileOutputStream(id + "_" + productName + ".jpg"));
+            for ( int i; (i = in.read()) != -1; ) {
+                out.write(i);
+            }
+            in.close();
+            out.close();
+        } catch (IOException ex) {
+            LOG.warn("Image could be not download");
+        }
     }
 
     /**

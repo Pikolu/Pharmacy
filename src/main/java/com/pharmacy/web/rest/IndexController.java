@@ -2,19 +2,17 @@ package com.pharmacy.web.rest;
 
 import com.pharmacy.domain.Article;
 import com.pharmacy.domain.SearchResult;
+import com.pharmacy.domain.pojo.ContactForm;
 import com.pharmacy.service.api.ArticleService;
 import com.pharmacy.service.api.ImportService;
 import com.pharmacy.web.helper.ArticleHelper;
 import com.pharmacy.web.helper.URLHelper;
 import com.redfin.sitemapgenerator.ChangeFreq;
-import com.redfin.sitemapgenerator.SitemapIndexGenerator;
 import com.redfin.sitemapgenerator.WebSitemapGenerator;
 import com.redfin.sitemapgenerator.WebSitemapUrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,29 +54,6 @@ public class IndexController extends AbstractController {
         return modelAndView;
     }
 
-
-    @RequestMapping("/importtest")
-    public void importTest(Model model) {
-        Assert.notNull(model);
-        importService.importCSVFile();
-    }
-
-//    @RequestMapping("/robots.txt")
-//    @ResponseBody
-//    public String getRobotsTXT() {
-//        StringBuilder result = new StringBuilder();
-//        result.append("User-agent: ").append("*")
-//                .append("\n")
-//                .append("Disallow:");
-//        return result.toString();
-//    }
-
-    @RequestMapping("/404")
-    public ModelAndView page404() {
-        ModelAndView modelAndView = new ModelAndView("redirect:404");
-        return modelAndView;
-    }
-
     @RequestMapping("/sitemap_generator")
     public
     @ResponseBody
@@ -104,13 +79,21 @@ public class IndexController extends AbstractController {
             });
             List<File> sitemaps = wsg.write();
 
-            if (sitemaps.size() > 1){
+            if (sitemaps.size() > 1) {
                 wsg.writeSitemapsWithIndex();
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         return "";
+    }
+
+    @RequestMapping(value = "/error", produces = "text/html")
+    public ModelAndView errorHtml(HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView("error");
+        modelAndView.addObject("contactForm", new ContactForm());
+        modelAndView.addObject("searchResult", new SearchResult());
+        return modelAndView;
     }
 
 }
