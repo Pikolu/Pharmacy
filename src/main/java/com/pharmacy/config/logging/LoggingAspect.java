@@ -25,7 +25,7 @@ public class LoggingAspect {
     @Inject
     private Environment env;
 
-    @Pointcut("within(com.pharmacy.repository..*) || within(com.pharmacy.service..*) || within(com.pharmacy.web.rest..*)")
+    @Pointcut("within(com.pharmacy.repository..*) || within(com.pharmacy.service..*)")
     public void loggingPointcut() {
     }
 

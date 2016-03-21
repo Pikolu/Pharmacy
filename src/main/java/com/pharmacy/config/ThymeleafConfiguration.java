@@ -1,11 +1,10 @@
 package com.pharmacy.config;
 
-import com.pharmacy.web.rest.CustomErrorController;
 import org.apache.commons.lang.CharEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.web.ErrorAttributes;
-import org.springframework.boot.autoconfigure.web.ErrorController;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +12,7 @@ import org.springframework.context.annotation.Description;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
+@EnableAutoConfiguration(exclude=ErrorMvcAutoConfiguration.class)
 @Configuration
 public class ThymeleafConfiguration {
 
