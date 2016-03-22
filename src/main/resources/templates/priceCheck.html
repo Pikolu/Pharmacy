@@ -63,13 +63,14 @@
                                                 <div th:id="'fixed_'+${price.id}"></div>
                                                 <span style="font-size: 15px;"
                                                       th:text="${price.pharmacy.evaluations.size()}"></span> <span>Bewertungen</span>
+                                                <div th:text="${price.pharmacy.totalEvaluationPoints}"></div>
                                                 <script th:inline="javascript">/*<![CDATA[*/
                                                 var prefix = [[${price.id}]];
                                                 var id = '#fixed_' + prefix;
                                                 console.log(id);
                                                 jQuery(id).raty({
                                                     readOnly: true,
-                                                    start: 3,
+                                                    start: [[${price.pharmacy.totalEvaluationPoints}]],
                                                     path: [[@{/images/raiting/}]]
                                                 });
 

@@ -59,6 +59,10 @@ public class Pharmacy implements Serializable {
     @Field(type = FieldType.String)
     private String fax;
 
+    @Column(name = "email", length = 100)
+    @Field(type = FieldType.String)
+    private String email;
+
     @Column(name = "home_page", length = 100)
     @Field(type = FieldType.String)
     private String homePage;
@@ -69,8 +73,9 @@ public class Pharmacy implements Serializable {
     @Column(name = "logo_url")
     private String logoURL;
 
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE) 
     @Column(name = "total_evaluation_points")
-    private Integer totalEvaluationPoints;
+    private Float totalEvaluationPoints;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -180,11 +185,11 @@ public class Pharmacy implements Serializable {
         this.logoURL = logoURL;
     }
 
-    public Integer getTotalEvaluationPoints() {
+    public Float getTotalEvaluationPoints() {
         return totalEvaluationPoints;
     }
 
-    public void setTotalEvaluationPoints(Integer totalEvaluationPoints) {
+    public void setTotalEvaluationPoints(Float totalEvaluationPoints) {
         this.totalEvaluationPoints = totalEvaluationPoints;
     }
 
@@ -239,5 +244,13 @@ public class Pharmacy implements Serializable {
                 ", logoURL='" + logoURL + "'" +
                 ", totalEvaluationPoints='" + totalEvaluationPoints + "'" +
                 '}';
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

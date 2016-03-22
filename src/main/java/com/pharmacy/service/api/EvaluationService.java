@@ -1,6 +1,7 @@
 package com.pharmacy.service.api;
 
 import com.pharmacy.domain.Evaluation;
+import com.pharmacy.domain.Pharmacy;
 
 /**
  * Pharmacy GmbH
@@ -9,4 +10,6 @@ import com.pharmacy.domain.Evaluation;
 public interface EvaluationService {
 
     Evaluation save(Evaluation evaluation);
+
+    void evaluate(Evaluation evaluation, Pharmacy pharmacy);
 }
