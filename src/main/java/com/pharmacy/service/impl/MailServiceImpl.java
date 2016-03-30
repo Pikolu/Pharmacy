@@ -63,7 +63,7 @@ public class MailServiceImpl {
 
 //         Prepare message using a Spring helper
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-        javaMailSender.setPassword("K.568136");
+        javaMailSender.setPassword("#");
 
         javaMailSender.setJavaMailProperties(props);
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
