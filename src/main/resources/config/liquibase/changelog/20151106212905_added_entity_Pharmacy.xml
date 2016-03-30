@@ -24,7 +24,6 @@
             <column name="name" type="varchar(255)"/>
             <column name="shipping" type="double"/>
             <column name="logo_url" type="varchar(255)"/>
-            <column name="total_evaluation_points" type="integer"/>
             <column name="user_id" type="bigint">
                 <constraints unique="true"/>
             </column>

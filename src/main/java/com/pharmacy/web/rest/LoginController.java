@@ -4,7 +4,9 @@ import com.pharmacy.domain.SearchResult;
 import com.pharmacy.domain.User;
 import com.pharmacy.exceptions.ControllerException;
 import com.pharmacy.exceptions.type.ExceptionType;
+import com.pharmacy.service.api.MailService;
 import com.pharmacy.service.api.UserService;
+import com.pharmacy.service.impl.MailServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,8 @@ public class LoginController {
 
     @Inject
     private UserService userService;
+    @Inject
+    private MailServiceImpl mailService;
 
     @RequestMapping(value = "/login")
     public ModelAndView initLoginPage(@RequestParam(value = "error", required = false) String error,
@@ -62,10 +66,18 @@ public class LoginController {
 
 
     @RequestMapping(value = "/login/passwort", method = RequestMethod.POST)
-    private ModelAndView resetPasswort(@RequestParam String email){
+    private ModelAndView resetPasswort(@RequestParam String email, HttpServletRequest request){
         ModelAndView model = new ModelAndView("login");
         try {
             Optional<User> user = userService.requestPasswordReset(email);
+            user.ifPresent(u -> {
+                String baseUrl = request.getScheme() +
+                        "://" +
+                        request.getServerName() +
+                        ":" +
+                        request.getServerPort();
+                mailService.sendPasswordResetMail(u, baseUrl);
+            });
             user.orElseThrow(() -> new ControllerException(ExceptionType.RESET_PASSWORD_0001));
         } catch (ControllerException e) {
             e.writeLog(LOG);

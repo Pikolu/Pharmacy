@@ -63,7 +63,6 @@
                                                 <div th:id="'fixed_'+${price.id}"></div>
                                                 <span style="font-size: 15px;"
                                                       th:text="${price.pharmacy.evaluations.size()}"></span> <span>Bewertungen</span>
-                                                <div th:text="${price.pharmacy.totalEvaluationPoints}"></div>
                                                 <script th:inline="javascript">/*<![CDATA[*/
                                                 var prefix = [[${price.id}]];
                                                 var id = '#fixed_' + prefix;
@@ -79,40 +78,6 @@
 
                                                 <a th:href="@{/apotheke/{id}/{name}(id=${price.pharmacy.id},name=${price.pharmacy.name})}">Apothekenprofil</a>
                                                 <br/><br/>
-
-                                                <!--<span th:each="payment : ${price.pharmacy.paymentTypes}">-->
-                                                <!--<img th:src="@{/images/payment/paypal.png}" />-->
-                                                <!--</span>-->
-
-                                                <!--<c:forEach items="${price.pharmacy.paymentTypes}" var="payment" >-->
-                                                <!--<c:if test="${payment.name() eq 'PAY_PAL'}">-->
-                                                <!--<img src="<c:url value="/resources/images/payment/paypal.png" />" />-->
-                                                <!--</c:if>-->
-
-                                                <!--<c:if test="${payment.name() eq 'KREDIT_CARD'}">-->
-                                                <!--<span>-->
-                                                <!--<img src="<c:url value="/resources/images/payment/creditcard.png" />" />-->
-                                                <!--</span>-->
-                                                <!--</c:if>-->
-
-                                                <!--<c:if test="${payment.name() eq 'DIRECT_BANKING'}">-->
-                                                <!--<span>-->
-                                                <!--<img src="<c:url value="/resources/images/payment/sofortüberweisung.png" />" />-->
-                                                <!--</span>-->
-                                                <!--</c:if>-->
-
-                                                <!--<c:if test="${payment.name() eq 'DEBIT'}">-->
-                                                <!--<span>-->
-                                                <!--<img src="<c:url value="/resources/images/payment/lastschrift.png" />" />-->
-                                                <!--</span>-->
-                                                <!--</c:if>-->
-
-                                                <!--<c:if test="${payment.name() eq 'DEBIT'}">-->
-                                                <!--<span>-->
-                                                <!--<img src="<c:url value="/resources/images/payment/rechnung.png" />" />-->
-                                                <!--</span>-->
-                                                <!--</c:if>-->
-                                                <!--</c:forEach>-->
                                             </div>
                                         </td>
                                         <td style="width: 165px; vertical-align: top;">

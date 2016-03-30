@@ -29,6 +29,10 @@ public class PriceCheckController extends AbstractController {
         ModelAndView modelAndView = new ModelAndView("priceCheck");
         try {
             Article article = articleService.findArticleByArticleNumber(Long.valueOf(articelNumber));
+            article.getPrices().size();
+            article.getPrices().forEach(p -> {
+                p.getPharmacy().getEvaluations().size();
+            });
             ArticleHelper.sortPrice(article.getPrices());
             modelAndView.addObject("article", article);
             modelAndView.addObject("articleHelper", new ArticleHelper());

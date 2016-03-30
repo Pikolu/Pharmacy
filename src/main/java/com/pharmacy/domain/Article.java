@@ -22,11 +22,7 @@ import java.util.Objects;
 @Table(name = "article")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "article", type = "parent-entity")
-public class Article implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Article extends BaseUUID {
 
     @Column(name = "name")
     @Field(index = FieldIndex.analyzed, type = FieldType.String)
@@ -70,14 +66,6 @@ public class Article implements Serializable {
 
     @Column(name = "exported")
     private Boolean exported;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -179,29 +167,9 @@ public class Article implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Article article = (Article) o;
-
-        return Objects.equals(id, article.id);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
     public String toString() {
         return "Article{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + "'" +
                 ", description='" + description + "'" +
                 ", articelNumber='" + articelNumber + "'" +

@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../Pharmacy-ADM/src/main/java/com/pharmacy/service/impl/ImportServiceImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../Pharmacy-ADM/src/main/java/com/pharmacy/web/rest/PharmacyResource.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sample.jks" charset="windows-1252" />
   </component>
 </project>
