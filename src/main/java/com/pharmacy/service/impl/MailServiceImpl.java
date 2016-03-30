@@ -1,6 +1,7 @@
 package com.pharmacy.service.impl;
 
 import com.pharmacy.config.Constants;
+import com.pharmacy.domain.User;
 import com.pharmacy.domain.pojo.ContactForm;
 import com.pharmacy.service.api.MailService;
 import org.apache.commons.lang.CharEncoding;
@@ -62,7 +63,7 @@ public class MailServiceImpl {
 
 //         Prepare message using a Spring helper
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-        javaMailSender.setPassword("K.568136");
+        javaMailSender.setPassword("#");
 
         javaMailSender.setJavaMailProperties(props);
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -77,5 +78,17 @@ public class MailServiceImpl {
         } catch (Exception e) {
             LOG.warn("E-mail could not be sent to user '{}', exception is: {}", to, e.getMessage());
         }
+    }
+
+    @Async
+    public void sendPasswordResetMail(User user, String baseUrl) {
+        LOG.debug("Sending password reset e-mail to '{}'", user.getEmail());
+        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable("user", user);
+        context.setVariable("baseUrl", baseUrl);
+        String content = templateEngine.process("passwordResetEmail", context);
+        String subject = messageSource.getMessage("email.reset.title", null, locale);
+        sendEmail(user.getEmail(), subject, content, false, true);
     }
 }

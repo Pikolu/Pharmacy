@@ -17,11 +17,7 @@ import java.util.Objects;
 @Table(name = "evaluation")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "evaluation")
-public class Evaluation implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Evaluation extends BaseUUID {
 
     @Column(name = "name")
     private String name;
@@ -51,14 +47,6 @@ public class Evaluation implements Serializable {
 
     @ManyToOne
     private Pharmacy pharmacy;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -125,29 +113,9 @@ public class Evaluation implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Evaluation evaluation = (Evaluation) o;
-
-        return Objects.equals(id, evaluation.id);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
     public String toString() {
         return "Evaluation{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + "'" +
                 ", description='" + description + "'" +
                 ", points='" + points + "'" +

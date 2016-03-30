@@ -45,7 +45,7 @@ public class Pharmacy implements Serializable {
 
     @Column(name = "zip_code")
     @Field(type = FieldType.Integer)
-    private int zipCode;
+    private Integer zipCode;
 
     @Column(name = "city", length = 100)
     @Field(type = FieldType.String)
@@ -59,6 +59,10 @@ public class Pharmacy implements Serializable {
     @Field(type = FieldType.String)
     private String fax;
 
+    @Column(name = "email", length = 100)
+    @Field(type = FieldType.String)
+    private String email;
+
     @Column(name = "home_page", length = 100)
     @Field(type = FieldType.String)
     private String homePage;
@@ -70,7 +74,7 @@ public class Pharmacy implements Serializable {
     private String logoURL;
 
     @Column(name = "total_evaluation_points")
-    private Integer totalEvaluationPoints;
+    private Float totalEvaluationPoints;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -124,11 +128,11 @@ public class Pharmacy implements Serializable {
         this.houseNumber = houseNumber;
     }
 
-    public int getZipCode() {
+    public Integer getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(Integer zipCode) {
         this.zipCode = zipCode;
     }
 
@@ -180,14 +184,6 @@ public class Pharmacy implements Serializable {
         this.logoURL = logoURL;
     }
 
-    public Integer getTotalEvaluationPoints() {
-        return totalEvaluationPoints;
-    }
-
-    public void setTotalEvaluationPoints(Integer totalEvaluationPoints) {
-        this.totalEvaluationPoints = totalEvaluationPoints;
-    }
-
     public Set<Payment> getPayments() {
         if (payments == null) {
             payments = new HashSet<>();
@@ -208,6 +204,22 @@ public class Pharmacy implements Serializable {
 
     public void setEvaluations(Set<Evaluation> evaluations) {
         this.evaluations = evaluations;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Float getTotalEvaluationPoints() {
+        return totalEvaluationPoints;
+    }
+
+    public void setTotalEvaluationPoints(Float totalEvaluationPoints) {
+        this.totalEvaluationPoints = totalEvaluationPoints;
     }
 
     @Override
@@ -237,7 +249,7 @@ public class Pharmacy implements Serializable {
                 ", name='" + name + "'" +
                 ", shipping='" + shipping + "'" +
                 ", logoURL='" + logoURL + "'" +
-                ", totalEvaluationPoints='" + totalEvaluationPoints + "'" +
+                ", totalEvaluationPoints='" + getTotalEvaluationPoints() + "'" +
                 '}';
     }
 }

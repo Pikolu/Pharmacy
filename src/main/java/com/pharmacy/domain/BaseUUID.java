@@ -1,8 +1,13 @@
 package com.pharmacy.domain;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.ZonedDateTime;
+import java.util.Objects;
 
 /**
  * Created by apopow on 27.12.2015.
@@ -12,28 +17,49 @@ public class BaseUUID implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdated;
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date creationDate;
+    private Long id;
+
+    @LastModifiedDate
+    @Column(name = "last_updated")
+    private ZonedDateTime lastUpdated = ZonedDateTime.now();
+
+    @CreatedDate
+    @Column(name = "creation_date")
+    private ZonedDateTime creationDate = ZonedDateTime.now();
+
 
     public BaseUUID() {
-        creationDate = new Date();
+
     }
 
     /**
      * @param id
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     /**
      * @return id
      */
-    public int getId() {
+    public Long getId() {
         return id;
+    }
+
+    public ZonedDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(ZonedDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public ZonedDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(ZonedDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
     @Override
@@ -48,47 +74,14 @@ public class BaseUUID implements Serializable {
         return this.id == other.id;
     }
 
-    /**
-     * @return the Hashcode for this entity
-     */
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 37 * hash + this.id;
-        return hash;
-    }
-
-    /**
-     * @return the lastUpdated
-     */
-    public Date getLastUpdated() {
-        return lastUpdated;
-    }
-
-    /**
-     * @param lastUpdated the lastUpdated to set
-     */
-    public void setLastUpdated(Date lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
-    /**
-     * @return the creationDate
-     */
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    /**
-     * @param creationDate the creationDate to set
-     */
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
-        return "BaseUUID{" + "id=" + id + ", lastUpdated=" + lastUpdated + ", creationDate=" + creationDate + '}';
+        return "BaseUUID{" + "id=" + id + ", lastUpdated=" + getLastUpdated() + ", creationDate=" + getCreationDate() + '}';
     }
 
 }
