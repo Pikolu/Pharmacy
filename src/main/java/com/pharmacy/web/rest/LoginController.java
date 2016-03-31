@@ -66,8 +66,9 @@ public class LoginController {
 
 
     @RequestMapping(value = "/login/passwort", method = RequestMethod.POST)
-    private ModelAndView resetPasswort(@RequestParam String email, HttpServletRequest request){
+    private ModelAndView resetPassword(@RequestParam String email, HttpServletRequest request){
         ModelAndView model = new ModelAndView("login");
+        model.addObject("searchResult", new SearchResult());
         try {
             Optional<User> user = userService.requestPasswordReset(email);
             user.ifPresent(u -> {

@@ -54,7 +54,6 @@ public class UserServiceImpl implements UserService {
                     user.setActivated(true);
                     user.setActivationKey(null);
                     userRepository.save(user);
-//                    userSearchRepository.save(user);
                     log.debug("Activated user: {}", user);
                     return user;
                 });
@@ -121,7 +120,6 @@ public class UserServiceImpl implements UserService {
             u.setEmail(email);
             u.setLangKey(langKey);
             userRepository.save(u);
-//            userSearchRepository.save(u);
             log.debug("Changed Information for User: {}", u);
         });
     }

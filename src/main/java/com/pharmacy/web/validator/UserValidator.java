@@ -35,6 +35,10 @@ public class UserValidator implements Validator {
 
         if (StringUtils.isBlank(user.getLogin())) {
             errors.rejectValue("login", "message.EmptyLogin");
+        } else {
+            userService.findOneByEmail(user.getEmail()).ifPresent(u -> {
+                errors.rejectValue("email", "message.AlreadyInUseLogin");
+            });
         }
         if (user.getFirstName() == null || user.getFirstName().isEmpty()) {
             errors.rejectValue("firstName", "message.EmptyFirstname");
@@ -53,10 +57,9 @@ public class UserValidator implements Validator {
             if (!emailValidator.isValid(user.getEmail())) {
                 errors.rejectValue("email", "message.NotValidEmail");
             } else {
-                Optional<User> currentUser = userService.findOneByEmail(user.getEmail());
-                if (currentUser.isPresent() && currentUser.get().getEmail().equals(user.getEmail())) {
+                userService.findOneByEmail(user.getEmail()).ifPresent(u -> {
                     errors.rejectValue("email", "message.AlreadyInUseEmail");
-                }
+                });
             }
         }
         if (BooleanUtils.isFalse(user.getAcceptedPrivacy())) {

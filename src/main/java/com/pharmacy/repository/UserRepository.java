@@ -23,7 +23,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT u FROM User u WHERE u.email = :email")
     Optional<User> findOneByEmail(@Param(value = "email") String email);
 
-    Optional<User> findOneByLogin(String login);
+    @Query(value = "SELECT u FROM User u WHERE u.login = :login")
+    Optional<User> findOneByLogin(@Param(value = "login") String login);
 
     @Override
     void delete(User t);
