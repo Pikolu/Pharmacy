@@ -9,7 +9,7 @@ import java.util.Optional;
  */
 public interface UserService {
 
-    Optional<User> activateRegistration(String key);
+    User activateRegistration(String key);
 
     Optional<User> completePasswordReset(String newPassword, String key);
 

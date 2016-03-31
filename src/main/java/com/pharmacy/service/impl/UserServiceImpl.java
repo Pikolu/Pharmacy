@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
@@ -46,9 +47,9 @@ public class UserServiceImpl implements UserService {
     @Inject
     private AuthorityRepository authorityRepository;
 
-    public Optional<User> activateRegistration(String key) {
+    public User activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
-        userRepository.findOneByActivationKey(key)
+        return userRepository.findOneByActivationKey(key)
                 .map(user -> {
                     // activate given user for the registration key.
                     user.setActivated(true);
@@ -56,8 +57,9 @@ public class UserServiceImpl implements UserService {
                     userRepository.save(user);
                     log.debug("Activated user: {}", user);
                     return user;
-                });
-        return Optional.empty();
+                }).orElseGet(() -> {
+            return null;
+        });
     }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {

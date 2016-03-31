@@ -49,15 +49,14 @@ public class RegistrationController {
             modelAndView.getModel().putAll(result.getModel());
         } else {
             modelAndView = new ModelAndView("redirect:welcome.html", "command", user);
-            userService.createUserInformation(user.getLogin(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getEmail(), "de_DE");
+            User newUser = userService.createUserInformation(user.getLogin(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getEmail(), "de_DE");
             String baseUrl = request.getScheme() + // "http"
                     "://" +                                // "://"
                     request.getServerName() +              // "myhost"
                     ":" +                                  // ":"
                     request.getServerPort();               // "80"
 
-            mailService.sendActivationEmail(user, baseUrl);
-//            authenticateUserAndSetSession(user, request);
+            mailService.sendActivationEmail(newUser, baseUrl);
         }
         LOG.trace("Exit registration: modelAndView={}", modelAndView);
         return modelAndView;
@@ -87,14 +86,14 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration/aktivierung", method = RequestMethod.GET)
     public ModelAndView finishRegistration(@RequestParam(value = "key") String key, HttpServletRequest request) {
-        modelAndView.addObject("searchResult", new SearchResult());
-        return userService.activateRegistration(key).map(user -> {
+        User user = userService.activateRegistration(key);
+        if (user != null) {
             modelAndView = new ModelAndView("login");
-            return modelAndView;
-        }).orElseGet(() -> {
-            modelAndView = new ModelAndView("redirect:registration.html", "command", new User());
-            return modelAndView;
-        });
+        } else {
+            modelAndView = new ModelAndView(REGISTRATION, "command", new User(""));
+        }
+        modelAndView.addObject("searchResult", new SearchResult());
+        return modelAndView;
     }
 
 }
