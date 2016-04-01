@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title th:text="#{email.activation.title}">JHipster activation</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    </head>
-    <body>
+<head>
+    <title th:text="#{email.activation.title}">JHipster activation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<a href="https://127.0.0.1:8443">
+    <img th:class="logo" src="https://127.0.0.1:8443/images/logo1.png"/>
+</a>
 
-    <p>Hier ist Test E-mail</p>
+<hr />
 
-        <p th:text="#{email.activation.greeting(${user.firstName}, ${user.lastName})}">
-            Dear
-        </p>
-        <p th:text="#{email.activation.text1}">
-            Your JHipster account has been created, please click on the URL below to activate it:
-        </p>
-        <p>
-            <a th:href="@{|${baseUrl}/registration/aktivierung?key=${user.activationKey}|}"
-               th:text="#{email.register.link}">Activation Link</a>
-        </p>
-        <p>
-            <span th:text="#{email.activation.text2}">Regards, </span>
-            <br/>
-            <em th:text="#{email.signature}">JHipster.</em>
-        </p>
-    </body>
+<p th:text="#{email.activation.greeting(${user.firstName}, ${user.lastName})}">
+    Dear
+</p>
+
+<p th:text="#{email.activation.text1}">
+    Your JHipster account has been created, please click on the URL below to activate it:
+</p>
+
+<p>
+    <a th:href="@{|${baseUrl}/registration/aktivierung?key=${user.activationKey}|}"
+       th:text="#{email.register.link}">Activation Link</a>
+</p>
+
+<p>
+    <span th:text="#{email.activation.text2}">Regards, </span>
+    <br/>
+    <em th:text="#{email.signature}">JHipster.</em>
+</p>
+</body>
 </html>

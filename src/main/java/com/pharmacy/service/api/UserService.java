@@ -31,4 +31,7 @@ public interface UserService {
     User getUser(Long id);
 
     Optional<User> findOneByEmail(String mail);
+
+    Optional<User> findOneByLogin(String login);
+
 }

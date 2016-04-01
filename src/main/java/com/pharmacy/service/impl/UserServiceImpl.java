@@ -202,4 +202,9 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findOneByEmail(String mail) {
         return userRepository.findOneByEmail(mail);
     }
+
+    @Override
+    public Optional<User> findOneByLogin(String login) {
+        return userRepository.findOneByLogin(login);
+    }
 }

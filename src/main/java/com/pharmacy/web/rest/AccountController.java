@@ -4,6 +4,7 @@ import com.pharmacy.domain.SearchResult;
 import com.pharmacy.domain.User;
 import com.pharmacy.security.CustomUserDetails;
 import com.pharmacy.service.api.UserService;
+import com.pharmacy.web.validator.ExistsUserValidator;
 import com.pharmacy.web.validator.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,8 @@ public class AccountController extends AbstractController {
     @Inject
     private UserValidator validator;
     @Inject
+    private ExistsUserValidator existsUserValidator;
+    @Inject
     private UserService userService;
 
     @RequestMapping(value = "/benutzerkonto", method = RequestMethod.GET)
@@ -47,9 +50,11 @@ public class AccountController extends AbstractController {
     }
 
     @RequestMapping(value = "/benutzerkonto", method = RequestMethod.POST)
-    public ModelAndView changeAccount(@ModelAttribute("userForm") @Valid User userForm, BindingResult result) {
-        ModelAndView modelAndView = null;
-        if (result.hasErrors() && result.getErrorCount() > 1) {
+    public ModelAndView changeAccount(@ModelAttribute("userForm") User userForm, BindingResult result) {
+        ModelAndView modelAndView;
+        User oldUser = userService.getUser(getCustomUserDetails().getId());
+        existsUserValidator.validate(oldUser, userForm, result);
+        if (result.hasErrors()) {
             modelAndView = new ModelAndView("account", "command", userForm);
             modelAndView.getModel().putAll(result.getModel());
         } else {
@@ -57,6 +62,7 @@ public class AccountController extends AbstractController {
             userService.changePassword(userForm.getPassword());
             modelAndView = new ModelAndView("account", "command", userForm);
         }
+        modelAndView.addObject("searchResult", new SearchResult());
         return modelAndView;
     }
 }
