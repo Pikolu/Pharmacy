@@ -37,7 +37,7 @@ public class ExistsUserValidator implements Validator {
         } else {
             if (!oldUser.getLogin().equalsIgnoreCase(user.getLogin())) {
                 userService.findOneByLogin(user.getLogin()).ifPresent(u -> {
-                    errors.rejectValue("email", "message.AlreadyInUseLogin");
+                    errors.rejectValue("login", "message.AlreadyInUseLogin");
                 });
             }
         }

@@ -37,7 +37,7 @@ public class UserValidator implements Validator {
             errors.rejectValue("login", "message.EmptyLogin");
         } else {
             userService.findOneByLogin(user.getLogin()).ifPresent(u -> {
-                errors.rejectValue("email", "message.AlreadyInUseLogin");
+                errors.rejectValue("login", "message.AlreadyInUseLogin");
             });
         }
         if (user.getFirstName() == null || user.getFirstName().isEmpty()) {
