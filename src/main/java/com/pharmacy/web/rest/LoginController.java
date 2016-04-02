@@ -45,7 +45,7 @@ public class LoginController {
             }
         }
         if (logout != null) {
-            model.setViewName("redirect:index");
+            model.setViewName("redirect:welcome");
             model.getModel();
         } else {
             model.setViewName("login");

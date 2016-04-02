@@ -78,10 +78,9 @@ public final class SecurityUtils {
         if (authentication != null) {
             if (authentication.getPrincipal() instanceof CustomUserDetails) {
                 CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-                LOG.info("User is authenticated => {}", userDetails);
                 return (CustomUserDetails) authentication.getPrincipal();
             } else {
-                LOG.info("User is not authenticated => {}", authentication);
+                return new CustomUserDetails(null, authentication.getName(), null, null, null, null, authentication.getAuthorities(), false, false, false, false);
             }
         }
         return null;

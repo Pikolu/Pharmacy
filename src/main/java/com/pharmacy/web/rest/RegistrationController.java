@@ -40,15 +40,14 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView registration(@ModelAttribute("command") User user, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
-        LOG.trace("Enter registration: user={}, result={}", user, result);
         validator.validate(user, result);
         if (result.hasErrors()) {
             if (modelAndView == null) {
-                modelAndView = new ModelAndView("redirect:registration.html", "command", new User());
+                modelAndView = new ModelAndView("redirect:registration", "command", new User());
             }
             modelAndView.getModel().putAll(result.getModel());
         } else {
-            modelAndView = new ModelAndView("redirect:welcome.html", "command", user);
+            modelAndView = new ModelAndView("redirect:welcome", "command", user);
             User newUser = userService.createUserInformation(user.getLogin(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getEmail(), "de_DE");
             String baseUrl = request.getScheme() + // "http"
                     "://" +                                // "://"
@@ -58,12 +57,10 @@ public class RegistrationController {
 
             mailService.sendActivationEmail(newUser, baseUrl);
         }
-        LOG.trace("Exit registration: modelAndView={}", modelAndView);
         return modelAndView;
     }
 
     private void authenticateUserAndSetSession(User account, HttpServletRequest request) {
-        LOG.trace("Enter authenticateUserAndSetSession: account={}", account);
         String username = account.getEmail();
         String password = account.getPassword();
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
@@ -72,15 +69,12 @@ public class RegistrationController {
         request.getSession();
 
         token.setDetails(new WebAuthenticationDetails(request));
-        LOG.trace("Exit authenticateUserAndSetSession");
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView initRegistration() {
-        LOG.trace("Enter showContacts");
         modelAndView = new ModelAndView(REGISTRATION, "command", new User(""));
         modelAndView.addObject("searchResult", new SearchResult());
-        LOG.trace("Exit initRegistration: modelAndView={}", modelAndView);
         return modelAndView;
     }
 

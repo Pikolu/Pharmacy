@@ -43,6 +43,8 @@ public class IndexController extends AbstractController {
 
     @RequestMapping(value = {"/", "/index", "/welcome**"}, method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request) {
+
+        LOG.info("Index/Welcome page called from {}", getCustomUserDetails());
         Map<String, String[]> parameterMap = request.getParameterMap();
         List<Article> articles = articleService.loadBestDiscountedArticles();
         ModelAndView modelAndView = new ModelAndView("index");

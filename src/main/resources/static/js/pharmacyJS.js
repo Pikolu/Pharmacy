@@ -17,3 +17,7 @@ function updateResultList(parameter, page) {
         }
     });
 }
+
+function closeInfoDialog() {
+    jQuery('#info-dialog').hide();
+}

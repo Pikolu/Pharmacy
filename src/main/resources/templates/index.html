@@ -9,13 +9,10 @@
 <div th:fragment="content">
     <div th:id="container">
         <div th:id="content">
-            <div th:if="${contactSuccessful} == 'true'">
-                <div class="info">
-                    <label>Hinweis</label>
-                    <br />
-                    <span>Ihre Nachricht wurde erfolgreich versendet.</span>
-                </div>
+            <div th:replace="fragments/message :: message">
+                message
             </div>
+
             <div th:class="example-wrapper">
                 <div th:id="services-example-1" th:class="theme1">
                     <ul>

@@ -41,8 +41,6 @@ spring:
                 path:
                   logs: C:\lucene
                   data: C:\lucene
-    mail:
-        host: localhost
     messages:
         cache-seconds: 1
     thymeleaf:

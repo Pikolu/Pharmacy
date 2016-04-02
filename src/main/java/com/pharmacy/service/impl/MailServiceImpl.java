@@ -39,8 +39,9 @@ public class MailServiceImpl {
         LOG.info("Sending e-mail from '{}'", contactForm.getEmail());
         Locale locale = Locale.GERMAN;
         Context context = new Context(locale);
-        String content = templateEngine.process("activationEmail", context);
-        String subject = messageSource.getMessage("email.activation.title", null, locale);
+        context.setVariable("contactForm", contactForm);
+        String content = templateEngine.process("contactEmail", context);
+        String subject = contactForm.getSubject();
         sendEmail(Constants.RECIPIENT_E_MAIL, subject, content, false, true);
     }
 

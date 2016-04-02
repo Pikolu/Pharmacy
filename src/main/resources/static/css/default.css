@@ -5121,3 +5121,15 @@ textarea {
     overflow: hidden;
     padding: 20px;
 }
+
+.info .icon-x {
+    background: url(../images/x.png) no-repeat;
+    width: 25px;
+    height: 29px;
+    display: inline;
+    z-index: 3200;
+    position: relative;
+    top: -35px;
+    left: 722px;
+    cursor: pointer;
+}
