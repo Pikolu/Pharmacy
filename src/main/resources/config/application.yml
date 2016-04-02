@@ -28,7 +28,7 @@ spring:
         protocol: smtp
         host: smtp.gmail.com
         port: 465
-        username: 
+        username:
         password:
         test-connection: false
         properties:
