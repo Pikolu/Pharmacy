@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout/template :: page">
+<head>
+    <title></title>
+</head>
+<body>
+<div th:fragment="content">
+    <div id="notification"></div>
+    <div id="content">
+        <div class="box">
+            <div class="box-heading">Impressum</div>
+            <div class="box-content">
+                <div class="box-product">
+                    <div class='impressum'>
+                        <p>Angaben gemäß § 5 TMG</p>
+
+                        <p>Vorname Nachname <br />
+                            Straße, Hausnummer<br />
+                            PLZ Stadt <br />
+                        </p>
+
+                        <p>
+                            <strong>Vertreten durch: </strong>
+                            <br />
+                            Vorname Nachname<br />
+                        </p>
+
+                        <p>
+                            <strong>Kontakt:</strong>
+                            <br />
+                            Telefon: Telefonnummer<br />
+                            E-Mail: <a href='mailto:apopow@gmail.com'>E-Mail</a><br /></p><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
