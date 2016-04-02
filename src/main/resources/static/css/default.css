@@ -5120,16 +5120,17 @@ textarea {
     margin: 20px auto;
     overflow: hidden;
     padding: 20px;
+    position: relative;
 }
 
-.info .icon-x {
+#info-dialog .icon-x {
     background: url(../images/x.png) no-repeat;
     width: 25px;
     height: 29px;
     display: inline;
     z-index: 3200;
-    position: relative;
-    top: -35px;
-    left: 722px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
     cursor: pointer;
 }

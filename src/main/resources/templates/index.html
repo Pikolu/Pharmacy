@@ -7,96 +7,94 @@
 </head>
 <body>
 <div th:fragment="content">
-    <div th:id="container">
-        <div th:id="content">
-            <div th:replace="fragments/message :: message">
-                message
-            </div>
+    <div th:id="content">
+        <div th:replace="fragments/message :: message">
+            Message
+        </div>
 
-            <div th:class="example-wrapper">
-                <div th:id="services-example-1" th:class="theme1">
-                    <ul>
-                        <!--	###############		-	SLIDE 4	-	###############	 -->
-                        <li th:each="article : ${articles}">
-                            <img th:width="150" th:height="110" th:class="thumb" th:src="${article.imageURL}"
-                                 data-bw="${article.imageURL}"/>
+        <div th:class="example-wrapper">
+            <div th:id="services-example-1" th:class="theme1">
+                <ul>
+                    <!--	###############		-	SLIDE 4	-	###############	 -->
+                    <li th:each="article : ${articles}">
+                        <img th:width="150" th:height="110" th:class="thumb" th:src="${article.imageURL}"
+                             data-bw="${article.imageURL}"/>
 
-                            <div style="margin-top:16px"></div>
-                            <h2 style="height: 75px" th:text="${article.name}">Name</h2>
+                        <div style="margin-top:16px"></div>
+                        <h2 style="height: 75px" th:text="${article.name}">Name</h2>
 
-                            <p style="height: 100px; vertical-align: bottom;" th:text="${article.description}">
-                                Beschreibung</p>
+                        <p style="height: 100px; vertical-align: bottom;" th:text="${article.description}">
+                            Beschreibung</p>
 
-                            <div style="float: left; width: 60%">
-                                <span th:text="${#numbers.formatDecimal(articleHelper.getBestDiscount(article.prices).get().price, 0, 'COMMA', 2, 'POINT') + ' €'}">Preis</span>
-                            </div>
-                            <div>
+                        <div style="float: left; width: 60%">
+                            <span th:text="${#numbers.formatDecimal(articleHelper.getBestDiscount(article.prices).get().price, 0, 'COMMA', 2, 'POINT') + ' €'}">Preis</span>
+                        </div>
+                        <div>
                                 <span style="float:left;width:40%;line-height:1em; font-size: 18px; color: #E31010"
                                       th:text="${articleHelper.getBestDiscount(article.prices).get().discount + ' %'}">Preis</span>
-                                <span style="color: #E31010">Ersparnis</span>
-                                <!--<h:outputText style="float:left;width:40%;line-height:1em; font-size: 18px; color: #E31010" value="{article.discount} % " />-->
-                                <!--<h:outputText value="Ersparnis"/>-->
-                            </div>
-                            <a class="buttonlight morebutton" href="#" style="z-index: 2000">Siehe mehr</a>
+                            <span style="color: #E31010">Ersparnis</span>
+                            <!--<h:outputText style="float:left;width:40%;line-height:1em; font-size: 18px; color: #E31010" value="{article.discount} % " />-->
+                            <!--<h:outputText value="Ersparnis"/>-->
+                        </div>
+                        <a class="buttonlight morebutton" href="#" style="z-index: 2000">Siehe mehr</a>
 
-                            <!--
-                            ***********************************************************************************************************
-                                    -	HERE YOU CAN DEFINE THE EXTRA PAGE WHICH SHOULD BE SHOWN IN CASE THE "BUTTON" HAS BEED PRESSED -
-                            ***********************************************************************************************************
-                            -->
-                            <div class="page-more">
-                                <img width="150" height="110" class="big-image" th:src="${article.imageURL}"/>
-                                <a class="buttonlight morebutton" style="position: relative; top: 175px; right: 186px;"
-                                   th:href="@{/preisvergleich/} + ${article.id} + '/' + ${urlEncoder.encodeURL(article.name)}">Zum
-                                    Preisvergleich</a>
+                        <!--
+                        ***********************************************************************************************************
+                                -	HERE YOU CAN DEFINE THE EXTRA PAGE WHICH SHOULD BE SHOWN IN CASE THE "BUTTON" HAS BEED PRESSED -
+                        ***********************************************************************************************************
+                        -->
+                        <div class="page-more">
+                            <img width="150" height="110" class="big-image" th:src="${article.imageURL}"/>
+                            <a class="buttonlight morebutton" style="position: relative; top: 175px; right: 186px;"
+                               th:href="@{/preisvergleich/} + ${article.id} + '/' + ${urlEncoder.encodeURL(article.name)}">Zum
+                                Preisvergleich</a>
 
-                                <div style="overflow-y: scroll; height: 400px;">
-                                    <div class="details_double">
-                                        <h2 th:text="${article.name}">Name</h2>
+                            <div style="overflow-y: scroll; height: 400px;">
+                                <div class="details_double">
+                                    <h2 th:text="${article.name}">Name</h2>
 
-                                        <p th:text="${article.description}">Beschreibung</p>
-                                    </div>
+                                    <p th:text="${article.description}">Beschreibung</p>
                                 </div>
-                                <div class="closer"></div>
                             </div>
-                        </li>
-                    </ul>
-                    <!--	###############		-	TOOLBAR (LEFT/RIGHT) BUTTONS	-	###############	 -->
-                    <div class="toolbar">
-                        <div class="left"></div>
-                        <div class="right"></div>
-                    </div>
+                            <div class="closer"></div>
+                        </div>
+                    </li>
+                </ul>
+                <!--	###############		-	TOOLBAR (LEFT/RIGHT) BUTTONS	-	###############	 -->
+                <div class="toolbar">
+                    <div class="left"></div>
+                    <div class="right"></div>
                 </div>
             </div>
-            <script type="text/javascript">
-
-                var tpj = jQuery;
-                tpj.noConflict();
-
-                tpj(document).ready(function () {
-
-                    if (tpj.fn.cssOriginal != undefined)
-                        tpj.fn.css = tpj.fn.cssOriginal;
-
-                    tpj('#services-example-1').services(
-                            {
-                                width: 920,
-                                height: 448,
-                                slideAmount: 5,
-                                slideSpacing: 30,
-                                carousel: "on",
-                                touchenabled: "off",
-                                mouseWheel: "off",
-                                hoverAlpha: "off", // Turns Alpha Fade on/off by Hovering
-                                slideshow: 5000, // 0 = No SlideShow, 1000 = 1 sec Slideshow (rotating automatically)
-                                hovereffect: "off", // All Hovereffect on/off
-                                callBack: function () {
-                                }		//Callback any Function after loaded
-
-                            });
-                });
-            </script>
         </div>
+        <script type="text/javascript">
+
+            var tpj = jQuery;
+            tpj.noConflict();
+
+            tpj(document).ready(function () {
+
+                if (tpj.fn.cssOriginal != undefined)
+                    tpj.fn.css = tpj.fn.cssOriginal;
+
+                tpj('#services-example-1').services(
+                        {
+                            width: 920,
+                            height: 448,
+                            slideAmount: 5,
+                            slideSpacing: 30,
+                            carousel: "on",
+                            touchenabled: "off",
+                            mouseWheel: "off",
+                            hoverAlpha: "off", // Turns Alpha Fade on/off by Hovering
+                            slideshow: 5000, // 0 = No SlideShow, 1000 = 1 sec Slideshow (rotating automatically)
+                            hovereffect: "off", // All Hovereffect on/off
+                            callBack: function () {
+                            }		//Callback any Function after loaded
+
+                        });
+            });
+        </script>
     </div>
 </div>
 </body>

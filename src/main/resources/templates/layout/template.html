@@ -36,7 +36,7 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div th:class="main-container">
-    <div th:include="this :: content"/>
+    <div th:include="this :: content" id="container"/>
     <div th:replace="fragments/footer :: footer"></div>
 </div>
 </body>
