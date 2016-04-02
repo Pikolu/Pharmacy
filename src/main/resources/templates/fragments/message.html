@@ -4,10 +4,11 @@
 <head>
 </head>
 <body>
-<div id="info-dialog" class="info" th:if="${contactSuccessful}" th:fragment="message">
+<div id="info-dialog" class="info" th:if="${contactSuccessful} or ${passwordResetSuccessful}" th:fragment="message">
     <strong>Hinweis</strong>
     <br/>
-    <span>Ihre Nachricht wurde erfolgreich versendet.</span>
+    <span th:if="${contactSuccessful}">Ihre Nachricht wurde erfolgreich versendet.</span>
+    <span th:if="${passwordResetSuccessful}">Ihr Password wurde erfolgreich zurückgesetzt.</span>
     <span>
         <img th:src="@{/images/x.png}" class="icon-x" onclick="closeInfoDialog()"/>
     </span>
