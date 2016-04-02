@@ -11,8 +11,7 @@
                 <div th:id="welcome" th:if="${#httpServletRequest.userPrincipal != null}">
                     <span>Hallo!</span>
                     <a th:href="@{/benutzerkonto}">
-                        <span style="color: white" th:text="${customUser.firstName}">fistName</span>
-                        ,
+                        <span style="color: white" th:text="${customUser.firstName}">fistName</span>,
                         <span style="color: white" th:text="${customUser.lastName}">fistName</span>
                     </a>
                     | <a th:href="@{/logout}">

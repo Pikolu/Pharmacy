@@ -22,7 +22,7 @@ public class CustomUserDetails implements UserDetails {
     private final String firstName;
     private final String lastName;
     private final String email;
-    private final Set<GrantedAuthority> authorities;
+    private final Collection<? extends GrantedAuthority> authorities;
     private final boolean accountNonExpired;
     private final boolean accountNonLocked;
     private final boolean credentialsNonExpired;
@@ -38,7 +38,7 @@ public class CustomUserDetails implements UserDetails {
      * @param credentialsNonExpired
      * @param enabled
      */
-    public CustomUserDetails(Long id, String username, String firstName, String lastName, String password, String email, Set<GrantedAuthority> authorities, boolean accountNonExpired, boolean accountNonLocked,
+    public CustomUserDetails(Long id, String username, String firstName, String lastName, String password, String email, Collection<? extends GrantedAuthority> authorities, boolean accountNonExpired, boolean accountNonLocked,
                              boolean credentialsNonExpired, boolean enabled) {
         this.id = id;
         this.firstName = firstName;
@@ -110,6 +110,13 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String toString() {
-        return "CustomUserDetails{" + id + ',' + username + ',' + authorities + '}';
+        return "CustomUserDetails{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", authorities=" + authorities +
+                '}';
     }
 }

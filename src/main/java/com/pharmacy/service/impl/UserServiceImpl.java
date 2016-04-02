@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
@@ -46,19 +47,19 @@ public class UserServiceImpl implements UserService {
     @Inject
     private AuthorityRepository authorityRepository;
 
-    public Optional<User> activateRegistration(String key) {
+    public User activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
-        userRepository.findOneByActivationKey(key)
+        return userRepository.findOneByActivationKey(key)
                 .map(user -> {
                     // activate given user for the registration key.
                     user.setActivated(true);
                     user.setActivationKey(null);
                     userRepository.save(user);
-//                    userSearchRepository.save(user);
                     log.debug("Activated user: {}", user);
                     return user;
-                });
-        return Optional.empty();
+                }).orElseGet(() -> {
+            return null;
+        });
     }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
@@ -121,7 +122,6 @@ public class UserServiceImpl implements UserService {
             u.setEmail(email);
             u.setLangKey(langKey);
             userRepository.save(u);
-//            userSearchRepository.save(u);
             log.debug("Changed Information for User: {}", u);
         });
     }
@@ -201,5 +201,10 @@ public class UserServiceImpl implements UserService {
 
     public Optional<User> findOneByEmail(String mail) {
         return userRepository.findOneByEmail(mail);
+    }
+
+    @Override
+    public Optional<User> findOneByLogin(String login) {
+        return userRepository.findOneByLogin(login);
     }
 }

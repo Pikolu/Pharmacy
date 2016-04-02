@@ -3,6 +3,7 @@ package com.pharmacy.web.rest;
 import com.pharmacy.domain.SearchResult;
 import com.pharmacy.domain.User;
 import com.pharmacy.service.api.UserService;
+import com.pharmacy.service.impl.MailServiceImpl;
 import com.pharmacy.web.validator.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
@@ -33,27 +35,32 @@ public class RegistrationController {
     @Inject
     private UserService userService;
     private ModelAndView modelAndView;
+    @Inject
+    private MailServiceImpl mailService;
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView registration(@ModelAttribute("command") User user, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
-        LOG.trace("Enter registration: user={}, result={}", user, result);
         validator.validate(user, result);
         if (result.hasErrors()) {
             if (modelAndView == null) {
-                modelAndView = new ModelAndView("redirect:registration.html", "command", new User());
+                modelAndView = new ModelAndView("redirect:registration", "command", new User());
             }
             modelAndView.getModel().putAll(result.getModel());
         } else {
-            modelAndView = new ModelAndView("redirect:welcome.html", "command", user);
-            userService.createUserInformation(user.getLogin(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getEmail(), "de_DE");
-            authenticateUserAndSetSession(user, request);
+            modelAndView = new ModelAndView("redirect:welcome", "command", user);
+            User newUser = userService.createUserInformation(user.getLogin(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getEmail(), "de_DE");
+            String baseUrl = request.getScheme() + // "http"
+                    "://" +                                // "://"
+                    request.getServerName() +              // "myhost"
+                    ":" +                                  // ":"
+                    request.getServerPort();               // "80"
+
+            mailService.sendActivationEmail(newUser, baseUrl);
         }
-        LOG.trace("Exit registration: modelAndView={}", modelAndView);
         return modelAndView;
     }
 
     private void authenticateUserAndSetSession(User account, HttpServletRequest request) {
-        LOG.trace("Enter authenticateUserAndSetSession: account={}", account);
         String username = account.getEmail();
         String password = account.getPassword();
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
@@ -62,18 +69,25 @@ public class RegistrationController {
         request.getSession();
 
         token.setDetails(new WebAuthenticationDetails(request));
-//        Authentication authenticatedUser = authenticationManager.authenticate(token);
-
-//        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
-        LOG.trace("Exit authenticateUserAndSetSession");
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public ModelAndView initRegistrition() {
-        LOG.trace("Enter showContacts");
+    public ModelAndView initRegistration() {
         modelAndView = new ModelAndView(REGISTRATION, "command", new User(""));
         modelAndView.addObject("searchResult", new SearchResult());
-        LOG.trace("Exit initRegistrition: modelAndView={}", modelAndView);
         return modelAndView;
     }
+
+    @RequestMapping(value = "/registration/aktivierung", method = RequestMethod.GET)
+    public ModelAndView finishRegistration(@RequestParam(value = "key") String key, HttpServletRequest request) {
+        User user = userService.activateRegistration(key);
+        if (user != null) {
+            modelAndView = new ModelAndView("login");
+        } else {
+            modelAndView = new ModelAndView(REGISTRATION, "command", new User(""));
+        }
+        modelAndView.addObject("searchResult", new SearchResult());
+        return modelAndView;
+    }
+
 }

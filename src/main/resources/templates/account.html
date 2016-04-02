@@ -35,10 +35,8 @@
                 <div class="box-content">
                     <div class="box-product">
                         <div class="user-account">
-                            <!--<spring:url value="/account" var="account" />-->
-                            <form th:action="@{/account}" method="post" id="register" th:object="${userForm}">
+                            <form th:action="@{/benutzerkonto}" method="post" id="register" th:object="${userForm}">
                                 <h2>Persönliche Daten</h2>
-                                <!--<form:hidden cssClass="q1" path="id" />-->
                                 <div class="content">
                                     <table class="form">
                                         <tbody>
@@ -49,18 +47,19 @@
                                             </td>
                                             <td>
                                                 <input class="q1" name="login" type="text" th:field="*{login}"/>
-                                                <!--<form:errors path="firstName" cssClass="error"/>-->
+                                                <span th:if="${#fields.hasErrors('login')}" class="error"
+                                                      th:errors="*{login}">Bitte geben Sie Ihren Benutzername ein.</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <span class="required">*</span>
                                                 <span>Vorname</span>
-                                                <!--<s:message code="label.firstname"/>:-->
                                             </td>
                                             <td>
                                                 <input class="q1" name="login" type="text" th:field="*{firstName}"/>
-                                                <!--<form:errors path="firstName" cssClass="error"/>-->
+                                                <span th:if="${#fields.hasErrors('firstName')}" class="error"
+                                                      th:errors="*{firstName}">Bitte geben Sie Ihren Vornamen ein.</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -70,6 +69,8 @@
                                             </td>
                                             <td>
                                                 <input class="q1" name="login" type="text" th:field="*{lastName}"/>
+                                                <span th:if="${#fields.hasErrors('lastName')}" class="error"
+                                                      th:errors="*{lastName}">Bitte geben Sie Ihren Nachnamen ein.</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -79,6 +80,8 @@
                                             </td>
                                             <td>
                                                 <input class="q1" name="login" type="text" th:field="*{email}"/>
+                                                <span th:if="${#fields.hasErrors('email')}" class="error"
+                                                      th:errors="*{email}">Bitte geben Sie Ihre E-Mail-Adresse ein.</span>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -98,19 +101,11 @@
                                             <td>
                                                 <input class="q1" name="password" type="password"
                                                        th:field="*{password}"/>
+                                                <span th:if="${#fields.hasErrors('password')}"
+                                                      th:errors="*{password}"
+                                                      class="error">Bitte geben Sie Ihre E-Mail-Adresse ein.</span>
                                             </td>
                                         </tr>
-                                        <!--<tr>-->
-                                        <!--<td>-->
-                                        <!--<span class="required">*</span>-->
-                                        <!--&lt;!&ndash;<s:message code="label.passwordRepeat"/>:&ndash;&gt;-->
-                                        <!--</td>-->
-                                        <!--<td>-->
-                                        <!--<input class="q1" name="account.passwordConfirm" value="" type="password" />-->
-                                        <!--&lt;!&ndash;<form:errors path="account.passwordConfirm" cssClass="error"/>&ndash;&gt;-->
-
-                                        <!--</td>-->
-                                        <!--</tr>-->
                                         </tbody>
                                     </table>
                                 </div>

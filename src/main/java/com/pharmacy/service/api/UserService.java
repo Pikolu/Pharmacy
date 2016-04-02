@@ -9,7 +9,7 @@ import java.util.Optional;
  */
 public interface UserService {
 
-    Optional<User> activateRegistration(String key);
+    User activateRegistration(String key);
 
     Optional<User> completePasswordReset(String newPassword, String key);
 
@@ -31,4 +31,7 @@ public interface UserService {
     User getUser(Long id);
 
     Optional<User> findOneByEmail(String mail);
+
+    Optional<User> findOneByLogin(String login);
+
 }

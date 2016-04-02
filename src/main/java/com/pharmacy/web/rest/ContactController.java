@@ -36,7 +36,7 @@ public class ContactController extends AbstractController {
         return model;
     }
 
-    @RequestMapping(value = "/kontakt", method = RequestMethod.POST)
+    @RequestMapping(value = "/index", method = RequestMethod.POST)
     public ModelAndView validateAndSendEmail(@ModelAttribute("contactForm") ContactForm contactForm, BindingResult result, HttpServletRequest request) {
         contactValidator.validate(contactForm, result);
         ModelAndView modelAndView;
@@ -48,7 +48,7 @@ public class ContactController extends AbstractController {
             }
             modelAndView.addObject("contactForm", contactForm);
         } else {
-            modelAndView = new ModelAndView("redirect:/index?contactSuccessful=true");
+            modelAndView = new ModelAndView("index");
             modelAndView.addObject("contactSuccessful", true);
             String baseUrl = request.getScheme() + // "http"
                     "://" +                                // "://"

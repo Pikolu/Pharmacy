@@ -34,11 +34,8 @@
                     <div class="right">
                         <form id="login" name='loginForm' th:action="@{/login}" method='POST'>
                             <div class="content">
-                                <!--<p>I am a returning customer</p>-->
-                                <!--<c:if test="${not empty error}">-->
                                 <div class="error" th:if="${error != null}" th:text="${error}">Fehler</div>
-                                <!--</c:if>-->
-                                <b class="padd-form">E-Mail Adresse:</b>
+                                <b class="padd-form">Benutzername:</b>
                                 <input class="q1 margen-bottom" name="j_username" value="" type="text"/>
                                 <b class="padd-form">Password:</b>
                                 <input class="q1 margen-bottom" name="j_password" value="" type="password"/>

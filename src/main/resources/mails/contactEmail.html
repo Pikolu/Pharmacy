@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{email.activation.title}">JHipster activation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<a href="https://127.0.0.1:8443">
+    <img th:class="logo" src="https://127.0.0.1:8443/images/logo1.png"/>
+</a>
+
+<hr />
+
+<!--<p th:text="#{email.activation.greeting(${user.firstName}, ${user.lastName})}">-->
+    <!--Dear-->
+<!--</p>-->
+
+<div>
+    <p>
+        <span>Vorname</span>:
+        <span th:text="${contactForm.fistName}">Vorname</span>
+    </p>
+    <p>
+        <span>Nachname</span>:
+        <span th:text="${contactForm.lastName}">Nachname</span>
+    </p>
+    <p>
+        <span>E-Mail</span>:
+        <span th:text="${contactForm.email}">Nachname</span>
+    </p>
+</div>
+
+<p th:text="${contactForm.message}">Message</p>
+</body>
+</html>

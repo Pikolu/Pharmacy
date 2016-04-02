@@ -4,7 +4,7 @@
 <head>
 </head>
 <body>
-<form id="contactForm" th:object="${contactForm}" method="POST" th:fragment="contactForm" th:action="@{/kontakt}">
+<form id="contactForm" th:object="${contactForm}" method="POST" th:fragment="contactForm" th:action="@{/index}">
 
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
