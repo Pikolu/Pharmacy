@@ -6,8 +6,10 @@ import com.pharmacy.repository.ArticleRepository;
 import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.repository.search.PriceSearchRepository;
 import com.pharmacy.service.api.ArticleService;
+import com.pharmacy.web.rest.IndexController;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.facet.terms.TermsFacetBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
@@ -15,10 +17,13 @@ import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.FacetedPage;
+import org.springframework.data.elasticsearch.core.FacetedPageImpl;
 import org.springframework.data.elasticsearch.core.facet.FacetRequest;
 import org.springframework.data.elasticsearch.core.facet.request.NativeFacetRequest;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -27,6 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,6 +43,9 @@ import java.util.List;
 @SuppressWarnings("ALL")
 @Service
 public class ArticleServiceImpl implements ArticleService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
+
 
     @Inject
     private ArticleSearchRepository articleSearchRepository;
@@ -81,7 +90,13 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         SearchQuery searchQuery = buildSearchQuery(queryBuilder, facetRequest, filterBuilder, pageable, sortBuilder);
-        FacetedPage<Article> articles = articleSearchRepository.search(searchQuery);
+        FacetedPage<Article> articles;
+        try {
+            articles = articleSearchRepository.search(searchQuery);
+        } catch (ElasticsearchException ex) {
+            LOG.warn("Search could not be executed {}", ex);
+            articles = new FacetedPageImpl(new ArrayList<Article>());
+        }
 
         return articles;
     }

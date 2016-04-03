@@ -31,12 +31,19 @@
     <!-- Pharmacy JS -->
     <script th:src="@{/js/pharmacyJS.js}" type="application/javascript"></script>
 
+    <!-- FavIcons -->
+    <link rel="icon" type="image/png" th:href="@{/images/favicons/favicon-196x196.png}" sizes="196x196" />
+    <link rel="icon" type="image/png" th:href="@{/images/favicons/favicon-128x128.png}" sizes="128x128" />
+    <link rel="icon" type="image/png" th:href="@{/images/favicons/favicon-96x96.png}" sizes="96x96" />
+    <link rel="icon" type="image/png" th:href="@{/images/favicons/favicon-32x32.png}" sizes="32x32" />
+    <link rel="icon" type="image/png" th:href="@{/images/favicons/favicon-16x16.png}" sizes="16x16" />
+
     <title>Medikamente Preisvergleich - Medikamente günstig für alle | medizin-finder.de</title>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div th:class="main-container">
-    <div th:include="this :: content"/>
+    <div th:include="this :: content" id="container"/>
     <div th:replace="fragments/footer :: footer"></div>
 </div>
 </body>

@@ -5120,16 +5120,44 @@ textarea {
     margin: 20px auto;
     overflow: hidden;
     padding: 20px;
+    position: relative;
 }
 
-.info .icon-x {
+#info-dialog .icon-x {
     background: url(../images/x.png) no-repeat;
     width: 25px;
     height: 29px;
     display: inline;
     z-index: 3200;
-    position: relative;
-    top: -35px;
-    left: 722px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
     cursor: pointer;
+}
+
+
+button {
+    background: none repeat scroll 0 0 #343434;
+    border: 1px solid #1F1F1F;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    line-height: normal;
+    text-decoration: none;
+    text-transform: none;
+}
+
+button span {
+    color: #FFFFFF;
+    display: inline-block;
+    padding: 4px 8px 5px;
+}
+
+button:hover {
+    background: none repeat scroll 0 0 #999999;
+    border: 1px solid #8F8F8F;
+}
+
+button:hover span {
+    color: #FFFFFF;
 }

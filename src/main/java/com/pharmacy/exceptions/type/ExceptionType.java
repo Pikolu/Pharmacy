@@ -7,11 +7,11 @@ import com.pharmacy.exceptions.loglevel.LogLevel;
  */
 public enum ExceptionType {
     PE_0000(LogLevel.INFO, "Beschreibung für die GUI", "Beschreibung für die Log-Ausgabe"),
-    LOGIN_0001(LogLevel.ERROR, "Ihre E-Mail oder Ihr Passwort ist falsch.", "Could not found user in DB. Check email {} by user."),
-    LOGIN_0002(LogLevel.ERROR, "Ihre E-Mail oder Ihr Passwort ist falsch.", "Could not found user in DB. Check email {} by user."),
-    LOGIN_0003(LogLevel.ERROR, "Ihre E-Mail oder Ihr Passwort ist falsch.", "Could not found user in DB. Check email {} by user."),
-    LOGIN_0004(LogLevel.ERROR, "Ihre E-Mail oder Ihr Passwort ist falsch.", "Could not found user in DB. Check email {} by user."),
-    LOGIN_0005(LogLevel.ERROR, "Ihre E-Mail oder Ihr Passwort ist falsch.", "Could not found user in DB. Check email {} by user."),
+    LOGIN_0001(LogLevel.ERROR, "Ihr Benutzername oder Ihr Passwort ist falsch.", "Could not found user in DB. Check email {} by user."),
+    LOGIN_0002(LogLevel.ERROR, "Ihr Benutzername oder Ihr Passwort ist falsch.", "Could not found user in DB. Check email {} by user."),
+    LOGIN_0003(LogLevel.ERROR, "Ihr Benutzername oder Ihr Passwort ist falsch.", "Could not found user in DB. Check email {} by user."),
+    LOGIN_0004(LogLevel.ERROR, "Ihr Benutzername oder Ihr Passwort ist falsch.", "Could not found user in DB. Check email {} by user."),
+    LOGIN_0005(LogLevel.ERROR, "Ihr Benutzername oder Ihr Passwort ist falsch.", "Could not found user in DB. Check email {} by user."),
 
     //Search
     SEARCH_0001(LogLevel.ERROR, "Die Suche konnte nicht ausgeführt werden.", "Could not create the Seach."),

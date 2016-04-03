@@ -7,9 +7,13 @@ import com.pharmacy.exceptions.type.ExceptionType;
 import com.pharmacy.service.api.MailService;
 import com.pharmacy.service.api.UserService;
 import com.pharmacy.service.impl.MailServiceImpl;
+import com.pharmacy.web.dto.KeyAndPasswordDTO;
+import com.pharmacy.web.validator.PasswordValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +35,8 @@ public class LoginController {
     private UserService userService;
     @Inject
     private MailServiceImpl mailService;
+    @Inject
+    private PasswordValidator passwordValidator;
 
     @RequestMapping(value = "/login")
     public ModelAndView initLoginPage(@RequestParam(value = "error", required = false) String error,
@@ -85,5 +91,27 @@ public class LoginController {
             model.addObject("changePasswordError", e.getExceptionType().getResourceKey());
         }
         return model;
+    }
+
+    @RequestMapping(value = "/login/passwort/reset", method = RequestMethod.GET)
+    private ModelAndView changePassword(String key, HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView("passwordReset", "resetForm", new KeyAndPasswordDTO(key));
+        modelAndView.addObject("searchResult", new SearchResult());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/login/passwort/reset", method = RequestMethod.POST)
+    private ModelAndView changePassword(@ModelAttribute("resetForm") KeyAndPasswordDTO keyAndPasswordDTO, BindingResult result){
+        ModelAndView modelAndView;
+        passwordValidator.validate(keyAndPasswordDTO, result);
+        if (result.hasErrors()) {
+            modelAndView = new ModelAndView("passwordReset", "resetForm", keyAndPasswordDTO);
+        } else {
+            modelAndView = new ModelAndView("index");
+            userService.completePasswordReset(keyAndPasswordDTO.getNewPassword(), keyAndPasswordDTO.getKey());
+            modelAndView.addObject("passwordResetSuccessful", true);
+        }
+        modelAndView.addObject("searchResult", new SearchResult());
+        return modelAndView;
     }
 }
