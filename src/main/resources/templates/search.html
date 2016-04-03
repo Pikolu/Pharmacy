@@ -34,7 +34,7 @@
             <div class="box" th:style="${!searchResult.facetedPage.getContent().isEmpty() ? 'margin-left: 250px' : ''}">
                 <div class="box-heading">
                     <span>Suchergebnisse zu <span th:text="*{parameter}"></span></span>
-                    <span style="float: right; text-transform: none; margin-right: 10px">
+                    <span style="float: right; text-transform: none; margin-right: 10px" th:if="${!searchResult.facetedPage.getContent().isEmpty()}">
                         <b>Sortiert nach:</b>
                         <select th:field="*{sortOrder}" th:remove="all-but-first"
                                 onchange="$('#searchResult').submit();">
