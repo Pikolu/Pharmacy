@@ -98,19 +98,15 @@
                     </div>
                     <div class="buttons">
                         <div class="right">
-                            <span>Mit meiner Anmeldung akzeptiere ich die</span>
-                            <a class="colorbox cboxElement" href="${agreement}" alt="General Terms">
+                            <span>Mit meiner Anmeldung akzeptiere ich der</span>
+                            <a class="colorbox cboxElement" th:href="@{/datenschutz}" target="_blank" alt="General Terms">
                                 <b>
-                                    medizin-finder.de AGB
+                                    Datenschutz
                                 </b>
                             </a>
                             <input name="acceptedGeneralTerms" value="1" type="checkbox" th:field="*{acceptedPrivacy}"/>
                             <span th:if="${#fields.hasErrors('acceptedPrivacy')}" class="error" th:utext="#{message.PrivacyNotAccepted}">Bitte geben Sie Ihre E-Mail-Adresse ein.</span>
-                            <a onclick="$('#register').submit();" class="button">
-                                <span>
-                                    <span>Weiter</span>
-                                </span>
-                            </a>
+                            <button>Weiter</button>
                         </div>
                     </div>
 
