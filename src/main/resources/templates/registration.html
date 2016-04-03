@@ -106,7 +106,7 @@
                             </a>
                             <input name="acceptedGeneralTerms" value="1" type="checkbox" th:field="*{acceptedPrivacy}"/>
                             <span th:if="${#fields.hasErrors('acceptedPrivacy')}" class="error" th:utext="#{message.PrivacyNotAccepted}">Bitte geben Sie Ihre E-Mail-Adresse ein.</span>
-                            <button>Weiter</button>
+                            <button class="button"><span>Weiter</span></button>
                         </div>
                     </div>
 
