@@ -11,7 +11,7 @@
     <div id="content">
         <form th:object="${searchResult}" id="searchResult">
 
-            <div id="column-left">
+            <div id="column-left" th:if="${!searchResult.facetedPage.getContent().isEmpty()}">
                 <div class="box category">
                     <div class="box-heading">Herrsteller</div>
                     <div class="box-content">
@@ -31,7 +31,7 @@
             </div>
 
 
-            <div class="box" style="margin-left: 250px">
+            <div class="box" th:style="${!searchResult.facetedPage.getContent().isEmpty() ? 'margin-left: 250px' : ''}">
                 <div class="box-heading">
                     <span>Suchergebnisse zu <span th:text="*{parameter}"></span></span>
                     <span style="float: right; text-transform: none; margin-right: 10px">
