@@ -5,6 +5,8 @@
 # Frameworks
 * Spring Boot
 * Thymeleaf
+* Thymeleaf Layout Dialect
+* Quartz Job Scheduling
 
 # Datenbank
 PostgreSQL
