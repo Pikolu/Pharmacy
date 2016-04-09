@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      th:include="layout/template :: page">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/template">
 <head>
-    <title>Medikamente Preisvergleich - Einloggen Medizin-Finder.de</title>
+    <title>Einloggen</title>
 </head>
 <body>
 <div th:fragment="content">
@@ -36,15 +37,15 @@
                             <div class="content">
                                 <div class="error" th:if="${error != null}" th:text="${error}">Fehler</div>
                                 <b class="padd-form">Benutzername:</b>
-                                <input class="q1 margen-bottom" name="j_username" value="" type="text"/>
+                                <input class="q1 margen-bottom" name="j_username" value="" type="text" required="required"/>
                                 <b class="padd-form">Password:</b>
-                                <input class="q1 margen-bottom" name="j_password" value="" type="password"/>
+                                <input class="q1 margen-bottom" name="j_password" value="" type="password" required="required"/>
                                 <br/>
 
                                 <div>
                                     <a id="link-login" class="link-login" onclick="openDialog()">Passwort vergessen?</a>
                                 </div>
-                                <a onclick="$('#login').submit();" class="button"><span>Login</span></a>
+                                <button class="button"><span>Login</span></button>
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                             </div>
                         </form>
