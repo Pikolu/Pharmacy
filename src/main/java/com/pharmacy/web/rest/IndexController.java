@@ -56,39 +56,7 @@ public class IndexController extends AbstractController {
         return modelAndView;
     }
 
-    @RequestMapping("/sitemap_generator")
-    public
-    @ResponseBody
-    String generateSitemap(HttpServletRequest request) {
 
-        String baseUrl = request.getScheme() + // "http"
-                "://" +                                // "://"
-                request.getServerName() +              // "myhost"
-                ":" +                                  // ":"
-                request.getServerPort();               // "80"
-
-        try {
-            WebSitemapGenerator wsg = new WebSitemapGenerator(baseUrl, new File("D:\\Workspace\\Pharmacy\\src\\main\\webapp"));
-            Iterable<Article> articles = articleService.findAll();
-            articles.forEach(e -> {
-                try {
-                    WebSitemapUrl url = new WebSitemapUrl.Options(baseUrl + "/preisvergleich/" + e.getId() + "/" + URLEncoder.encode(e.getName(), "UTF-8"))
-                            .lastMod(new Date()).priority(1.0).changeFreq(ChangeFreq.WEEKLY).build();
-                    wsg.addUrl(url); // repeat multiple times
-                } catch (MalformedURLException | UnsupportedEncodingException ex) {
-                    ex.printStackTrace();
-                }
-            });
-            List<File> sitemaps = wsg.write();
-
-            if (sitemaps.size() > 1) {
-                wsg.writeSitemapsWithIndex();
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
 
     @RequestMapping(value = "/error", produces = "text/html")
     public ModelAndView errorHtml(HttpServletRequest request) {
