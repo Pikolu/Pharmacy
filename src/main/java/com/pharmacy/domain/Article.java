@@ -2,6 +2,8 @@ package com.pharmacy.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
@@ -11,6 +13,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,10 +22,15 @@ import java.util.Objects;
  * A Article.
  */
 @Entity
-@Table(name = "article")
+@Table(name = "article", indexes = {
+        @Index(name = "article_number_index", columnList="articel_number")
+})
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "article", type = "parent-entity")
-public class Article extends BaseUUID {
+@Document(indexName = "article")
+public class Article implements Serializable{
+
+    @Id
+    private Long id;
 
     @Column(name = "name")
     @Field(index = FieldIndex.analyzed, type = FieldType.String)
@@ -49,7 +57,7 @@ public class Article extends BaseUUID {
     @Column(name = "key_words")
     private String keyWords;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "article_id")
     @Field(index = FieldIndex.not_analyzed, type = FieldType.Object)
     private List<Price> prices;
@@ -66,6 +74,24 @@ public class Article extends BaseUUID {
 
     @Column(name = "exported")
     private Boolean exported;
+
+//    @LastModifiedDate
+//    @Column(name = "last_updated")
+//    @Field(type = FieldType.Date)
+//    private ZonedDateTime lastUpdated = ZonedDateTime.now();
+//
+//    @CreatedDate
+//    @Column(name = "creation_date")
+//    @Field(type = FieldType.Date)
+//    private ZonedDateTime creationDate = ZonedDateTime.now();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -165,11 +191,26 @@ public class Article extends BaseUUID {
     public void setExported(Boolean exported) {
         this.exported = exported;
     }
+//    public ZonedDateTime getLastUpdated() {
+//        return lastUpdated;
+//    }
+//
+//    public void setLastUpdated(ZonedDateTime lastUpdated) {
+//        this.lastUpdated = lastUpdated;
+//    }
+//
+//    public ZonedDateTime getCreationDate() {
+//        return creationDate;
+//    }
+//
+//    public void setCreationDate(ZonedDateTime creationDate) {
+//        this.creationDate = creationDate;
+//    }
 
     @Override
     public String toString() {
         return "Article{" +
-                "id=" + getId() +
+                "id=" + id +
                 ", name='" + name + "'" +
                 ", description='" + description + "'" +
                 ", articelNumber='" + articelNumber + "'" +

@@ -2,6 +2,8 @@ package com.pharmacy.service.impl;
 
 import com.google.common.collect.Lists;
 import com.pharmacy.domain.Article;
+import com.pharmacy.repository.ArticleRepository;
+import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.service.api.ArticleService;
 import com.pharmacy.service.api.SitemapGeneratorService;
 import com.redfin.sitemapgenerator.ChangeFreq;
@@ -32,6 +34,11 @@ public class SitemapGeneratorServiceImpl implements SitemapGeneratorService {
 
     @Inject
     private ArticleService articleService;
+    @Inject
+    private ArticleRepository articleRepository;
+    @Inject
+    private ArticleSearchRepository articleSearchRepository;
+
 
     @Override
     public void generateSitemap() {
@@ -45,7 +52,7 @@ public class SitemapGeneratorServiceImpl implements SitemapGeneratorService {
             wsg.addUrl(indexUrl); // repeat multiple times
 
             // Articles
-            Iterable<Article> articles = articleService.findAll();
+            Iterable<Article> articles = articleSearchRepository.findAll();
             List<Article> a = Lists.newArrayList(articles);
             LOG.info("Sitemap generator is called. Export items => {}", a.size());
             articles.forEach(e -> {

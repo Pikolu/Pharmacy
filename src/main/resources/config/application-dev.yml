@@ -35,12 +35,14 @@ spring:
             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
     data:
         elasticsearch:
-            cluster-name: my-application
+            cluster-name: pharmacy-web
             cluster-nodes:
             properties:
                 path:
                   logs: C:\lucene
                   data: C:\lucene
+                http:
+                    enabled: true
     messages:
         cache-seconds: 1
     thymeleaf:
