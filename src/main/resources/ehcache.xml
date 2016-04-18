@@ -36,4 +36,13 @@
     <cache name="com.pharmacy.domain.User.persistentTokens"
            timeToLiveSeconds="3600">
     </cache>
+    <cache name="com.pharmacy.domain.Pharmacy"
+           timeToLiveSeconds="10">
+    </cache>
+    <cache name="com.pharmacy.domain.Pharmacy.payments"
+           timeToLiveSeconds="10">
+    </cache>
+    <cache name="com.pharmacy.domain.Pharmacy.evaluations"
+           timeToLiveSeconds="10">
+    </cache>
 </ehcache>

@@ -96,6 +96,82 @@
                         });
             });
         </script>
+
+        <div class="box" style="margin-top: 20px; float: left; width: 49%; border-bottom: none;">
+            <div class="box-heading">TOP-Apotheken und Anbieter</div>
+            <div class="box-content box-evaluation">
+                <div th:if="${pharmacies.isEmpty()}"
+                     style="border-bottom: 1px solid #E5E5E5; padding: 5px 0px 5px 10px;">
+                    Zurzeit gibt es keine Anbieter mit vorhandenen Bewertungen.
+                </div>
+                <div th:each="pharmacy : ${pharmacies}" class="evaluation-box"
+                     style="height: 60px; border-bottom: 1px solid #E5E5E5; padding: 5px 0px 5px 10px;">
+                    <h2>
+                        <!--<c:url value="/apotheke/${pharmacy.name}.html" var="pharmacyURL"/>-->
+                        <a th:href="@{/apotheke/} + ${pharmacy.id} + '/' + ${pharmacy.name}"
+                           th:text="${pharmacy.name}"></a>
+                    </h2>
+
+                    <div style="float:left">
+                        <img width="86" height="34" th:alt="${pharmacy.name}" th:src="${pharmacy.logoURL}"/>
+                    </div>
+
+                    <div th:id="${'fixed_' + pharmacy.id}" style="margin-left: 165px"></div>
+                    <span style="margin-left: 72px" th:text="${pharmacy.evaluations.size() + ' Bewertung(en)'}">Bewertungen</span>
+
+                    <script th:inline="javascript">/*<![CDATA[*/
+                    var prefix = [[${pharmacy.id}]];
+                    var id = '#fixed_' + prefix;
+                    jQuery(id).raty({
+                        readOnly: true,
+                        start: [[${evaluationHelper.calculateRating(pharmacy.evaluations)}]],
+                        path: [[@{/images/raiting/}]]});
+                    /*]]>*/</script>
+                </div>
+            </div>
+        </div>
+
+        <div class="box" style="margin-top: 20px; margin-left: 51%; border-bottom: none;">
+            <div class="box-heading">Aktuelle Bewertungen</div>
+            <div class="box-content box-evaluation">
+                <div th:if="${evaluations.isEmpty()}"
+                     style="border-bottom: 1px solid #E5E5E5; padding: 5px 0px 5px 10px;">
+                    Zurzeit gibt es keine Bewertungen.
+                </div>
+                <div th:each="evaluation : ${evaluations}" class="evaluation-box"
+                     style="height: 60px; border-bottom: 1px solid #E5E5E5; padding: 5px 0px 5px 10px;">
+                    <span style="float: left" th:text="${T(com.pharmacy.web.helper.DateTimeConverter).convert(evaluation.creationDate)}"></span>
+                    <span style="float: left">&nbsp; | &nbsp;</span>
+
+                    <div th:id="${'current_evaluation_' + evaluation.id}"></div>
+
+                    <h2 class="ellipsis" th:text="${evaluation.name}"></h2>
+
+                    <div class="ellipsis" th:text="${evaluation.description}"></div>
+
+                    <script th:inline="javascript">/*<![CDATA[*/
+                    var prefix = [[${evaluation.id}]];
+                    var id = '#current_evaluation_' + prefix;
+                    jQuery(id).raty({
+                        readOnly: true,
+                        start: [[${evaluation.points}]],
+                        path: [[@{/images/raiting/}]]});
+
+                    /*]]>*/</script>
+
+
+                    <!--<script type="text/javascript">-->
+                        <!--jQuery('#current_evaluation_${evaluation.id}').raty({-->
+                            <!--readOnly: true,-->
+                            <!--start: ${evaluation.points},-->
+                            <!--path: 'resources/images/raiting/',-->
+                            <!--showHalf: true-->
+                        <!--});-->
+                    <!--</script>-->
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 </body>

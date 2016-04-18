@@ -4,10 +4,14 @@ import com.pharmacy.domain.Evaluation;
 import com.pharmacy.domain.Pharmacy;
 import com.pharmacy.repository.EvaluationRepository;
 import com.pharmacy.service.api.EvaluationService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.inject.Inject;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.List;
 
 /**
  * Pharmacy GmbH
@@ -15,6 +19,8 @@ import javax.inject.Inject;
  */
 @Service
 public class EvaluationServiceImpl implements EvaluationService {
+
+    private static final int DEFAULT_SIZE = 5;
 
     @Inject
     private EvaluationRepository evaluationRepository;
@@ -37,5 +43,10 @@ public class EvaluationServiceImpl implements EvaluationService {
         }
         pharmacy.setTotalEvaluationPoints(result / pharmacy.getEvaluations().size());
         evaluation.setPharmacy(pharmacy);
+    }
+
+    @Override
+    public List<Evaluation> getLastEvaluations() {
+        return evaluationRepository.getLastEvaluations(new PageRequest(0, DEFAULT_SIZE));
     }
 }
