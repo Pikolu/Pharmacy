@@ -145,7 +145,10 @@
 
                     <div th:id="${'current_evaluation_' + evaluation.id}"></div>
 
-                    <h2 class="ellipsis" th:text="${evaluation.name}"></h2>
+                    <h2 class="ellipsis">
+                        <a th:href="@{/apotheke/} + ${evaluation.pharmacy.id} + '/' + ${evaluation.pharmacy.name}"
+                           th:text="${evaluation.name}"></a>
+                    </h2>
 
                     <div class="ellipsis" th:text="${evaluation.description}"></div>
 

@@ -15,5 +15,5 @@ public interface EvaluationService {
 
     void evaluate(Evaluation evaluation, Pharmacy pharmacy);
 
-    List<Evaluation> getLastEvaluations();
+    List<Evaluation> getLastEvaluations(int size);
 }

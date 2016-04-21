@@ -42,6 +42,8 @@ public class IndexController extends AbstractController {
 
     private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
 
+    private static final int DEFAULT_SIZE = 5;
+
     @Inject
     private ImportService importService;
     @Inject
@@ -58,7 +60,7 @@ public class IndexController extends AbstractController {
         Map<String, String[]> parameterMap = request.getParameterMap();
         List<Article> articles = articleService.loadBestDiscountedArticles();
         List<Pharmacy> pharmacies = pharmacyService.findBestPharmacies();
-        List<Evaluation> evaluations = evaluationService.getLastEvaluations();
+        List<Evaluation> evaluations = evaluationService.getLastEvaluations(DEFAULT_SIZE);
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addAllObjects(parameterMap);
         modelAndView.addObject("searchResult", new SearchResult());

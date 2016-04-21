@@ -3,6 +3,7 @@ package com.pharmacy.web.rest;
 import com.pharmacy.domain.Evaluation;
 import com.pharmacy.domain.Pharmacy;
 import com.pharmacy.domain.SearchResult;
+import com.pharmacy.service.api.EvaluationService;
 import com.pharmacy.service.api.PharmacyService;
 import org.apache.commons.math3.analysis.function.Abs;
 import org.slf4j.Logger;
@@ -25,8 +26,12 @@ public class PharmacyController extends AbstractController {
 
     private final static Logger LOG = LoggerFactory.getLogger(PharmacyController.class);
 
+    private static final int DEFAULT_SIZE = 5;
+
     @Inject
     private PharmacyService pharmacyService;
+    @Inject
+    private EvaluationService evaluationService;
 
     @RequestMapping(value = "/apotheke/{id}/{pharm}", method = RequestMethod.GET)
     public ModelAndView displayPharmacy(@PathVariable String id, @PathVariable String pharm) {
@@ -34,6 +39,7 @@ public class PharmacyController extends AbstractController {
         Pharmacy pharmacy = pharmacyService.getPharmacyById(id);
         modelAndView.addObject("pharmacy", pharmacy);
         modelAndView.addObject("searchResult", new SearchResult());
+        modelAndView.addObject("evaluations", evaluationService.getLastEvaluations(DEFAULT_SIZE));
 
         return modelAndView;
     }

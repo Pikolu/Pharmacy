@@ -20,8 +20,6 @@ import java.util.List;
 @Service
 public class EvaluationServiceImpl implements EvaluationService {
 
-    private static final int DEFAULT_SIZE = 5;
-
     @Inject
     private EvaluationRepository evaluationRepository;
 
@@ -46,7 +44,7 @@ public class EvaluationServiceImpl implements EvaluationService {
     }
 
     @Override
-    public List<Evaluation> getLastEvaluations() {
-        return evaluationRepository.getLastEvaluations(new PageRequest(0, DEFAULT_SIZE));
+    public List<Evaluation> getLastEvaluations(int size) {
+        return evaluationRepository.getLastEvaluations(new PageRequest(0, size));
     }
 }

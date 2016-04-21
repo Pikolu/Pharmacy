@@ -61,7 +61,7 @@
                                                 </h4>
                                                 <br/>
 
-                                                <div th:id="'fixed_'+${price.id}"></div>
+                                                <div th:id="${'fixed_' + price.id}"></div>
                                                 <span style="font-size: 15px;"
                                                       th:text="${price.pharmacy.evaluations.size()}"></span> <span>Bewertungen</span>
                                                 <script th:inline="javascript">/*<![CDATA[*/
