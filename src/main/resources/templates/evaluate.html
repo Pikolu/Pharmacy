@@ -47,7 +47,7 @@
                                                 <span>Überschrift </span>
                                             </td>
                                             <td>
-                                                <input class="q1" name="name" type="text" th:field="*{name}"/>
+                                                <input class="q1" name="name" type="text" th:field="*{name}" maxlength="255"/>
                                                 <span th:if="${#fields.hasErrors('name')}" class="error">Bitte geben Sie Ihren Benutzername ein.</span>
                                             </td>
                                         </tr>
@@ -58,7 +58,7 @@
                                             </td>
                                             <td>
                                                 <textarea class="q1" name="description" type="text"
-                                                          th:field="*{description}" rows="4" cols="50"/>
+                                                          th:field="*{description}" rows="4" cols="50" maxlength="4000"/>
                                                 <span th:if="${#fields.hasErrors('description')}" class="error">Bitte geben Sie Ihren Vornamen ein.</span>
                                             </td>
                                         </tr>
