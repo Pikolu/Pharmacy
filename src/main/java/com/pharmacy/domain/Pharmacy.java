@@ -45,7 +45,7 @@ public class Pharmacy implements Serializable {
 
     @Column(name = "zip_code")
     @Field(type = FieldType.Integer)
-    private Integer zipCode;
+    private String zipCode;
 
     @Column(name = "city", length = 100)
     @Field(type = FieldType.String)
@@ -69,6 +69,9 @@ public class Pharmacy implements Serializable {
 
     @Column(name = "shipping")
     private Double shipping;
+
+    @Column(name = "free_shipping")
+    private Double freeShipping;
 
     @Column(name = "logo_url")
     private String logoURL;
@@ -128,11 +131,11 @@ public class Pharmacy implements Serializable {
         this.houseNumber = houseNumber;
     }
 
-    public Integer getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(Integer zipCode) {
+    public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
 
@@ -174,6 +177,14 @@ public class Pharmacy implements Serializable {
 
     public void setShipping(Double shipping) {
         this.shipping = shipping;
+    }
+
+    public Double getFreeShipping() {
+        return freeShipping;
+    }
+
+    public void setFreeShipping(Double freeShipping) {
+        this.freeShipping = freeShipping;
     }
 
     public String getLogoURL() {
@@ -252,4 +263,5 @@ public class Pharmacy implements Serializable {
                 ", totalEvaluationPoints='" + getTotalEvaluationPoints() + "'" +
                 '}';
     }
+
 }

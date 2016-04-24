@@ -33,12 +33,14 @@
                 <constraints unique="true"/>
             </column>
             <column name="activated" type="boolean" valueBoolean="false">
-                <constraints nullable="false"/>
+                <constraints nullable="false" />
             </column>
             <column name="lang_key" type="varchar(5)"/>
             <column name="activation_key" type="varchar(20)"/>
             <column name="reset_key" type="varchar(20)"/>
-            <column name="created_by" type="varchar(50)"/>
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
             <column name="created_date" type="timestamp" defaultValueDate="${now}">
                 <constraints nullable="false"/>
             </column>
@@ -84,7 +86,7 @@
             </column>
             <column name="user_id" type="bigint"/>
             <column name="token_value" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" />
             </column>
             <column name="token_date" type="date"/>
             <column name="ip_address" type="varchar(39)"/>
@@ -133,7 +135,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="principal" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" />
             </column>
             <column name="event_date" type="timestamp"/>
             <column name="event_type" type="varchar(255)"/>

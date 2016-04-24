@@ -2,6 +2,8 @@ package com.pharmacy.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
@@ -11,6 +13,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,10 +22,15 @@ import java.util.Objects;
  * A Article.
  */
 @Entity
-@Table(name = "article")
+@Table(name = "article", indexes = {
+        @Index(name = "article_number_index", columnList="articel_number")
+})
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "article", type = "parent-entity")
-public class Article extends BaseUUID {
+@Document(indexName = "article")
+public class Article implements Serializable{
+
+    @Id
+    private Long id;
 
     @Column(name = "name")
     @Field(index = FieldIndex.analyzed, type = FieldType.String)
@@ -35,6 +43,10 @@ public class Article extends BaseUUID {
     @Size(max = 4000)
     @Column(name = "description", length = 4000)
     private String description;
+
+    @Size(max = 40000)
+    @Column(name = "full_description", length = 40000)
+    private String fullDescription;
 
     @NotNull
     @Column(name = "articel_number", nullable = false)
@@ -49,7 +61,7 @@ public class Article extends BaseUUID {
     @Column(name = "key_words")
     private String keyWords;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "article_id")
     @Field(index = FieldIndex.not_analyzed, type = FieldType.Object)
     private List<Price> prices;
@@ -66,6 +78,14 @@ public class Article extends BaseUUID {
 
     @Column(name = "exported")
     private Boolean exported;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -166,10 +186,18 @@ public class Article extends BaseUUID {
         this.exported = exported;
     }
 
+    public String getFullDescription() {
+        return fullDescription;
+    }
+
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
-                "id=" + getId() +
+                "id=" + id +
                 ", name='" + name + "'" +
                 ", description='" + description + "'" +
                 ", articelNumber='" + articelNumber + "'" +

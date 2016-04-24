@@ -3,6 +3,7 @@ package com.pharmacy.domain;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public class BaseUUID implements Serializable {
 
     @CreatedDate
     @Column(name = "creation_date")
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss", iso = DateTimeFormat.ISO.DATE_TIME)
     private ZonedDateTime creationDate = ZonedDateTime.now();
 
 
@@ -54,6 +56,7 @@ public class BaseUUID implements Serializable {
         this.lastUpdated = lastUpdated;
     }
 
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss", iso = DateTimeFormat.ISO.DATE_TIME)
     public ZonedDateTime getCreationDate() {
         return creationDate;
     }

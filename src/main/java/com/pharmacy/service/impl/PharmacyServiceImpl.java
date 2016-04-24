@@ -32,14 +32,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 
     @Override
     public List<Pharmacy> findBestPharmacies() {
-        List<Pharmacy> pharmacies = null;
-//        try {
-//            pharmacies = pharmacyRepository.findBestPharmacies();
-//        } catch (PersistenceException ex) {
-//            ex.writeLog(LOG);
-//            throw ex;
-//        }
-        return pharmacies;
+        return pharmacyRepository.findBestPharmacies();
     }
 
     @Override

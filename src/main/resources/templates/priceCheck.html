@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/template">
 <head>
-    <title th:text="${'Preisvergleich zu' + article.name}"></title>
+    <title th:text="${'Preisvergleich zu ' + article.name}"></title>
 </head>
 <body>
 <div th:fragment="content">
@@ -61,13 +61,12 @@
                                                 </h4>
                                                 <br/>
 
-                                                <div th:id="'fixed_'+${price.id}"></div>
+                                                <div th:id="${'fixed_' + price.id}"></div>
                                                 <span style="font-size: 15px;"
                                                       th:text="${price.pharmacy.evaluations.size()}"></span> <span>Bewertungen</span>
                                                 <script th:inline="javascript">/*<![CDATA[*/
                                                 var prefix = [[${price.id}]];
                                                 var id = '#fixed_' + prefix;
-                                                console.log(id);
                                                 jQuery(id).raty({
                                                     readOnly: true,
                                                     start: [[${price.pharmacy.totalEvaluationPoints}]],
@@ -87,7 +86,7 @@
                                             </div>
                                             <div style="font-size: 14px; text-align: right;">
                                                 <span>+ Versand </span><span
-                                                    th:text="${articleHelper.round(price.price)}"> </span> €
+                                                    th:text="${articleHelper.round(price.pharmacy.shipping)}"> </span> €
                                             </div>
                                             <div style="font-size: 14px; text-align: right;">
                                                 <span>Versandkostenfrei ab </span> <span

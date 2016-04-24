@@ -38,8 +38,8 @@ public class ExporterServiceImpl implements ExporterService {
         if (articles != null && !articles.isEmpty()) {
             LOG.info("Exported Items {}", articles.size());
             articles.stream().forEach(e -> e.setExported(true));
-            articleSearchRepository.save(articles);
             articleRepository.save(articles);
+            articleSearchRepository.save(articles);
         }
 
     }
