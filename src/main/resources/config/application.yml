@@ -40,7 +40,7 @@ security:
         enabled: false
 
 server:
-    port: 8443
+    port: 8080
     ssl:
         key-store: classpath:sample.jks
         key-store-password: secret

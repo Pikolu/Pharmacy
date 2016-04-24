@@ -5,6 +5,7 @@
       layout:decorator="layout/template">
 <head>
     <title>Medikamente Preisvergleich - Medikamente günstig für alle</title>
+    <meta name="description" content="Medikamente Preisvergleich, vergleichen von Medikamenten, Kosmetik und Nahrungsergänzungsmitteln bei Medizin-Finder.de" />
 </head>
 <body>
 <div th:fragment="content">
@@ -19,7 +20,7 @@
                     <!--	###############		-	SLIDE 4	-	###############	 -->
                     <li th:each="article : ${articles}">
                         <img th:width="150" th:height="110" th:class="thumb" th:src="${article.imageURL}"
-                             data-bw="${article.imageURL}"/>
+                             th:data-bw="${article.imageURL}"/>
 
                         <div style="margin-top:16px"></div>
                         <h2 style="height: 75px" th:text="${article.name}">Name</h2>
@@ -54,7 +55,7 @@
                                 <div class="details_double">
                                     <h2 th:text="${article.name}">Name</h2>
 
-                                    <p th:text="${article.description}">Beschreibung</p>
+                                    <p th:utext="${article.fullDescription}" >Beschreibung</p>
                                 </div>
                             </div>
                             <div class="closer"></div>

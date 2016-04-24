@@ -5161,3 +5161,7 @@ button:hover {
 button:hover span {
     color: #FFFFFF;
 }
+
+.page-more ul {
+    font-size: 12px;
+}
