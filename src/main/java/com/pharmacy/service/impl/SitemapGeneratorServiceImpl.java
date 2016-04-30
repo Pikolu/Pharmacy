@@ -54,7 +54,7 @@ public class SitemapGeneratorServiceImpl implements SitemapGeneratorService {
             // Articles
             Iterable<Article> articles = articleSearchRepository.findAll();
             List<Article> a = Lists.newArrayList(articles);
-            LOG.info("Sitemap generator is called. Export items => {}", a.size());
+            LOG.info("Site map generator is called. Export items => {}", a.size());
             articles.forEach(e -> {
                 try {
                     WebSitemapUrl url = new WebSitemapUrl.Options(baseUrl + "/preisvergleich/" + e.getId() + "/" + URLEncoder.encode(e.getName(), "UTF-8"))
@@ -64,9 +64,9 @@ public class SitemapGeneratorServiceImpl implements SitemapGeneratorService {
                     ex.printStackTrace();
                 }
             });
-                List<File> sitemaps = wsg.write();
+                List<File> siteMaps = wsg.write();
 
-                if (sitemaps.size() > 1) {
+                if (siteMaps.size() > 1) {
                     wsg.writeSitemapsWithIndex();
                 }
 

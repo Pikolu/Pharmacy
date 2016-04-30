@@ -45,4 +45,16 @@
     <cache name="com.pharmacy.domain.Pharmacy.evaluations"
            timeToLiveSeconds="10">
     </cache>
+    <cache name="com.pharmacy.domain.Article"
+           timeToLiveSeconds="10">
+    </cache>
+    <cache name="com.pharmacy.domain.Price"
+           timeToLiveSeconds="10">
+    </cache>
+    <cache name="com.pharmacy.domain.Payment"
+           timeToLiveSeconds="10">
+    </cache>
+    <cache name="com.pharmacy.domain.Evaluation"
+           timeToLiveSeconds="10">
+    </cache>
 </ehcache>

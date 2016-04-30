@@ -35,12 +35,12 @@ spring:
             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
     data:
         elasticsearch:
-            cluster-name:
-            cluster-nodes: localhost:9300
+            cluster-name: pharmacy-web
+            cluster-nodes:
             properties:
                 path:
-                  logs: /opt/elasticsearch
-                  data: /opt/elasticsearch
+                  logs: C:\lucene
+                  data: C:\lucene
                 http:
                     enabled: true
     mail:
@@ -58,6 +58,13 @@ server:
     compression:
         enabled: true
         mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
+
+multipart:
+    max-file-size: 100Mb
+    max-request-size: 100Mb
+
+logging:
+    config: logback-prod.xml
 
 # ===================================================================
 # JHipster specific properties

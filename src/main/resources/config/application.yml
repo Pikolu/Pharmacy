@@ -50,6 +50,9 @@ multipart:
     max-file-size: 100Mb
     max-request-size: 100Mb
 
+logging:
+    config: classpath:logback-prod.xml
+
 # ===================================================================
 # JHipster specific properties
 # ===================================================================
