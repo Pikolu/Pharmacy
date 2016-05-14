@@ -1,6 +1,7 @@
 package com.pharmacy.service.impl;
 
 import com.google.common.collect.Lists;
+import com.pharmacy.config.Constants;
 import com.pharmacy.domain.Article;
 import com.pharmacy.repository.ArticleRepository;
 import com.pharmacy.repository.search.ArticleSearchRepository;
@@ -42,31 +43,30 @@ public class SitemapGeneratorServiceImpl implements SitemapGeneratorService {
 
     @Override
     public void generateSitemap() {
-        String baseUrl = "https://localhost:8443/";
         try {
-            WebSitemapGenerator wsg = new WebSitemapGenerator(baseUrl, new File("D:\\Workspace\\Pharmacy\\src\\main\\webapp"));
+            WebSitemapGenerator wsg = new WebSitemapGenerator(Constants.BASE_URL, new File("D:\\Workspace\\Pharmacy\\src\\main\\webapp"));
 
             // Index
-            WebSitemapUrl indexUrl = new WebSitemapUrl.Options(baseUrl)
+            WebSitemapUrl indexUrl = new WebSitemapUrl.Options(Constants.BASE_URL)
                     .lastMod(new Date()).priority(1.0).changeFreq(ChangeFreq.WEEKLY).build();
             wsg.addUrl(indexUrl); // repeat multiple times
 
             // Articles
             Iterable<Article> articles = articleSearchRepository.findAll();
             List<Article> a = Lists.newArrayList(articles);
-            LOG.info("Sitemap generator is called. Export items => {}", a.size());
+            LOG.info("Site map generator is called. Export items => {}", a.size());
             articles.forEach(e -> {
                 try {
-                    WebSitemapUrl url = new WebSitemapUrl.Options(baseUrl + "/preisvergleich/" + e.getId() + "/" + URLEncoder.encode(e.getName(), "UTF-8"))
+                    WebSitemapUrl url = new WebSitemapUrl.Options(Constants.BASE_URL + "/preisvergleich/" + e.getId() + "/" + URLEncoder.encode(e.getName(), "UTF-8"))
                             .lastMod(new Date()).priority(1.0).changeFreq(ChangeFreq.WEEKLY).build();
                     wsg.addUrl(url); // repeat multiple times
                 } catch (MalformedURLException | UnsupportedEncodingException ex) {
                     ex.printStackTrace();
                 }
             });
-                List<File> sitemaps = wsg.write();
+                List<File> siteMaps = wsg.write();
 
-                if (sitemaps.size() > 1) {
+                if (siteMaps.size() > 1) {
                     wsg.writeSitemapsWithIndex();
                 }
 

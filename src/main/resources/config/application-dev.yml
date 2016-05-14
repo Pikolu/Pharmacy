@@ -39,8 +39,8 @@ spring:
             cluster-nodes:
             properties:
                 path:
-                  logs: C:\lucene
-                  data: C:\lucene
+                  logs: D:\logs
+                  data: D:\pharmacy-index
                 http:
                     enabled: true
     messages:
