@@ -44,8 +44,8 @@ public class Article implements Serializable{
     @Column(name = "description", length = 4000)
     private String description;
 
-    @Size(max = 40000)
-    @Column(name = "full_description", length = 40000)
+    @Size(max = 20000)
+    @Column(name = "full_description", length = 20000)
     private String fullDescription;
 
     @NotNull

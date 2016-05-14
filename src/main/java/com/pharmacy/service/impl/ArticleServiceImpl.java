@@ -156,7 +156,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Article findArticleByArticleNumber(Long id) {
         Assert.notNull(id);
-        return articleSearchRepository.findOne(id);
+        return articleRepository.findOne(id);
     }
 
     @Override

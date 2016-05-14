@@ -39,8 +39,8 @@ spring:
             cluster-nodes:
             properties:
                 path:
-                  logs: C:\lucene
-                  data: C:\lucene
+                  logs: D:\lucene
+                  data: D:\lucene
                 http:
                     enabled: true
     mail:

@@ -20,9 +20,9 @@ public final class Constants {
 
     //E-mail addresses for send the notification
     public static final String SENDER_E_MAIL = "noname@gmail.com";
-    public static final String RECIPIENT_E_MAIL = "apopow@gmail.com";
+    public static final String RECIPIENT_E_MAIL = "info@medizin-finder.de";
 
-
+    public static final String BASE_URL = "http://medizin-finder.de/";
 
     private Constants() {
     }
