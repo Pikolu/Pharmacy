@@ -5,6 +5,8 @@
       layout:decorator="layout/template">
 <head>
     <title th:text="${'Preisvergleich zu ' + article.name}"></title>
+    <meta name="description" th:content="${'Preisvergleich zu ' + article.name + '. Medikamete günstig für alle bei Medizin-Finder.de'}" />
+
 </head>
 <body>
 <div th:fragment="content">

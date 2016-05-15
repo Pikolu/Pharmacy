@@ -5,6 +5,7 @@
       layout:decorator="layout/template">
 <head>
     <title th:text="${'Alle Produkte zu ' + searchResult.parameter}">Title</title>
+    <meta name="description" th:content="${'Tolle Angebote zu ' + searchResult.parameter + ' bei Medikamenten Preisvergleich Medizin-Finder.de. Medikamete günstig für alle bei Medizin-Finder.de'}" />
 </head>
 <body>
 <div th:fragment="content">
