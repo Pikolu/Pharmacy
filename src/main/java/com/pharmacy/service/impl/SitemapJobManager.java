@@ -18,8 +18,8 @@ public class SitemapJobManager extends AbstractJobManager {
     @Override
     protected void setupJobs() throws SchedulerException {
 
-//        JobBuilder jobBuilder = JobBuilder.newJob(SitemapGeneratorJobService.class).withIdentity("sitemapGeneratorJobService", JOBS_GROUP);
-//        saveJob(jobBuilder, DEFAULT_INTERNAL_PERIODIC_TIME);
+        JobBuilder jobBuilder = JobBuilder.newJob(SitemapGeneratorJobService.class).withIdentity("sitemapGeneratorJobService", JOBS_GROUP);
+        saveJob(jobBuilder, DEFAULT_INTERNAL_PERIODIC_TIME);
     }
 
     @Override

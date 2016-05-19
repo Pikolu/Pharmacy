@@ -45,8 +45,6 @@ public class SitemapGeneratorServiceImpl implements SitemapGeneratorService {
     public void generateSitemap() {
         try {
 
-            SitemapGeneratorService
-
             WebSitemapGenerator wsg = new WebSitemapGenerator(Constants.BASE_URL, new File("D:\\Tomcat\\webapps\\ROOT"));
 
             // Index
