@@ -22,6 +22,6 @@ public class QuartzJobsConfiguration {
     @PostConstruct
     public void setupJobs() {
         articleJobManager.initialize();
-//        sitemapJobManager.initialize();
+        sitemapJobManager.initialize();
     }
 }

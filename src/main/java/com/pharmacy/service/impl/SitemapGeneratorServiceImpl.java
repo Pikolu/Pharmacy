@@ -44,7 +44,10 @@ public class SitemapGeneratorServiceImpl implements SitemapGeneratorService {
     @Override
     public void generateSitemap() {
         try {
-            WebSitemapGenerator wsg = new WebSitemapGenerator(Constants.BASE_URL, new File("D:\\Workspace\\Pharmacy\\src\\main\\webapp"));
+
+            SitemapGeneratorService
+
+            WebSitemapGenerator wsg = new WebSitemapGenerator(Constants.BASE_URL, new File("D:\\Tomcat\\webapps\\ROOT"));
 
             // Index
             WebSitemapUrl indexUrl = new WebSitemapUrl.Options(Constants.BASE_URL)

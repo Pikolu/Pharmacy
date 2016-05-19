@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class ArticleJobManager extends AbstractJobManager {
 
     private static final String JOBS_GROUP = "Article";
-    private static final long DEFAULT_INTERNAL_PERIODIC_TIME = 60_000;
+    private static final int DEFAULT_INTERNAL_PERIODIC_TIME = 1;
 
     @Override
     protected void setupJobs() throws SchedulerException {
