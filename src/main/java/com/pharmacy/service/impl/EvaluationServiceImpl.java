@@ -39,7 +39,7 @@ public class EvaluationServiceImpl implements EvaluationService {
         for (Evaluation ev : pharmacy.getEvaluations()) {
             result = result + ev.getPoints();
         }
-        pharmacy.setTotalEvaluationPoints(result / pharmacy.getEvaluations().size());
+        pharmacy.setTotalEvaluationPoints(Math.round(result / pharmacy.getEvaluations().size()));
         evaluation.setPharmacy(pharmacy);
     }
 

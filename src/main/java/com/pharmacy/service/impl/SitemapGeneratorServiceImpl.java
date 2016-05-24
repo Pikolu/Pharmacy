@@ -45,7 +45,7 @@ public class SitemapGeneratorServiceImpl implements SitemapGeneratorService {
     public void generateSitemap() {
         try {
 
-            WebSitemapGenerator wsg = new WebSitemapGenerator(Constants.BASE_URL, new File("D:\\Tomcat\\webapps\\ROOT"));
+            WebSitemapGenerator wsg = new WebSitemapGenerator(Constants.BASE_URL, new File("D:\\Workspace\\Pharmacy\\src\\main\\webapp"));
 
             // Index
             WebSitemapUrl indexUrl = new WebSitemapUrl.Options(Constants.BASE_URL)
@@ -53,12 +53,11 @@ public class SitemapGeneratorServiceImpl implements SitemapGeneratorService {
             wsg.addUrl(indexUrl); // repeat multiple times
 
             // Articles
-            Iterable<Article> articles = articleSearchRepository.findAll();
-            List<Article> a = Lists.newArrayList(articles);
-            LOG.info("Site map generator is called. Export items => {}", a.size());
+            List<Object[]> articles = articleRepository.findAllForSiteMap();
+            LOG.info("Site map generator is called. Export items => {}", articles.size());
             articles.forEach(e -> {
                 try {
-                    WebSitemapUrl url = new WebSitemapUrl.Options(Constants.BASE_URL + "/preisvergleich/" + e.getId() + "/" + URLEncoder.encode(e.getName(), "UTF-8"))
+                    WebSitemapUrl url = new WebSitemapUrl.Options(Constants.BASE_URL + "/preisvergleich/" + e[0] + "/" + URLEncoder.encode((String) e[1], "UTF-8"))
                             .lastMod(new Date()).priority(1.0).changeFreq(ChangeFreq.WEEKLY).build();
                     wsg.addUrl(url); // repeat multiple times
                 } catch (MalformedURLException | UnsupportedEncodingException ex) {

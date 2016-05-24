@@ -30,7 +30,10 @@ public class ArticleHelper {
         });
     }
 
-    public double round(double value) {
+    public double round(Double value) {
+        if (value == null){
+            return 0;
+        }
         return Precision.round(value, 2);
     }
 }
