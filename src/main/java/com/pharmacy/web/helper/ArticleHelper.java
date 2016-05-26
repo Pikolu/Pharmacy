@@ -3,10 +3,11 @@ package com.pharmacy.web.helper;
 import com.pharmacy.domain.Price;
 import org.apache.commons.math3.util.Precision;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.*;
 
 /**
  * Created by Alexander on 03.01.2016.
@@ -30,10 +31,17 @@ public class ArticleHelper {
         });
     }
 
-    public double round(Double value) {
+    public String round(Double value) {
+        BigDecimal bigDecimal = new BigDecimal(value);
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
+        DecimalFormat decimalFormat = (DecimalFormat)nf;
         if (value == null){
-            return 0;
+            return "0.00";
         }
-        return Precision.round(value, 2);
+        String result = decimalFormat.format(bigDecimal);
+        if (!result.contains(",")){
+            result += ".00";
+        }
+        return result;
     }
 }

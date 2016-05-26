@@ -109,12 +109,12 @@
                      style="height: 60px; border-bottom: 1px solid #E5E5E5; padding: 5px 0px 5px 10px;">
                     <h2>
                         <!--<c:url value="/apotheke/${pharmacy.name}.html" var="pharmacyURL"/>-->
-                        <a th:href="@{/apotheke/} + ${pharmacy.id} + '/' + ${pharmacy.name}"
-                           th:text="${pharmacy.name}"></a>
+                        <a th:href="@{/apotheke/} + ${pharmacy.id} + '/' + ${pharmacy.displayName}"
+                           th:text="${pharmacy.displayName}"></a>
                     </h2>
 
                     <div style="float:left">
-                        <img width="86" height="34" th:alt="${pharmacy.name}" th:src="${pharmacy.logoURL}"/>
+                        <img width="86" height="34" th:alt="${pharmacy.displayName}" th:src="${pharmacy.logoURL}"/>
                     </div>
 
                     <div th:id="${'fixed_' + pharmacy.id}" style="margin-left: 165px"></div>
@@ -147,7 +147,7 @@
                     <div th:id="${'current_evaluation_' + evaluation.id}"></div>
 
                     <h2 class="ellipsis">
-                        <a th:href="@{/apotheke/} + ${evaluation.pharmacy.id} + '/' + ${evaluation.pharmacy.name}"
+                        <a th:href="@{/apotheke/} + ${evaluation.pharmacy.id} + '/' + ${evaluation.pharmacy.displayName}"
                            th:text="${evaluation.name}"></a>
                     </h2>
 

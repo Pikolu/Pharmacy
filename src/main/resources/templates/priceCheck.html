@@ -48,7 +48,7 @@
                                         <td class="icon" style="width: 100px">
                                             <div style="float: left; width: 100px; height: 100px">
                                                 <a th:href="${article.deepLink}">
-                                                    <img th:alt="${price.pharmacy.name}"
+                                                    <img th:alt="${price.pharmacy.displayName}"
                                                          th:src="${price.pharmacy.logoURL}" width="100" height="40"/>
                                                 </a>
                                             </div>
@@ -78,7 +78,7 @@
                                                 /*]]>*/</script>
                                                 <br/>
 
-                                                <a th:href="@{/apotheke/{id}/{name}(id=${price.pharmacy.id},name=${price.pharmacy.name})}">Apothekenprofil</a>
+                                                <a th:href="@{/apotheke/{id}/{name}(id=${price.pharmacy.id},name=${price.pharmacy.displayName})}">Apothekenprofil</a>
                                                 <br/><br/>
                                             </div>
                                         </td>

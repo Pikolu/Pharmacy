@@ -4,20 +4,20 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/template">
 <head>
-    <title th:text="${pharmacy.name}"></title>
+    <title th:text="${pharmacy.displayName}"></title>
 </head>
 <body>
 <div th:fragment="content">
     <div id="notification"></div>
     <div id="content">
-        <h1>Apotheke: <span th:text="${pharmacy.name}"></span></h1>
+        <h1>Apotheke: <span th:text="${pharmacy.displayName}"></span></h1>
         <div class="box">
             <div class="box-heading">Anschrift</div>
             <div class="box-content">
                 <div class="box-product">
                     <div style="padding: 10px 10px 10px 18px">
                         <h3 style="margin: 0px;" th:text="${pharmacy.name}"></h3>
-                        <span th:text="${pharmacy.ownerName}">Name</span>
+                        <span th:text="${pharmacy.owner}">Name</span>
                         <br />
                         <span th:text="${pharmacy.street}">Street</span>
                         <span th:text="${pharmacy.houseNumber}"></span>
@@ -55,7 +55,7 @@
                     <div style="margin-top: 10px">
                         <h2>Versandkosten</h2>
                         <hr/>
-                        Portofrei ab <span th:text="${pharmacy.freeShipping}"/> €.
+                        Portofrei ab <span th:text="${#numbers.formatDecimal(pharmacy.freeShipping, 0, 'COMMA', 2, 'POINT')}"/> €.
                     </div>
                 </div>
             </div>
