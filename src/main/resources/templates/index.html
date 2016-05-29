@@ -19,7 +19,7 @@
                 <ul>
                     <!--	###############		-	SLIDE 4	-	###############	 -->
                     <li th:each="article : ${articles}">
-                        <img th:width="150" th:height="110" th:class="thumb" th:src="${article.imageURL}"
+                        <img th:alt="${article.name}" th:width="150" th:height="110" th:class="thumb" th:src="${article.imageURL}"
                              th:data-bw="${article.imageURL}"/>
 
                         <div style="margin-top:16px"></div>
@@ -35,8 +35,6 @@
                                 <span style="float:left;width:40%;line-height:1em; font-size: 18px; color: #E31010"
                                       th:text="${articleHelper.getBestDiscount(article.prices).get().discount + ' %'}">Preis</span>
                             <span style="color: #E31010">Ersparnis</span>
-                            <!--<h:outputText style="float:left;width:40%;line-height:1em; font-size: 18px; color: #E31010" value="{article.discount} % " />-->
-                            <!--<h:outputText value="Ersparnis"/>-->
                         </div>
                         <a class="buttonlight morebutton" href="" style="z-index: 2000">Siehe mehr</a>
 
@@ -47,7 +45,7 @@
                         -->
                         <div class="page-more">
                             <img width="150" height="110" class="big-image" th:src="${article.imageURL}"/>
-                            <a class="buttonlight morebutton" style="position: relative; top: 175px; right: 186px;"
+                            <a th:alt="${article.name}" class="buttonlight morebutton" style="position: relative; top: 175px; right: 186px;"
                                th:href="@{/preisvergleich/} + ${article.id} + '/' + ${urlEncoder.encodeURL(article.name)}">Zum
                                 Preisvergleich</a>
 
@@ -109,7 +107,7 @@
                      style="height: 60px; border-bottom: 1px solid #E5E5E5; padding: 5px 0px 5px 10px;">
                     <h2>
                         <!--<c:url value="/apotheke/${pharmacy.name}.html" var="pharmacyURL"/>-->
-                        <a th:href="@{/apotheke/} + ${pharmacy.id} + '/' + ${pharmacy.displayName}"
+                        <a th:alt="${pharmacy.displayName}" th:href="@{/apotheke/} + ${pharmacy.id} + '/' + ${pharmacy.displayName}"
                            th:text="${pharmacy.displayName}"></a>
                     </h2>
 
@@ -147,7 +145,7 @@
                     <div th:id="${'current_evaluation_' + evaluation.id}"></div>
 
                     <h2 class="ellipsis">
-                        <a th:href="@{/apotheke/} + ${evaluation.pharmacy.id} + '/' + ${evaluation.pharmacy.displayName}"
+                        <a th:alt="${evaluation.pharmacy.displayName}" th:href="@{/apotheke/} + ${evaluation.pharmacy.id} + '/' + ${evaluation.pharmacy.displayName}"
                            th:text="${evaluation.name}"></a>
                     </h2>
 
@@ -163,15 +161,6 @@
 
                     /*]]>*/</script>
 
-
-                    <!--<script type="text/javascript">-->
-                        <!--jQuery('#current_evaluation_${evaluation.id}').raty({-->
-                            <!--readOnly: true,-->
-                            <!--start: ${evaluation.points},-->
-                            <!--path: 'resources/images/raiting/',-->
-                            <!--showHalf: true-->
-                        <!--});-->
-                    <!--</script>-->
                 </div>
             </div>
         </div>
