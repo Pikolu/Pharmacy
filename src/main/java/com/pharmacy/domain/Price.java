@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Created by Alexander on 02.01.2016.
+ * A Price.
  */
 @Entity
 @Table(name = "price")
@@ -44,6 +44,9 @@ public class Price implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     private Article article;
+
+    @Column(name = "deep_link", length = 1000)
+    private String deepLink;
 
     public Long getId() {
         return id;
@@ -101,6 +104,14 @@ public class Price implements Serializable {
         this.article = article;
     }
 
+    public String getDeepLink() {
+        return deepLink;
+    }
+
+    public void setDeepLink(String deepLink) {
+        this.deepLink = deepLink;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -129,6 +140,7 @@ public class Price implements Serializable {
                 ", extraShippingSuffix='" + extraShippingSuffix + "'" +
                 ", discount='" + discount + "'" +
                 ", price='" + price + "'" +
+                ", deepLink='" + deepLink + "'" +
                 '}';
     }
 }

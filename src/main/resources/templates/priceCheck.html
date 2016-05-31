@@ -47,7 +47,7 @@
                                     <tr>
                                         <td class="icon" style="width: 100px">
                                             <div style="float: left; width: 100px; height: 100px">
-                                                <a th:href="${article.deepLink}">
+                                                <a th:href="${price.deepLink}">
                                                     <img th:alt="${price.pharmacy.displayName}"
                                                          th:src="${price.pharmacy.logoURL}" width="100" height="40"/>
                                                 </a>
@@ -59,7 +59,7 @@
                                             <div style="margin-left: 25px; float: left;">
                                                 <h4 style="margin: 0;">
                                                     <!--<%&#45;&#45;<c:url value="/produkte/${article.articelNumber}/${article.name}" var="check" />&#45;&#45;%>-->
-                                                    <a th:href="${article.deepLink}" th:text="${article.name}">URL</a>
+                                                    <a th:href="${price.deepLink}" th:text="${article.name}">URL</a>
                                                 </h4>
                                                 <br/>
 
@@ -97,7 +97,7 @@
                                         </td>
                                         <td style="width: 130px; text-align: right; padding-right: 20px; vertical-align: top;">
                                             <div>
-                                                <a class="buttonlight morebutton" th:href="${article.deepLink}">Hier
+                                                <a class="buttonlight morebutton" th:href="${price.deepLink}">Hier
                                                     bestellen</a>
                                             </div>
                                         </td>

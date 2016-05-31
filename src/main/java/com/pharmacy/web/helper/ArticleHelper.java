@@ -32,16 +32,21 @@ public class ArticleHelper {
     }
 
     public String round(Double value) {
+        if (value == null){
+            return "0,00";
+        }
         BigDecimal bigDecimal = new BigDecimal(value);
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
         DecimalFormat decimalFormat = (DecimalFormat)nf;
-        if (value == null){
-            return "0.00";
-        }
         String result = decimalFormat.format(bigDecimal);
-        if (!result.contains(",")){
-            result += ".00";
+
+        int index = result.lastIndexOf(",");
+        if (index == -1){
+            result += ",00";
+        } else if (result.substring(result.lastIndexOf(",") + 1).length() == 1) {
+            result += "0";
         }
+
         return result;
     }
 }
