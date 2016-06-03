@@ -12,6 +12,7 @@ import com.redfin.sitemapgenerator.WebSitemapGenerator;
 import com.redfin.sitemapgenerator.WebSitemapUrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,38 +41,52 @@ public class SitemapGeneratorServiceImpl implements SitemapGeneratorService {
     @Inject
     private ArticleSearchRepository articleSearchRepository;
 
+    private boolean enable;
+    private String sitemapPath;
+
 
     @Override
     public void generateSitemap() {
-        try {
+        if (this.enable) {
+            try {
+                final WebSitemapGenerator wsg = new WebSitemapGenerator(Constants.BASE_URL, new File(this.sitemapPath));
 
-            WebSitemapGenerator wsg = new WebSitemapGenerator(Constants.BASE_URL, new File("D:\\Workspace\\Pharmacy\\src\\main\\webapp"));
+                // Index
+                final WebSitemapUrl indexUrl = new WebSitemapUrl.Options(Constants.BASE_URL)
+                        .lastMod(new Date()).priority(1.0).changeFreq(ChangeFreq.WEEKLY).build();
+                wsg.addUrl(indexUrl); // repeat multiple times
 
-            // Index
-            WebSitemapUrl indexUrl = new WebSitemapUrl.Options(Constants.BASE_URL)
-                    .lastMod(new Date()).priority(1.0).changeFreq(ChangeFreq.WEEKLY).build();
-            wsg.addUrl(indexUrl); // repeat multiple times
-
-            // Articles
-            List<Object[]> articles = articleRepository.findAllForSiteMap();
-            LOG.info("Site map generator is called. Export items => {}", articles.size());
-            articles.forEach(e -> {
-                try {
-                    WebSitemapUrl url = new WebSitemapUrl.Options(Constants.BASE_URL + "/preisvergleich/" + e[0] + "/" + URLEncoder.encode((String) e[1], "UTF-8"))
-                            .lastMod(new Date()).priority(1.0).changeFreq(ChangeFreq.WEEKLY).build();
-                    wsg.addUrl(url); // repeat multiple times
-                } catch (MalformedURLException | UnsupportedEncodingException ex) {
-                    ex.printStackTrace();
-                }
-            });
-                List<File> siteMaps = wsg.write();
+                // Articles
+                final List<Object[]> articles = articleRepository.findAllForSiteMap();
+                LOG.info("Site map generator is called. Export items => {}", articles.size());
+                articles.forEach(e -> {
+                    try {
+                        final WebSitemapUrl url = new WebSitemapUrl.Options(Constants.BASE_URL + "/preisvergleich/" + e[0] + "/" + URLEncoder.encode((String) e[1], "UTF-8"))
+                                .lastMod(new Date()).priority(1.0).changeFreq(ChangeFreq.WEEKLY).build();
+                        wsg.addUrl(url); // repeat multiple times
+                    } catch (MalformedURLException | UnsupportedEncodingException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+                final List<File> siteMaps = wsg.write();
 
                 if (siteMaps.size() > 1) {
                     wsg.writeSitemapsWithIndex();
                 }
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    @Value("${pharmacy.enable}")
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
+    @Value("${pharmacy.sitemapPath}")
+    public void setSitemapPath(String sitemapPath) {
+        this.sitemapPath = sitemapPath;
     }
 }

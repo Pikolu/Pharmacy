@@ -72,7 +72,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         //Facet builder for pharmacy names
         TermsFacetBuilder termsFacetBuilder = new TermsFacetBuilder("prices.pharmacy.name");
-        termsFacetBuilder.field("prices.pharmacy.name");
+        termsFacetBuilder.field("prices.pharmacy.displayName");
         FacetRequest facetRequest = new NativeFacetRequest(termsFacetBuilder);
 
         //creates query for elastic search

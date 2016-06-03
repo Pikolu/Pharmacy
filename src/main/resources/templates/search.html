@@ -74,7 +74,10 @@
                                         <tr>
                                             <td style="width: 100px">
                                                 <div style="float: left; width: 100px; height: 100px">
-                                                    <img th:alt="${article.name}" th:src="${article.imageURL}"
+                                                    <img th:if="${#strings.isEmpty(article.imageURL)}" th:alt="${article.name}" th:src="@{/images/no-pic.jpg}"
+                                                         width="100"
+                                                         height="100"/>
+                                                    <img th:if="${!#strings.isEmpty(article.imageURL)}" th:alt="${article.name}" th:src="${article.imageURL}"
                                                          width="100"
                                                          height="100"/>
                                                 </div>
