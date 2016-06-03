@@ -86,7 +86,7 @@ public class ArticleServiceImpl implements ArticleService {
         // build filter for the elastic search
         FilterBuilder filterBuilder= null;
         if (CollectionUtils.isNotEmpty(searchResult.getPharmacies())) {
-            filterBuilder = buildAndFilter("prices.pharmacy.name", searchResult.getPharmacies());
+            filterBuilder = buildAndFilter("prices.pharmacy.displayName", searchResult.getPharmacies());
 
         }
 

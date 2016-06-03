@@ -20,7 +20,7 @@
                         <div class="box-category">
                             <input type="hidden" th:field="*{parameter}"/>
 
-                            <div th:with="facet=${searchResult.facetedPage.getFacet('prices.pharmacy.name')}" style="max-height: 100px; overflow: auto">
+                            <div th:with="facet=${searchResult.facetedPage.getFacet('prices.pharmacy.name')}" style="max-height: 105px; overflow: auto">
                                 <div th:each="term : ${facet.terms}">
                                     <input type="checkbox" class="name-category-checkbox" th:field="*{pharmacies}"
                                            th:value="${term.term}" th:text="${term.term}"
@@ -94,7 +94,7 @@
                                             <td style="width: 130px; vertical-align: baseline;"
                                                 th:with="bestPrice=${articleHelper.getBestDiscount(article.prices)}">
                                                 <div>ab <span th:text="${#numbers.formatDecimal(bestPrice.get().price, 1, 2)}"></span> €</div>
-                                                <div style="color: #D14F4F">
+                                                <div th:if="${bestPrice.get().discount > 0}" style="color: #D14F4F">
                                                     <span th:text="${bestPrice.get().discount}">discount</span>
                                                     %
                                                     <span> Ersparnis</span>
