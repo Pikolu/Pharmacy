@@ -37,7 +37,7 @@
                     <div class="box-product">
                         <div class="user-account">
                             <form id="evaluationForm" th:object="${evaluation}" method="POST"
-                                  th:action="@{/bewerten/} + ${pharmacy.id} + '/' + ${pharmacy.name}">
+                                  th:action="@{/bewerten/} + ${pharmacy.id} + '/' + ${pharmacy.dispayName}">
                                 <div class="content">
                                     <table class="form">
                                         <tbody>

@@ -34,6 +34,7 @@ import org.springframework.util.Assert;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -71,7 +72,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         //Facet builder for pharmacy names
         TermsFacetBuilder termsFacetBuilder = new TermsFacetBuilder("prices.pharmacy.name");
-        termsFacetBuilder.field("prices.pharmacy.name");
+        termsFacetBuilder.field("prices.pharmacy.displayName");
         FacetRequest facetRequest = new NativeFacetRequest(termsFacetBuilder);
 
         //creates query for elastic search
@@ -85,7 +86,7 @@ public class ArticleServiceImpl implements ArticleService {
         // build filter for the elastic search
         FilterBuilder filterBuilder= null;
         if (CollectionUtils.isNotEmpty(searchResult.getPharmacies())) {
-            filterBuilder = buildAndFilter("prices.pharmacy.name", searchResult.getPharmacies());
+            filterBuilder = buildAndFilter("prices.pharmacy.displayName", searchResult.getPharmacies());
 
         }
 

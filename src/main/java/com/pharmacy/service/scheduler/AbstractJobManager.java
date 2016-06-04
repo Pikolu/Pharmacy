@@ -27,14 +27,14 @@ public abstract class AbstractJobManager {
             for (JobKey jobKey : jobsToDelete) {
                 scheduler.deleteJob(jobKey);
             }
-
+            
             setupJobs();
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
     }
 
-    public void saveJob(JobBuilder jobBuilder, long defaultInterval) throws SchedulerException {
+    public void saveJob(JobBuilder jobBuilder, int defaultInterval) throws SchedulerException {
         JobDetail jobDetail = jobBuilder.build();
         JobKey jobKey = jobDetail.getKey();
         if (!jobGroup().equals(jobKey.getGroup())) {
@@ -56,8 +56,8 @@ public abstract class AbstractJobManager {
         }
     }
 
-    private ScheduleBuilder repeatingSchedule(long defaultInterval) {
-        return SimpleScheduleBuilder.simpleSchedule().withIntervalInMilliseconds(defaultInterval).repeatForever();
+    private ScheduleBuilder repeatingSchedule(int defaultInterval) {
+        return SimpleScheduleBuilder.simpleSchedule().withIntervalInMinutes(defaultInterval).repeatForever();
     }
 
     private TriggerKey triggerKey(JobKey jobKey) {

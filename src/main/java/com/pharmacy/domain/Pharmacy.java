@@ -31,9 +31,13 @@ public class Pharmacy implements Serializable {
     @Field(index = FieldIndex.not_analyzed, type = FieldType.String)
     private String name;
 
-    @Column(name = "owner_name")
+    @Column(name = "display_name")
     @Field(index = FieldIndex.not_analyzed, type = FieldType.String)
-    private String ownerName;
+    private String displayName;
+
+    @Column(name = "owner")
+    @Field(index = FieldIndex.not_analyzed, type = FieldType.String)
+    private String owner;
 
     @Column(name = "street", length = 100)
     @Field(type = FieldType.String)
@@ -43,27 +47,27 @@ public class Pharmacy implements Serializable {
     @Field(type = FieldType.String)
     private String houseNumber;
 
-    @Column(name = "zip_code")
-    @Field(type = FieldType.Integer)
+    @Column(name = "zip_code", length = 10)
+    @Field(type = FieldType.String)
     private String zipCode;
 
     @Column(name = "city", length = 100)
     @Field(type = FieldType.String)
     private String city;
 
-    @Column(name = "phone_number", length = 12)
+    @Column(name = "phone_number", length = 100)
     @Field(type = FieldType.String)
     private String phoneNumber;
 
-    @Column(name = "fax", length = 12)
+    @Column(name = "fax", length = 100)
     @Field(type = FieldType.String)
     private String fax;
 
-    @Column(name = "email", length = 100)
+    @Column(name = "email", length = 255)
     @Field(type = FieldType.String)
     private String email;
 
-    @Column(name = "home_page", length = 100)
+    @Column(name = "home_page", length = 255)
     @Field(type = FieldType.String)
     private String homePage;
 
@@ -77,7 +81,7 @@ public class Pharmacy implements Serializable {
     private String logoURL;
 
     @Column(name = "total_evaluation_points")
-    private Float totalEvaluationPoints;
+    private Integer totalEvaluationPoints;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -105,14 +109,6 @@ public class Pharmacy implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
     }
 
     public String getStreet() {
@@ -195,6 +191,14 @@ public class Pharmacy implements Serializable {
         this.logoURL = logoURL;
     }
 
+    public Integer getTotalEvaluationPoints() {
+        return totalEvaluationPoints;
+    }
+
+    public void setTotalEvaluationPoints(Integer totalEvaluationPoints) {
+        this.totalEvaluationPoints = totalEvaluationPoints;
+    }
+
     public Set<Payment> getPayments() {
         if (payments == null) {
             payments = new HashSet<>();
@@ -215,22 +219,6 @@ public class Pharmacy implements Serializable {
 
     public void setEvaluations(Set<Evaluation> evaluations) {
         this.evaluations = evaluations;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Float getTotalEvaluationPoints() {
-        return totalEvaluationPoints;
-    }
-
-    public void setTotalEvaluationPoints(Float totalEvaluationPoints) {
-        this.totalEvaluationPoints = totalEvaluationPoints;
     }
 
     @Override
@@ -260,8 +248,31 @@ public class Pharmacy implements Serializable {
                 ", name='" + name + "'" +
                 ", shipping='" + shipping + "'" +
                 ", logoURL='" + logoURL + "'" +
-                ", totalEvaluationPoints='" + getTotalEvaluationPoints() + "'" +
+                ", totalEvaluationPoints='" + totalEvaluationPoints + "'" +
                 '}';
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 }

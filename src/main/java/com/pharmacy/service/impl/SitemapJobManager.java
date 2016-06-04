@@ -13,10 +13,11 @@ import org.springframework.stereotype.Component;
 public class SitemapJobManager extends AbstractJobManager {
 
     private static final String JOBS_GROUP = "Sitemap";
-    private static final long DEFAULT_INTERNAL_PERIODIC_TIME = 60_000;
+    private static final int DEFAULT_INTERNAL_PERIODIC_TIME = 60;
 
     @Override
     protected void setupJobs() throws SchedulerException {
+
         JobBuilder jobBuilder = JobBuilder.newJob(SitemapGeneratorJobService.class).withIdentity("sitemapGeneratorJobService", JOBS_GROUP);
         saveJob(jobBuilder, DEFAULT_INTERNAL_PERIODIC_TIME);
     }

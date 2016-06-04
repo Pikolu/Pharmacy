@@ -1,5 +1,6 @@
 package com.pharmacy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,9 +15,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Article.
@@ -27,54 +28,41 @@ import java.util.Objects;
 })
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "article")
-public class Article implements Serializable{
+public class Article implements Serializable {
 
     @Id
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 500)
     @Field(index = FieldIndex.analyzed, type = FieldType.String)
     private String name;
 
-    @Column(name = "sort_name")
+    @Column(name = "sort_name", length = 500)
     @Field(index = FieldIndex.not_analyzed, type = FieldType.String)
     private String sortName;
 
-    @Size(max = 4000)
-    @Column(name = "description", length = 4000)
+    @Size(max = 40000)
+    @Column(name = "description", length = 40000)
     private String description;
 
-    @Size(max = 20000)
-    @Column(name = "full_description", length = 20000)
+    @Size(max = 40000)
+    @Column(name = "full_description", length = 40000)
     private String fullDescription;
 
     @NotNull
     @Column(name = "articel_number", nullable = false)
     private Integer articelNumber;
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", length = 1000)
     private String imageURL;
 
-    @Column(name = "deep_link")
-    private String deepLink;
-
-    @Column(name = "key_words")
+    @Column(name = "key_words", length = 1000)
     private String keyWords;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "article_id")
     @Field(index = FieldIndex.not_analyzed, type = FieldType.Object)
-    private List<Price> prices;
-
-    @Field(index = FieldIndex.not_analyzed, type = FieldType.String)
-    @Column(name = "packaging")
-    private String packaging;
-
-    @Column(name = "recipe")
-    private Boolean recipe;
-
-    @Column(name = "concentration")
-    private Float concentration;
+    private Set<Price> prices = new HashSet<>();
 
     @Column(name = "exported")
     private Boolean exported;
@@ -127,14 +115,6 @@ public class Article implements Serializable{
         this.imageURL = imageURL;
     }
 
-    public String getDeepLink() {
-        return deepLink;
-    }
-
-    public void setDeepLink(String deepLink) {
-        this.deepLink = deepLink;
-    }
-
     public String getKeyWords() {
         return keyWords;
     }
@@ -143,39 +123,12 @@ public class Article implements Serializable{
         this.keyWords = keyWords;
     }
 
-    public List<Price> getPrices() {
-        if (prices == null) {
-            prices = new ArrayList<>();
-        }
+    public Set<Price> getPrices() {
         return prices;
     }
 
-    public void setPrices(List<Price> prices) {
+    public void setPrices(Set<Price> prices) {
         this.prices = prices;
-    }
-
-    public String getPackaging() {
-        return packaging;
-    }
-
-    public void setPackaging(String packaging) {
-        this.packaging = packaging;
-    }
-
-    public Boolean getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Boolean recipe) {
-        this.recipe = recipe;
-    }
-
-    public Float getConcentration() {
-        return concentration;
-    }
-
-    public void setConcentration(Float concentration) {
-        this.concentration = concentration;
     }
 
     public Boolean getExported() {
@@ -195,6 +148,27 @@ public class Article implements Serializable{
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Article article = (Article) o;
+
+        if (!Objects.equals(id, article.id)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    @Override
     public String toString() {
         return "Article{" +
                 "id=" + id +
@@ -202,8 +176,15 @@ public class Article implements Serializable{
                 ", description='" + description + "'" +
                 ", articelNumber='" + articelNumber + "'" +
                 ", imageURL='" + imageURL + "'" +
-                ", deepLink='" + deepLink + "'" +
                 ", keyWords='" + keyWords + "'" +
+                '}';
+    }
+
+    public String toInfoString() {
+        return "Article{" +
+                "id=" + id +
+                ", articelNumber='" + articelNumber + "'" +
+                ", name='" + name + "'" +
                 '}';
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 /**
  * Created by Alexander on 03.01.2016.
@@ -29,11 +30,13 @@ public class PriceCheckController extends AbstractController {
         ModelAndView modelAndView = new ModelAndView("priceCheck");
         try {
             Article article = articleService.findArticleByArticleNumber(Long.valueOf(articelNumber));
-            article.getPrices().size();
-            article.getPrices().forEach(p -> {
-                p.getPharmacy().getEvaluations().size();
-            });
-            ArticleHelper.sortPrice(article.getPrices());
+            if (article != null) {
+                article.getPrices().size();
+                article.getPrices().forEach(p -> {
+                    p.getPharmacy().getEvaluations().size();
+                });
+            }
+            ArticleHelper.sortPrice(new ArrayList<>(article.getPrices()));
             modelAndView.addObject("article", article);
             modelAndView.addObject("articleHelper", new ArticleHelper());
             modelAndView.addObject("searchResult", new SearchResult());

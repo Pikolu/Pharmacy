@@ -1,5 +1,6 @@
 package com.pharmacy.web.rest;
 
+import com.pharmacy.config.Constants;
 import com.pharmacy.domain.SearchResult;
 import com.pharmacy.domain.pojo.ContactForm;
 import com.pharmacy.service.api.MailService;
@@ -47,17 +48,13 @@ public class ContactController extends AbstractController {
                 modelAndView = new ModelAndView("contact");
             }
             modelAndView.addObject("contactForm", contactForm);
+            super.fillModel(modelAndView);
         } else {
             modelAndView = new ModelAndView("index");
             modelAndView.addObject("contactSuccessful", true);
-            String baseUrl = request.getScheme() + // "http"
-                    "://" +                                // "://"
-                    request.getServerName() +              // "myhost"
-                    ":" +                                  // ":"
-                    request.getServerPort();               // "80"
-            mailService.sendContactEmail(contactForm, baseUrl);
+            mailService.sendContactEmail(contactForm, Constants.BASE_URL);
+            super.fillIndexModel(modelAndView);
         }
-        modelAndView.addObject("searchResult", new SearchResult());
         return modelAndView;
     }
 

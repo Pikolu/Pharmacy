@@ -5,7 +5,7 @@
 
     <groupId>com.pharmacy</groupId>
     <artifactId>pharmacy-web</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <packaging>war</packaging>
 
     <name>pharmacy-web</name>

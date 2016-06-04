@@ -112,7 +112,7 @@ public class ImportServiceImpl implements ImportService {
 
         downloadProductImage(attr.get(7), attr.get(2), articleNumber);
 
-        article.setDeepLink(attr.get(8));
+//        article.setDeepLink(attr.get(8));
         article.setKeyWords(attr.get(9));
         Assert.notNull(pharmacy);
 

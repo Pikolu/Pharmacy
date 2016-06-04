@@ -5,6 +5,8 @@
       layout:decorator="layout/template">
 <head>
     <title th:text="${'Preisvergleich zu ' + article.name}"></title>
+    <meta name="description" th:content="${'Preisvergleich zu ' + article.name + '. Medikamete günstig für alle bei Medizin-Finder.de'}" />
+
 </head>
 <body>
 <div th:fragment="content">
@@ -45,8 +47,8 @@
                                     <tr>
                                         <td class="icon" style="width: 100px">
                                             <div style="float: left; width: 100px; height: 100px">
-                                                <a th:href="${article.deepLink}">
-                                                    <img th:alt="${price.pharmacy.name}"
+                                                <a th:href="${price.deepLink}">
+                                                    <img th:alt="${price.pharmacy.displayName}"
                                                          th:src="${price.pharmacy.logoURL}" width="100" height="40"/>
                                                 </a>
                                             </div>
@@ -57,7 +59,7 @@
                                             <div style="margin-left: 25px; float: left;">
                                                 <h4 style="margin: 0;">
                                                     <!--<%&#45;&#45;<c:url value="/produkte/${article.articelNumber}/${article.name}" var="check" />&#45;&#45;%>-->
-                                                    <a th:href="${article.deepLink}" th:text="${article.name}">URL</a>
+                                                    <a th:href="${price.deepLink}" th:text="${article.name}">URL</a>
                                                 </h4>
                                                 <br/>
 
@@ -76,11 +78,11 @@
                                                 /*]]>*/</script>
                                                 <br/>
 
-                                                <a th:href="@{/apotheke/{id}/{name}(id=${price.pharmacy.id},name=${price.pharmacy.name})}">Apothekenprofil</a>
+                                                <a th:href="@{/apotheke/{id}/{name}(id=${price.pharmacy.id},name=${price.pharmacy.displayName})}">Apothekenprofil</a>
                                                 <br/><br/>
                                             </div>
                                         </td>
-                                        <td style="width: 165px; vertical-align: top;">
+                                        <td style="width: 185px; vertical-align: top;">
                                             <div style="font-size: 22px; text-align: right;"><span
                                                     th:text="${articleHelper.round(price.price)}"></span> €
                                             </div>
@@ -90,12 +92,12 @@
                                             </div>
                                             <div style="font-size: 14px; text-align: right;">
                                                 <span>Versandkostenfrei ab </span> <span
-                                                    th:text="${price.pharmacy.freeShipping}"></span> €
+                                                    th:text="${articleHelper.round(price.pharmacy.freeShipping)}"></span> €
                                             </div>
                                         </td>
                                         <td style="width: 130px; text-align: right; padding-right: 20px; vertical-align: top;">
                                             <div>
-                                                <a class="buttonlight morebutton" th:href="${article.deepLink}">Hier
+                                                <a class="buttonlight morebutton" th:href="${price.deepLink}">Hier
                                                     bestellen</a>
                                             </div>
                                         </td>

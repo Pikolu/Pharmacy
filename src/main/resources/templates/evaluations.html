@@ -69,14 +69,14 @@
                                     th:if="${!pharmacies.getContent().isEmpty()}">
                                     <td>
                                         <img width="85" height="35" th:src="${pharmacy.logoURL}"
-                                             th:alt="${pharmacy.name}"/>
+                                             th:alt="${pharmacy.dispayName}"/>
                                     </td>
                                     <td>
-                                        <span th:text="${pharmacy.name}"/>
+                                        <span th:text="${pharmacy.dispayName}"/>
                                     </td>
                                     <td style="text-align: right">
                                         <a class="buttonlight morebutton"
-                                           th:href="@{/bewerten/} + ${pharmacy.id} + '/' + ${pharmacy.name}">Diese
+                                           th:href="@{/bewerten/} + ${pharmacy.id} + '/' + ${pharmacy.displayName}">Diese
                                             Apotheken bewerten</a>
                                     </td>
                                 </tr>

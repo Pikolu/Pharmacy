@@ -21,4 +21,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("SELECT a FROM Article a WHERE a.exported = false")
     List<Article> findArticlesForExport(Pageable pageable);
+
+    @Query("SELECT a.id, a.name FROM Article a")
+    List<Object[]> findAllForSiteMap();
 }

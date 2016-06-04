@@ -73,3 +73,7 @@ jhipster:
             host: localhost
             port: 2003
             prefix: adm
+
+pharmacy:
+    enable: true
+    sitemapPath: D:\sitemap

@@ -42,34 +42,15 @@ public class IndexController extends AbstractController {
 
     private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
 
-    private static final int DEFAULT_SIZE = 5;
-
-    @Inject
-    private ImportService importService;
-    @Inject
-    private ArticleService articleService;
-    @Inject
-    private PharmacyService pharmacyService;
-    @Inject
-    private EvaluationService evaluationService;
-
     @RequestMapping(value = {"/", "/index", "/welcome**"}, method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request) {
 
         LOG.info("Index/Welcome page called from {}", getCustomUserDetails());
         Map<String, String[]> parameterMap = request.getParameterMap();
-        List<Article> articles = articleService.loadBestDiscountedArticles();
-        List<Pharmacy> pharmacies = pharmacyService.findBestPharmacies();
-        List<Evaluation> evaluations = evaluationService.getLastEvaluations(DEFAULT_SIZE);
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addAllObjects(parameterMap);
-        modelAndView.addObject("searchResult", new SearchResult());
-        modelAndView.addObject("articles", articles);
-        modelAndView.addObject("pharmacies", pharmacies);
-        modelAndView.addObject("evaluations", evaluations);
-        modelAndView.addObject("articleHelper", new ArticleHelper());
-        modelAndView.addObject("urlEncoder", new URLHelper());
-        modelAndView.addObject("evaluationHelper", new EvaluationHelper());
+
+        super.fillIndexModel(modelAndView);
         return modelAndView;
     }
 
