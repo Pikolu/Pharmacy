@@ -28,10 +28,13 @@
                         <p style="height: 100px; vertical-align: bottom;" th:text="${article.description}">
                             Beschreibung</p>
 
-                        <div style="float: left; width: 60%">
+                        <div style="float: left; width: 60%" th:if="${articleHelper.getBestDiscount(article.prices).get().discount > 0}">
                             <span th:text="${#numbers.formatDecimal(articleHelper.getBestDiscount(article.prices).get().price, 0, 'COMMA', 2, 'POINT') + ' €'}">Preis</span>
                         </div>
-                        <div>
+                        <div style="float: left; width: 100%; height: 37px;" th:if="${articleHelper.getBestDiscount(article.prices).get().discount le 0}">
+                            <span th:text="${#numbers.formatDecimal(articleHelper.getBestDiscount(article.prices).get().price, 0, 'COMMA', 2, 'POINT') + ' €'}">Preis</span>
+                        </div>
+                        <div th:if="${articleHelper.getBestDiscount(article.prices).get().discount > 0}">
                                 <span style="float:left;width:40%;line-height:1em; font-size: 18px; color: #E31010"
                                       th:text="${articleHelper.getBestDiscount(article.prices).get().discount + ' %'}">Preis</span>
                             <span style="color: #E31010">Ersparnis</span>
@@ -165,6 +168,14 @@
             </div>
         </div>
 
+        <div class="box">
+            <div class="box-heading">Herzlich willkommen bei Medizin-Finder.de</div>
+            <div class="box-content">
+                <div style="padding: 5px 0px 5px 10px;">
+                    Bei Medizin-Finder.de können Sie die Preise zu vielen Medikamenten vergleichen und die dazu gehörigen Bewertungen finden. Bei uns finden Sie alle Medikamente von A bis Z von verschieden Online-Apotheken. Die Preise sind aktuell und werden täglich aktualisiert. <br /><br />Medizin-Finder.de bietet die besten Preise von über 80000 Medikamenten. Bei Medizin-Finder.de können Sie Informationen zu Online-Apotheken finden.
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
