@@ -16,8 +16,8 @@ public class ArticleHelper {
 
     public Optional<Price> getBestDiscount(List<Price> prices) {
         Comparator<Price> priceComparator = (e1, e2) -> Double.compare(
-                e1.getPrice(), e2.getPrice());
-        return prices.stream().min(priceComparator);
+                e1.getDiscount(), e2.getDiscount());
+        return prices.stream().max(priceComparator);
     }
 
 
