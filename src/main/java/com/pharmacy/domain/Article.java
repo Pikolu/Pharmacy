@@ -68,6 +68,8 @@ public class Article implements Serializable {
     @Field(index = FieldIndex.not_analyzed, type = FieldType.Object)
     private Set<VariantArticle> variantArticles = new HashSet<>();
 
+    private Boolean parent;
+
     public Long getId() {
         return id;
     }
@@ -154,6 +156,14 @@ public class Article implements Serializable {
 
     public void setVariantArticles(Set<VariantArticle> variantArticles) {
         this.variantArticles = variantArticles;
+    }
+
+    public Boolean getParent() {
+        return parent;
+    }
+
+    public void setParent(Boolean parent) {
+        this.parent = parent;
     }
 
     @Override
