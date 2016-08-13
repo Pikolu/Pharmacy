@@ -68,6 +68,7 @@ public class Article implements Serializable {
     @Field(index = FieldIndex.not_analyzed, type = FieldType.Object)
     private Set<VariantArticle> variantArticles = new HashSet<>();
 
+    @Column(name = "parent")
     private Boolean parent;
 
     public Long getId() {

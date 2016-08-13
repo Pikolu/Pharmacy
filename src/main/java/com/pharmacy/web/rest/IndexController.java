@@ -1,10 +1,13 @@
 package com.pharmacy.web.rest;
 
+import com.google.common.collect.Lists;
 import com.pharmacy.domain.Article;
 import com.pharmacy.domain.Evaluation;
 import com.pharmacy.domain.Pharmacy;
 import com.pharmacy.domain.SearchResult;
 import com.pharmacy.domain.pojo.ContactForm;
+import com.pharmacy.repository.ArticleRepository;
+import com.pharmacy.repository.search.ArticleSearchRepository;
 import com.pharmacy.service.api.ArticleService;
 import com.pharmacy.service.api.EvaluationService;
 import com.pharmacy.service.api.ImportService;
@@ -17,12 +20,14 @@ import com.redfin.sitemapgenerator.WebSitemapGenerator;
 import com.redfin.sitemapgenerator.WebSitemapUrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -41,6 +46,23 @@ import java.util.Map;
 public class IndexController extends AbstractController {
 
     private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
+
+    @Inject
+    private ArticleSearchRepository articleSearchRepository;
+    @Inject
+    private ArticleRepository articleRepository;
+
+//    @PostConstruct
+//    @Async
+//    private void initArticles() {
+//        LOG.info("Start initialize articles for ElasticSearch");
+//        Iterable<Article> articles = articleSearchRepository.findAll();
+//        List<List<Article>> splitArticles = Lists.partition(Lists.newArrayList(articles), 5);
+//        splitArticles.forEach(a -> {
+//            articleRepository.save(a);
+//        });
+//        LOG.info("Stop initialize articles for ElasticSearch");
+//    }
 
     @RequestMapping(value = {"/", "/index", "/welcome**"}, method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request) {

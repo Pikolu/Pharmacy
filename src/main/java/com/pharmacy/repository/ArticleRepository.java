@@ -24,4 +24,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("SELECT a.id, a.name FROM Article a")
     List<Object[]> findAllForSiteMap();
+
+    @Query("SELECT a FROM Article a LEFT JOIN a.prices p LEFT JOIN p.pharmacy ph WHERE ph.id = :id")
+    List<Article> findProductsForPharmacy(Pageable pageable, @Param("id") Long id);
 }

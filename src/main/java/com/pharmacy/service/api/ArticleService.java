@@ -1,6 +1,7 @@
 package com.pharmacy.service.api;
 
 import com.pharmacy.domain.Article;
+import com.pharmacy.domain.Pharmacy;
 import com.pharmacy.domain.SearchResult;
 import com.pharmacy.exceptions.PersistenceException;
 import com.pharmacy.exceptions.ServiceException;
@@ -30,4 +31,6 @@ public interface ArticleService extends Job {
     void execute(JobExecutionContext var1) throws JobExecutionException;
 
     Iterable<Article> findAll();
+
+    List<Article> findProducsForPharmacy(Pageable pageable, Pharmacy pharmacy);
 }

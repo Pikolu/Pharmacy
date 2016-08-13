@@ -5,20 +5,46 @@
       layout:decorator="layout/template">
 <head>
     <title th:text="${'Preisvergleich zu ' + article.name}"></title>
-    <meta name="description" th:content="${'Preisvergleich zu ' + article.name + '. Medikamete günstig für alle bei Medizin-Finder.de'}" />
+    <meta name="description"
+          th:content="${'Preisvergleich zu ' + article.name + '. Medikamete günstig für alle bei Medizin-Finder.de'}"/>
 
 </head>
 <body>
 <div th:fragment="content">
-    <!--<h1>Suchergebnisse zu-->
-    <!--<span th:text="${parameter}">Parameter</span>-->
-    <!--</h1>-->
-    <div id="notification"></div>
-    <div id="content">
+    <script th:inline="javascript"> /*<![CDATA[*/
 
-        <!--<div style="width: 250px">-->
-        <!--Test-->
-        <!--</div>-->
+        function openDialog() {
+            $("#dialog").modal();
+        }
+        /*]]>*/</script>
+    <div id="notification"></div>
+
+    <div id="product-overview">
+        <div style="width: 100px; height: 100px">
+            <img th:if="${#strings.isEmpty(article.imageURL)}" th:alt="${article.name}" th:src="@{/images/no-pic.jpg}"
+                 width="100"
+                 height="100"/>
+            <img th:if="${!#strings.isEmpty(article.imageURL)}" th:alt="${article.name}" th:src="${article.imageURL}"
+                 width="100"
+                 height="100"/>
+        </div>
+        <div class="overview-product-text">
+            <h2 id="product-overview-name" th:text="${article.name}">Name</h2>
+            <p class="product-overview-description" th:text="${article.description}">Description</p>
+            <p class="product-overview-description" th:text="${'PZN: ' + article.id}">Description</p>
+
+            <a id="link-login" class="link-login" onclick="openDialog()">Beschreibung</a>
+        </div>
+
+        <div id="dialog" title="Basic dialog" style="display: none">
+            <h1>Beschreibung</h1>
+            <div style="margin-top: 30px">
+                <p class="product-overview-full-description" th:text="${article.fullDescription}">Full Description</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
 
         <div class="box">
             <div class="box-heading">Preisvergleich <span th:text="${article.name}"></span></div>
@@ -47,7 +73,8 @@
                                     <tr>
                                         <td class="icon" style="width: 100px">
                                             <div style="float: left; width: 100px; height: 100px">
-                                                <a th:href="${price.deepLink}" th:title="${article.name}" target="_blank">
+                                                <a th:href="${price.deepLink}" th:title="${article.name}"
+                                                   target="_blank">
                                                     <img th:alt="${price.pharmacy.displayName}"
                                                          th:src="${price.pharmacy.logoURL}" width="100" height="40"/>
                                                 </a>
@@ -59,7 +86,8 @@
                                             <div style="margin-left: 25px; float: left;">
                                                 <h4 style="margin: 0;">
                                                     <!--<%&#45;&#45;<c:url value="/produkte/${article.articelNumber}/${article.name}" var="check" />&#45;&#45;%>-->
-                                                    <a th:href="${price.deepLink}" th:text="${article.name}" th:title="${article.name}" target="_blank">URL</a>
+                                                    <a th:href="${price.deepLink}" th:text="${article.name}"
+                                                       th:title="${article.name}" target="_blank">URL</a>
                                                 </h4>
                                                 <br/>
 
@@ -75,7 +103,9 @@
                                                     path: [[@{/images/raiting/}]]
                                                 });
 
-                                                /*]]>*/</script>
+                                                /*]]>*/
+
+                                                </script>
                                                 <br/>
 
                                                 <a th:href="@{/apotheke/{id}/{name}(id=${price.pharmacy.id},name=${price.pharmacy.displayName})}">Apothekenprofil</a>
@@ -92,12 +122,14 @@
                                             </div>
                                             <div style="font-size: 14px; text-align: right;">
                                                 <span>Versandkostenfrei ab </span> <span
-                                                    th:text="${articleHelper.round(price.pharmacy.freeShipping)}"></span> €
+                                                    th:text="${articleHelper.round(price.pharmacy.freeShipping)}"></span>
+                                                €
                                             </div>
                                         </td>
                                         <td style="width: 130px; text-align: right; padding-right: 20px; vertical-align: top;">
                                             <div>
-                                                <a class="buttonlight morebutton" th:href="${price.deepLink}" title="Hier bestellen" target="_blank">Hier
+                                                <a class="buttonlight morebutton" th:href="${price.deepLink}"
+                                                   title="Hier bestellen" target="_blank">Hier
                                                     bestellen</a>
                                             </div>
                                         </td>

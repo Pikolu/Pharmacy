@@ -46,7 +46,7 @@ body {
 }
 
 p {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     margin-top: 0;
 }
 
@@ -5173,4 +5173,17 @@ button:hover span {
 
 .page-more ul {
     font-size: 12px;
+}
+
+.overview-product-text {
+    position: absolute;
+    top: 195px;
+    left: 250px;
+}
+.overview-product-text p {
+    color: #191919;
+}
+
+#product-overview {
+    margin-bottom: 20px;
 }

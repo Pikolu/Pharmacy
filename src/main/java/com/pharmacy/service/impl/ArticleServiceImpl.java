@@ -1,6 +1,7 @@
 package com.pharmacy.service.impl;
 
 import com.pharmacy.domain.Article;
+import com.pharmacy.domain.Pharmacy;
 import com.pharmacy.domain.SearchResult;
 import com.pharmacy.repository.ArticleRepository;
 import com.pharmacy.repository.search.ArticleSearchRepository;
@@ -41,7 +42,6 @@ import java.util.stream.Collectors;
  * Pharmacy GmbH
  * Created by Alexander on 14.11.2015.
  */
-@SuppressWarnings("ALL")
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
@@ -167,5 +167,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     public Iterable<Article> findAll() {
         return articleSearchRepository.findAll();
+    }
+
+    @Override
+    public List<Article> findProducsForPharmacy(Pageable pageable, Pharmacy pharmacy) {
+        Assert.notNull(pharmacy);
+        return articleRepository.findProductsForPharmacy(pageable, pharmacy.getId());
     }
 }
