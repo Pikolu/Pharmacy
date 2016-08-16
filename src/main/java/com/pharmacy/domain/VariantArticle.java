@@ -14,7 +14,7 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class VariantArticle extends Article{
+public class VariantArticle extends Article {
 
     @Column(name = "variant_code")
     private Integer variantCode;

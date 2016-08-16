@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet author="Alex Tina (generated)" id="1466328745446-1">
         <addColumn tableName="article">
-            <column name="DTYPE" type="varchar(31)">
+            <column name="DTYPE" type="varchar(31)" defaultValue="Article">
                 <constraints nullable="false"/>
             </column>
         </addColumn>

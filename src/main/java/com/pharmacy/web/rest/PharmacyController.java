@@ -44,10 +44,10 @@ public class PharmacyController extends AbstractController {
         ModelAndView modelAndView = new ModelAndView("pharmacy");
         Pharmacy pharmacy = pharmacyService.getPharmacyById(id);
         modelAndView.addObject("pharmacy", pharmacy);
-        modelAndView.addObject("searchResult", new SearchResult());
         modelAndView.addObject("evaluations", evaluationService.getLastEvaluations(DEFAULT_SIZE));
         List<Article> products = articleService.findProducsForPharmacy(pageable, pharmacy);
         modelAndView.addObject("products", products);
+        fillModel(modelAndView);
 
         return modelAndView;
     }
