@@ -10,8 +10,11 @@ import com.pharmacy.service.api.PharmacyService;
 import org.apache.commons.math3.analysis.function.Abs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,13 +43,24 @@ public class PharmacyController extends AbstractController {
     private ArticleService articleService;
 
     @RequestMapping(value = "/apotheke/{id}/{pharm}", method = RequestMethod.GET)
-    public ModelAndView displayPharmacy(@PathVariable String id, @PathVariable String pharm, Pageable pageable) {
+    public ModelAndView displayPharmacy(@PathVariable String id, @PathVariable String pharm, Pageable pageable, @ModelAttribute("searchResult") SearchResult searchResult) {
         ModelAndView modelAndView = new ModelAndView("pharmacy");
         Pharmacy pharmacy = pharmacyService.getPharmacyById(id);
         modelAndView.addObject("pharmacy", pharmacy);
         modelAndView.addObject("evaluations", evaluationService.getLastEvaluations(DEFAULT_SIZE));
-        List<Article> products = articleService.findProducsForPharmacy(pageable, pharmacy);
+
+        int pageNumber = pageable.getPageNumber();
+        int pageSize = pageable.getPageSize();
+        if (pageNumber > 0) {
+            pageNumber = pageNumber - 1;
+        }
+        Pageable newPageable = new PageRequest(pageNumber, pageSize);
+        Page<Article> products = articleService.findProducsForPharmacy(newPageable, pharmacy);
+
+        searchResult.buildPagination(pageable.getPageNumber(), modelAndView, products.getTotalElements());
+
         modelAndView.addObject("products", products);
+
         fillModel(modelAndView);
 
         return modelAndView;

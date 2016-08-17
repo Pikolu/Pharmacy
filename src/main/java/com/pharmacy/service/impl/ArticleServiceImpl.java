@@ -170,7 +170,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> findProducsForPharmacy(Pageable pageable, Pharmacy pharmacy) {
+    public Page<Article> findProducsForPharmacy(Pageable pageable, Pharmacy pharmacy) {
         Assert.notNull(pharmacy);
         return articleRepository.findProductsForPharmacy(pageable, pharmacy.getId());
     }

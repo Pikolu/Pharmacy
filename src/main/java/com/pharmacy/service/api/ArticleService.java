@@ -32,5 +32,5 @@ public interface ArticleService extends Job {
 
     Iterable<Article> findAll();
 
-    List<Article> findProducsForPharmacy(Pageable pageable, Pharmacy pharmacy);
+    Page<Article> findProducsForPharmacy(Pageable pageable, Pharmacy pharmacy);
 }

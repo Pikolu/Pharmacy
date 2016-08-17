@@ -1,6 +1,7 @@
 package com.pharmacy.repository;
 
 import com.pharmacy.domain.Article;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,5 +27,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Object[]> findAllForSiteMap();
 
     @Query("SELECT a FROM Article a LEFT JOIN a.prices p LEFT JOIN p.pharmacy ph WHERE ph.id = :id")
-    List<Article> findProductsForPharmacy(Pageable pageable, @Param("id") Long id);
+    Page<Article> findProductsForPharmacy(Pageable pageable, @Param("id") Long id);
 }
