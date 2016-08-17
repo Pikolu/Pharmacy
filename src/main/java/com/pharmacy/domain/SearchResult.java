@@ -1,6 +1,7 @@
 package com.pharmacy.domain;
 
 import com.pharmacy.repository.utils.SortOrder;
+import org.springframework.data.domain.Page;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,32 +11,33 @@ import java.util.List;
 /**
  * Created by Alexander on 07.02.2016.
  */
-public class SearchResult {
+public class SearchResult<T> {
 
     private static final int PAGE_COUNT = 10;
     private static final int SIZE_PER_PAGE = 20;
 
-    private FacetedPage<Article> facetedPage;
+    private FacetedPage<T> facetedPage;
     private List<String> pharmacies;
     private String parameter;
     private SortOrder sortOrder = SortOrder.RELEVANCE;
     private int firstPage = 1;
     private int currentPage = 1;
     private int lastPage = 10;
+    private Page<T> searchPage;
 
     public SearchResult() {
 
     }
 
-    public SearchResult(FacetedPage<Article> facetedPage){
+    public SearchResult(FacetedPage<T> facetedPage){
         this.facetedPage = facetedPage;
     }
 
-    public FacetedPage<Article> getFacetedPage() {
+    public FacetedPage<T> getFacetedPage() {
         return facetedPage;
     }
 
-    public void setFacetedPage(FacetedPage<Article> facetedPage) {
+    public void setFacetedPage(FacetedPage<T> facetedPage) {
         this.facetedPage = facetedPage;
     }
 
@@ -162,5 +164,13 @@ public class SearchResult {
                 ", parameter='" + parameter + '\'' +
                 ", sortOrder=" + sortOrder +
                 '}';
+    }
+
+    public Page<T> getSearchPage() {
+        return searchPage;
+    }
+
+    public void setSearchPage(Page<T> searchPage) {
+        this.searchPage = searchPage;
     }
 }

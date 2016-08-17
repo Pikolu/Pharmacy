@@ -56,12 +56,12 @@ public class PharmacyController extends AbstractController {
         }
         Pageable newPageable = new PageRequest(pageNumber, pageSize);
         Page<Article> products = articleService.findProducsForPharmacy(newPageable, pharmacy);
-
+        searchResult.setSearchPage(products);
         searchResult.buildPagination(pageable.getPageNumber(), modelAndView, products.getTotalElements());
-
-        modelAndView.addObject("products", products);
+        modelAndView.addObject("products", products.getContent());
 
         fillModel(modelAndView);
+        modelAndView.addObject("searchResult", searchResult);
 
         return modelAndView;
     }
