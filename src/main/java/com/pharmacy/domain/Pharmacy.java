@@ -1,6 +1,9 @@
 package com.pharmacy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -17,6 +20,9 @@ import java.util.Set;
 /**
  * A Pharmacy.
  */
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "pharmacy")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -95,132 +101,6 @@ public class Pharmacy implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Evaluation> evaluations = new HashSet<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getHouseNumber() {
-        return houseNumber;
-    }
-
-    public void setHouseNumber(String houseNumber) {
-        this.houseNumber = houseNumber;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getFax() {
-        return fax;
-    }
-
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
-
-    public String getHomePage() {
-        return homePage;
-    }
-
-    public void setHomePage(String homePage) {
-        this.homePage = homePage;
-    }
-
-    public Double getShipping() {
-        return shipping;
-    }
-
-    public void setShipping(Double shipping) {
-        this.shipping = shipping;
-    }
-
-    public Double getFreeShipping() {
-        return freeShipping;
-    }
-
-    public void setFreeShipping(Double freeShipping) {
-        this.freeShipping = freeShipping;
-    }
-
-    public String getLogoURL() {
-        return logoURL;
-    }
-
-    public void setLogoURL(String logoURL) {
-        this.logoURL = logoURL;
-    }
-
-    public Integer getTotalEvaluationPoints() {
-        return totalEvaluationPoints;
-    }
-
-    public void setTotalEvaluationPoints(Integer totalEvaluationPoints) {
-        this.totalEvaluationPoints = totalEvaluationPoints;
-    }
-
-    public Set<Payment> getPayments() {
-        if (payments == null) {
-            payments = new HashSet<>();
-        }
-        return payments;
-    }
-
-    public void setPayments(Set<Payment> payments) {
-        this.payments = payments;
-    }
-
-    public Set<Evaluation> getEvaluations() {
-        if (evaluations == null) {
-            evaluations = new HashSet<>();
-        }
-        return evaluations;
-    }
-
-    public void setEvaluations(Set<Evaluation> evaluations) {
-        this.evaluations = evaluations;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -241,38 +121,4 @@ public class Pharmacy implements Serializable {
         return Objects.hashCode(id);
     }
 
-    @Override
-    public String toString() {
-        return "Pharmacy{" +
-                "id=" + id +
-                ", name='" + name + "'" +
-                ", shipping='" + shipping + "'" +
-                ", logoURL='" + logoURL + "'" +
-                ", totalEvaluationPoints='" + totalEvaluationPoints + "'" +
-                '}';
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
 }

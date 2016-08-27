@@ -1,5 +1,8 @@
 package com.pharmacy.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -18,6 +21,9 @@ import java.util.Set;
 /**
  * A Article.
  */
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "article", indexes = {
         @Index(name = "article_number_index", columnList="articel_number")
@@ -71,102 +77,6 @@ public class Article implements Serializable {
     @Column(name = "parent")
     private Boolean parent;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSortName() {
-        return sortName;
-    }
-
-    public void setSortName(String sortName) {
-        this.sortName = sortName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getArticelNumber() {
-        return articelNumber;
-    }
-
-    public void setArticelNumber(Integer articelNumber) {
-        this.articelNumber = articelNumber;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
-    public String getKeyWords() {
-        return keyWords;
-    }
-
-    public void setKeyWords(String keyWords) {
-        this.keyWords = keyWords;
-    }
-
-    public Set<Price> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(Set<Price> prices) {
-        this.prices = prices;
-    }
-
-    public Boolean getExported() {
-        return exported;
-    }
-
-    public void setExported(Boolean exported) {
-        this.exported = exported;
-    }
-
-    public String getFullDescription() {
-        return fullDescription;
-    }
-
-    public void setFullDescription(String fullDescription) {
-        this.fullDescription = fullDescription;
-    }
-
-    public Set<VariantArticle> getVariantArticles() {
-        return variantArticles;
-    }
-
-    public void setVariantArticles(Set<VariantArticle> variantArticles) {
-        this.variantArticles = variantArticles;
-    }
-
-    public Boolean getParent() {
-        return parent;
-    }
-
-    public void setParent(Boolean parent) {
-        this.parent = parent;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -186,26 +96,6 @@ public class Article implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", name='" + name + "'" +
-                ", description='" + description + "'" +
-                ", articelNumber='" + articelNumber + "'" +
-                ", imageURL='" + imageURL + "'" +
-                ", keyWords='" + keyWords + "'" +
-                '}';
-    }
-
-    public String toInfoString() {
-        return "Article{" +
-                "id=" + id +
-                ", articelNumber='" + articelNumber + "'" +
-                ", name='" + name + "'" +
-                '}';
     }
 
 }

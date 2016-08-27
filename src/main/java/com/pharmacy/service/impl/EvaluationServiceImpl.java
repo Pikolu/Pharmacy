@@ -36,6 +36,8 @@ public class EvaluationServiceImpl implements EvaluationService {
         evaluation.setPoints((float) (evaluation.getDescriptionPoints() + evaluation.getShippingPoints() + evaluation.getShippingPricePoints()) / 3);
         pharmacy.getEvaluations().add(evaluation);
         Float result = 0F;
+//        Double result = pharmacy.getEvaluations().stream().mapToDouble(ev -> ev.getPoints()).sum();
+
         for (Evaluation ev : pharmacy.getEvaluations()) {
             result = result + ev.getPoints();
         }

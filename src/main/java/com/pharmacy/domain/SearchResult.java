@@ -1,6 +1,10 @@
 package com.pharmacy.domain;
 
 import com.pharmacy.repository.utils.SortOrder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.ui.Model;
@@ -11,6 +15,10 @@ import java.util.List;
 /**
  * Created by Alexander on 07.02.2016.
  */
+@Getter
+@Setter
+@ToString
+@Slf4j
 public class SearchResult<T> {
 
     private static final int PAGE_COUNT = 10;
@@ -27,66 +35,6 @@ public class SearchResult<T> {
 
     public SearchResult() {
 
-    }
-
-    public SearchResult(FacetedPage<T> facetedPage){
-        this.facetedPage = facetedPage;
-    }
-
-    public FacetedPage<T> getFacetedPage() {
-        return facetedPage;
-    }
-
-    public void setFacetedPage(FacetedPage<T> facetedPage) {
-        this.facetedPage = facetedPage;
-    }
-
-    public List<String> getPharmacies() {
-        return pharmacies;
-    }
-
-    public void setPharmacies(List<String> pharmacies) {
-        this.pharmacies = pharmacies;
-    }
-
-    public String getParameter() {
-        return parameter;
-    }
-
-    public void setParameter(String parameter) {
-        this.parameter = parameter;
-    }
-
-    public SortOrder getSortOrder() {
-        return sortOrder;
-    }
-
-    public void setSortOrder(SortOrder sortOrder) {
-        this.sortOrder = sortOrder;
-    }
-
-    public int getFirstPage() {
-        return firstPage;
-    }
-
-    public void setFirstPage(int firstPage) {
-        this.firstPage = firstPage;
-    }
-
-    public int getCurrentPage() {
-        return currentPage;
-    }
-
-    public void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
-    }
-
-    public int getLastPage() {
-        return lastPage;
-    }
-
-    public void setLastPage(int lastPage) {
-        this.lastPage = lastPage;
     }
 
     public void buildPagination(int page, Model model, Long size) {
@@ -154,23 +102,5 @@ public class SearchResult<T> {
     private int getPageCount(Long size) {
         double result = (int) Math.ceil(size * 1.0 / SIZE_PER_PAGE);
         return (int) result;
-    }
-
-    @Override
-    public String toString() {
-        return "SearchResult{" +
-                "facetedPage=" + facetedPage +
-                ", pharmacies=" + pharmacies +
-                ", parameter='" + parameter + '\'' +
-                ", sortOrder=" + sortOrder +
-                '}';
-    }
-
-    public Page<T> getSearchPage() {
-        return searchPage;
-    }
-
-    public void setSearchPage(Page<T> searchPage) {
-        this.searchPage = searchPage;
     }
 }
