@@ -14,10 +14,13 @@ import java.util.*;
  */
 public class ArticleHelper {
 
+    private final String ZERO_VALUE = "0,00";
+
     public Optional<Price> getBestDiscount(List<Price> prices) {
-        Comparator<Price> priceComparator = (e1, e2) -> Double.compare(
+        Comparator<Price> priceComparator = (e1, e2) -> Integer.compare(
                 e1.getDiscount(), e2.getDiscount());
-        return prices.stream().max(priceComparator);
+        Optional<Price> price = prices.stream().max(priceComparator);
+        return price;
     }
 
 
@@ -33,7 +36,7 @@ public class ArticleHelper {
 
     public String round(Double value) {
         if (value == null){
-            return "0,00";
+            return ZERO_VALUE;
         }
         BigDecimal bigDecimal = new BigDecimal(value);
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);

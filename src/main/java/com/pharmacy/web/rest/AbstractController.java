@@ -46,7 +46,7 @@ public class AbstractController {
     }
 
     public void fillIndexModel(ModelAndView modelAndView) {
-        List<Article> articles = articleService.loadBestDiscountedArticles();
+        List<Article> articles = articleService.loadArticlesForHomepage();
         List<Pharmacy> pharmacies = pharmacyService.findBestPharmacies();
         List<Evaluation> evaluations = evaluationService.getLastEvaluations(DEFAULT_SIZE);
         modelAndView.addObject("articles", articles);

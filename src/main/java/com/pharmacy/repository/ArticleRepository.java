@@ -28,4 +28,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("SELECT a FROM Article a LEFT JOIN a.prices p LEFT JOIN p.pharmacy ph WHERE ph.id = :id")
     Page<Article> findProductsForPharmacy(Pageable pageable, @Param("id") Long id);
+
+    @Query("SELECT a FROM Article a WHERE a.showedOnHomepage = true")
+    List<Article> loadArticlesForHomepage(Pageable pageable);
 }

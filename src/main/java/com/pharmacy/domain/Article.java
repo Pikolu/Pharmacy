@@ -77,6 +77,9 @@ public class Article implements Serializable {
     @Column(name = "parent")
     private Boolean parent;
 
+    @Column(name = "showed_on_homepage")
+    private Boolean showedOnHomepage;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

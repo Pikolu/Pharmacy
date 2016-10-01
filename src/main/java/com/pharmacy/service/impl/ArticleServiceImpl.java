@@ -154,6 +154,11 @@ public class ArticleServiceImpl implements ArticleService {
         return articles;
     }
 
+    public List<Article> loadArticlesForHomepage() {
+        Pageable topTen = new PageRequest(0, 10);
+        return articleRepository.loadArticlesForHomepage(topTen);
+    }
+
     @Override
     public Article findArticleByArticleNumber(Long id) {
         Assert.notNull(id);

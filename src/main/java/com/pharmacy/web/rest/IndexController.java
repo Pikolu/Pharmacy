@@ -47,23 +47,6 @@ public class IndexController extends AbstractController {
 
     private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
 
-    @Inject
-    private ArticleSearchRepository articleSearchRepository;
-    @Inject
-    private ArticleRepository articleRepository;
-
-//    @PostConstruct
-//    @Async
-//    private void initArticles() {
-//        LOG.info("Start initialize articles for ElasticSearch");
-//        Iterable<Article> articles = articleSearchRepository.findAll();
-//        List<List<Article>> splitArticles = Lists.partition(Lists.newArrayList(articles), 5);
-//        splitArticles.forEach(a -> {
-//            articleRepository.save(a);
-//        });
-//        LOG.info("Stop initialize articles for ElasticSearch");
-//    }
-
     @RequestMapping(value = {"/", "/index", "/welcome**"}, method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request) {
 
